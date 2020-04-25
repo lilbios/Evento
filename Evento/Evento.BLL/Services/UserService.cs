@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Evento.BLL
+namespace Evento.BLL.Services
 {
-    public class BussinesMaster
+    public class UserService
     {
     }
 }
