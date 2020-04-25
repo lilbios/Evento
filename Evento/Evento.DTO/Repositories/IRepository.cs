@@ -9,18 +9,18 @@ namespace Evento.DTO.Repositories
     public interface IRepository<TEntity>
       where TEntity : class
     {
-        IEnumerable<TEntity> GetAll();
+        Task<IEnumerable<TEntity>> GetAll();
 
         IEnumerable<TEntity> GetByCondition(Expression<Func<TEntity, bool>> expression);
 
-        void Create(TEntity entity);
+        Task Create(TEntity entity);
 
         void Update(TEntity entity);
 
         void Delete(TEntity entity);
 
-        void Delete(object id);
+        Task Delete(object id);
 
-        TEntity GetByID(object id);
+        Task<TEntity> GetByID(object id);
     }
 }
