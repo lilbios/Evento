@@ -30,7 +30,10 @@ namespace Evento.Web
             services.AddControllersWithViews();
             services.AddDbContext<EventoDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"), x => x.MigrationsAssembly("Evento.DAL")));
 
-            services.AddIdentity<User, IdentityRole>()
+            services.AddIdentity<User, IdentityRole>(opts =>
+            {
+                opts.User.RequireUniqueEmail = true;
+            })
                 .AddEntityFrameworkStores<EventoDbContext>();
 
             services.RegisterEventoServices(Configuration);
