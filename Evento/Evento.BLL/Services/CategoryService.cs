@@ -8,25 +8,24 @@ using System.Threading.Tasks;
 
 namespace Evento.BLL.Services
 {
-    public class MemorizeService : IMemorizeService<Memorize>
+    public class CategoryService : ICategoryService<Category>
     {
-
-        private readonly IUnitOfWork unitOfWork;
-        public MemorizeService(IUnitOfWork _unitOfWork)
+        private readonly IUnitOfWork _unitOfWork;
+        public CategoryService(IUnitOfWork _unitOfWork)
         {
             unitOfWork = _unitOfWork;
         }
-        public Task AttachMemorizeToVisitedEvent(Memorize memorize, int subscriptionId)
+        public Task AddCategory(Category category)
         {
             throw new NotImplementedException();
         }
 
-        public Task DeleteMemorize(int id)
+        public Task DeleteCategory(int id)
         {
             throw new NotImplementedException();
         }
 
-        public Task Edit(int id)
+        public Task EditCategory(int id)
         {
             throw new NotImplementedException();
         }

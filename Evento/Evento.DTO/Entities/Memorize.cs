@@ -7,10 +7,10 @@ namespace Evento.DTO.Entities
 {
     public class Memorize : Entity
     {
-        [Required(ErrorMessage = "Required field")]
+        [Required]
         public string Title { get; set; }
 
-        [Required(ErrorMessage = "Required field")]
+        [Required]
         public string MemorizeComment { get; set; }
 
         public string MemorizePhoto { get; set; }

@@ -1,5 +1,6 @@
 ﻿using Evento.BLL.Interfaces;
 using Evento.DTO.Entities;
+using Evento.DTO.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -9,14 +10,19 @@ namespace Evento.BLL.Services
 {
     public class EventService : IEventService<Event>
     {
-        public Task CreateNewEvent(Event newEvent)
+        private readonly IUnitOfWork unitOfWork;
+        public EventService(IUnitOfWork _unitOfWork)
         {
-            throw new NotImplementedException();
+            unitOfWork = _unitOfWork;
+        }
+        public async Task CreateNewEvent(Event newEvent)
+        {
+            await unitOfWork.Events.Create(newEvent);
         }
 
-        public Task DeleteEvent(int id)
+        public async Task DeleteEvent(int id)
         {
-            throw new NotImplementedException();
+            await _unitOfWork.Events.Delete(id);
         }
 
         public Task EditEvent(int id)
@@ -24,9 +30,10 @@ namespace Evento.BLL.Services
             throw new NotImplementedException();
         }
 
-        public Task<ICollection<Event>> GetAllEvents()
+        public async  Task<IEnumerable<Event>> GetAllEvents()
         {
-            throw new NotImplementedException();
+          
+
         }
 
         public Task<Event> GetCurrentEvent(int id)

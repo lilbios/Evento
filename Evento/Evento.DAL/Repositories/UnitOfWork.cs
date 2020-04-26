@@ -18,6 +18,7 @@ namespace Evento.DAL.Repositories
         private IRepository<Location> _locations;
         private IRepository<Category> _categories;
         private IRepository<Tag> _tags;
+        private IRepository<TagEvent> _tagevents;
 
         public UnitOfWork(EventoDbContext eventoDbContext)
         {
@@ -93,6 +94,15 @@ namespace Evento.DAL.Repositories
             {
                 return _tags ??
                     (_tags = new Repository<Tag>(_eventoDbContext));
+            }
+        }
+
+        public IRepository<TagEvent> TagEvents
+        {
+            get
+            {
+                return _tagevents ??
+                (_tagevents = new Repository<TagEvent>(_eventoDbContext));
             }
         }
 

@@ -1,5 +1,6 @@
 ﻿using Evento.BLL.Interfaces;
 using Evento.DTO.Entities;
+using Evento.DTO.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -9,6 +10,11 @@ namespace Evento.BLL.Services
 {
     public class CommentService : ICommentService<Comment>
     {
+        private readonly IUnitOfWork unitOfWork;
+        public CommentService( IUnitOfWork _unitOfWork)
+        {
+            unitOfWork = _unitOfWork;
+        }
         public Task AddNewComment(Comment comment)
         {
             throw new NotImplementedException();
@@ -24,7 +30,7 @@ namespace Evento.BLL.Services
             throw new NotImplementedException();
         }
 
-        public Task<ICollection<Comment>> GetEventComments(int eventId)
+        public Task<IEnumerable<Comment>> GetEventComments(int eventId)
         {
             throw new NotImplementedException();
         }
