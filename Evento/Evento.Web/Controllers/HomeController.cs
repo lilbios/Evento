@@ -17,7 +17,10 @@ namespace Evento.Web.Controllers
         {
             _logger = logger;
         }
-
+        public IActionResult Login()
+        {
+            return View();
+        }
         public IActionResult Index()
         {
             return View();
