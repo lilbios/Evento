@@ -11,23 +11,33 @@ namespace Evento.BLL.Services
     public class CategoryService : ICategoryService<Category>
     {
         private readonly IUnitOfWork _unitOfWork;
-        public CategoryService(IUnitOfWork _unitOfWork)
+        public CategoryService(IUnitOfWork unitOfWork)
         {
-            unitOfWork = _unitOfWork;
+            _unitOfWork = unitOfWork;
         }
-        public Task AddCategory(Category category)
+        public async Task AddCategory(Category category)
         {
-            throw new NotImplementedException();
-        }
-
-        public Task DeleteCategory(int id)
-        {
-            throw new NotImplementedException();
+            Category _category = new Category();
+            _category.Title = category.Title;
+            _category.CategoryPhoto = category.CategoryPhoto;
+           await _unitOfWork.Categories.Create(_category);
         }
 
-        public Task EditCategory(int id)
+        public async Task DeleteCategory(int id)
         {
-            throw new NotImplementedException();
+
+            await _unitOfWork.Categories.Delete(id);
+        }
+
+        public async Task EditCategory(int id, Category category)
+        {
+            var _category = _unitOfWork.Categories.GetByID(id);
+            _category.Result.Title = category.Title;
+            if (category.CategoryPhoto != null)
+            {
+                _category.Result.CategoryPhoto = category.CategoryPhoto;
+            }
+           _unitOfWork.Categories.Update(_category.Result);
         }
     }
 }
