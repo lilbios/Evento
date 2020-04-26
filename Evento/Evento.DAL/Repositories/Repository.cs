@@ -22,30 +22,35 @@ namespace Evento.DAL.Repositories
             this.eventoDbSet = repositoryContext.Set<TEntity>();
         }
 
-        public  async Task<IEnumerable<TEntity>> GetAll()
+        public async Task<IEnumerable<TEntity>> GetAll()
         {
-            var result = await eventoDbSet.ToListAsync();
+            var collection = await eventoDbSet.ToListAsync();
 
-            return result;
+            return collection;
         }
 
-        public IEnumerable<TEntity> GetByCondition(Expression<Func<TEntity, bool>> expression)
+        public async Task<IEnumerable<TEntity>> GetByCondition(Expression<Func<TEntity, bool>> expression)
         {
-            return eventoDbSet.Where(expression);
+            //return eventoDbSet.Where(expression);
+            var collection = await Task.Run(()=> eventoDbSet.Where(expression));
+            return collection;
+                   
         }
 
         public async Task Create(TEntity entity)
         {
             await eventoDbSet.AddAsync(entity);
+            await repositoryContext.SaveChangesAsync();
         }
 
-        public void Update(TEntity entity)
+        public async Task Update(TEntity entity)
         {
             eventoDbSet.Attach(entity);
             repositoryContext.Entry(entity).State = EntityState.Modified;
+            await repositoryContext.SaveChangesAsync();
         }
 
-        public void Delete(TEntity entity)
+        public async Task Delete(TEntity entity)
         {
             if (repositoryContext.Entry(entity).State == EntityState.Detached)
             {
@@ -53,12 +58,13 @@ namespace Evento.DAL.Repositories
             }
 
             eventoDbSet.Remove(entity);
+            await repositoryContext.SaveChangesAsync();
         }
 
         public async Task Delete(object id)
         {
             TEntity entityToDelete = await eventoDbSet.FindAsync(id);
-            Delete(entityToDelete);
+            await Delete(entityToDelete);
         }
 
         public async Task<TEntity> GetByID(object id)
@@ -67,5 +73,7 @@ namespace Evento.DAL.Repositories
 
             return result;
         }
+
+
     }
 }

@@ -25,6 +25,5 @@ namespace Evento.DTO.Repositories
         IRepository<Tag> Tags { get; }
         IRepository<TagEvent> TagEvents { get; }
 
-        Task SaveChangesAsync();
     }
 }

@@ -11,13 +11,13 @@ namespace Evento.DTO.Repositories
     {
         Task<IEnumerable<TEntity>> GetAll();
 
-        IEnumerable<TEntity> GetByCondition(Expression<Func<TEntity, bool>> expression);
+        Task<IEnumerable<TEntity>> GetByCondition(Expression<Func<TEntity, bool>> expression);
 
         Task Create(TEntity entity);
 
-        void Update(TEntity entity);
+        Task Update(TEntity entity);
 
-        void Delete(TEntity entity);
+        Task Delete(TEntity entity);
 
         Task Delete(object id);
 
