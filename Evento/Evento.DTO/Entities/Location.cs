@@ -7,17 +7,20 @@ namespace Evento.DTO.Entities
 {
     public class Location : Entity
     {
-        [Required(ErrorMessage = "Required field")]
-        [RegularExpression(@"^[A-Z]?[a-z]+$")]
+        [Required]
         public string City { get; set; }
 
-        [Required(ErrorMessage = "Required field")]
-        [RegularExpression(@"^[A-Z]?[a-z]+$")]
+        [Required]
         public string Country { get; set; }
 
-        [Required(ErrorMessage = "Required field")]
-        [RegularExpression(@"^[A-Z]?[a-z]+$")]
+        [Required]
         public string Street { get; set; }
+
+        [Required]
+        public float Latitute { get; set; }
+
+        [Required]
+        public float Longtitute { get; set; }
 
         public ICollection<Event> Events { get; set; }
     }

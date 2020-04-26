@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Evento.BLL;
 using Evento.DTO.Entities;
+using Evento.DTO.Repositories;
 using Evento.Web.Models.Accounts;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -11,13 +13,12 @@ namespace Evento.Web.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly UserManager<User> userManager;
-        private readonly SignInManager<User> signInManager;
-
-        public AccountController(UserManager<User> userManager,
+        private readonly ServiceManager serviceManager;
+        private SignInManager<User> signInManager;
+        public AccountController(IUnitOfWork unitOfWork,UserManager<User> userManager,
             SignInManager<User> signInManager)
         {
-            this.userManager = userManager;
+            serviceManager = new ServiceManager(unitOfWork, userManager, signInManager);
             this.signInManager = signInManager;
         }
 
@@ -41,16 +42,16 @@ namespace Evento.Web.Controllers
                     UserName = model.Email
                 };
 
-                var result = await userManager.CreateAsync(user, model.Password);
+                var createResult = await serviceManager.UserAccounts.RegisterNewUser(user, model.Password);
 
-                if (result.Succeeded)
+                if (createResult.Succeeded)
                 {
-                    await signInManager.SignInAsync(user, false);
+                    await serviceManager.UserAccounts.SingIn(user, false);
                     return RedirectToAction("Index", "Home");
                 }
                 else
                 {
-                    foreach (var error in result.Errors)
+                    foreach (var error in createResult.Errors)
                     {
                         ModelState.AddModelError(string.Empty, error.Description);
                     }
@@ -72,10 +73,10 @@ namespace Evento.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var result =
-                    await signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
-
-                if (result.Succeeded)
+                var authentication = await serviceManager.UserAccounts.SingInWithPassword(model.Email, model.Password,
+                    model.RememberMe, false);
+                
+                if (authentication.Succeeded)
                 {
                     if (!string.IsNullOrEmpty(model.ReturnUrl) && Url.IsLocalUrl(model.ReturnUrl))
                     {
@@ -100,7 +101,7 @@ namespace Evento.Web.Controllers
         public async Task<IActionResult> Logout()
         {
             // удаляем аутентификационные куки
-            await signInManager.SignOutAsync();
+            await serviceManager.UserAccounts.LogOut();
             return RedirectToAction("Index", "Home");
         }
     }

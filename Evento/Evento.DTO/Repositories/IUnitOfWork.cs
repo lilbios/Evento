@@ -23,6 +23,7 @@ namespace Evento.DTO.Repositories
         IRepository<Category> Categories { get; }
 
         IRepository<Tag> Tags { get; }
+        IRepository<TagEvent> TagEvents { get; }
 
         Task SaveChangesAsync();
     }

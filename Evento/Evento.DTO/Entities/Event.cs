@@ -30,6 +30,6 @@ namespace Evento.DTO.Entities
         public int CategoryId { get; set; }
 
         public ICollection<Subscription> Subscriptions { get; set; }
-        public ICollection<Tag> Tags { get; set; }
+        public ICollection<TagEvent> TagEvents { get; set; }
     }
 }

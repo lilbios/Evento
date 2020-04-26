@@ -7,7 +7,7 @@ namespace Evento.BLL.Interfaces
 {
     public interface IEventService<T> where T : class
     {
-        public Task<ICollection<T>> GetAllEvents();
+        public Task<IEnumerable<T>> GetAllEvents();
         public Task<T> GetCurrentEvent(int id);
         public Task CreateNewEvent(T newEvent);
         public Task DeleteEvent(int id);
