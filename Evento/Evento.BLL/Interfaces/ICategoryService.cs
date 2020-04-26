@@ -10,7 +10,7 @@ namespace Evento.BLL.Interfaces
     {
         public Task AddCategory(Category category);
         public Task DeleteCategory(int id);
-        public Task EditCategory(int id);
+        public Task EditCategory(int id, T category);
 
 
     }
