@@ -5,6 +5,11 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <None Remove="Resources\event - Copy.png" />
+      <None Remove="Resources\event.png" />
+    </ItemGroup>
+
+    <ItemGroup>
         <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.3" />
         <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.3" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.3" />
@@ -17,6 +22,7 @@
 
     <ItemGroup>
         <ProjectReference Include="..\Evento.BLL\Evento.BLL.csproj" />
+        <ProjectReference Include="..\Evento.DAL\Evento.DAL.csproj" />
         <ProjectReference Include="..\Evento.DTO\Evento.DTO.csproj" />
     </ItemGroup>
 

@@ -31,7 +31,17 @@ namespace Evento.DAL.Repositories
 
         public IEnumerable<TEntity> GetByCondition(Expression<Func<TEntity, bool>> expression)
         {
-            return eventoDbSet.Where(expression);
+            return eventoDbSet.AsNoTracking().Where(expression);
+        }
+        public IQueryable<TEntity> Include(params Expression<Func<TEntity, object>>[] includeProperties)
+        {
+            IQueryable<TEntity> query = eventoDbSet.AsNoTracking();
+            return includeProperties
+                .Aggregate(query, (current, includeProperty) => current.Include(includeProperty));
+        }
+        public IEnumerable<TEntity> GetWithInclude(params Expression<Func<TEntity, object>>[] includeProperties)
+        {
+            return Include(includeProperties).ToList();
         }
 
         public async Task Create(TEntity entity)

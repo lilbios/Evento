@@ -6,7 +6,7 @@ using Evento.DAL;
 using Evento.DTO.Entities;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
+using Evento.BLL;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -29,7 +29,7 @@ namespace Evento.Web
         {
             services.AddControllersWithViews();
             services.AddDbContext<EventoDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"), x => x.MigrationsAssembly("Evento.DAL")));
-
+            services.AddServices();
             services.AddIdentity<User, IdentityRole>(opts =>
             {
                 opts.User.RequireUniqueEmail = true;

@@ -46,8 +46,14 @@ namespace Evento.DAL.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<DateTime>("CommentTime")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("EventComment")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsModified")
+                        .HasColumnType("bit");
 
                     b.Property<int>("SubscriptionId")
                         .HasColumnType("int");
@@ -109,6 +115,12 @@ namespace Evento.DAL.Migrations
                     b.Property<string>("Country")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<float>("Latitute")
+                        .HasColumnType("real");
+
+                    b.Property<float>("Longtitute")
+                        .HasColumnType("real");
 
                     b.Property<string>("Street")
                         .IsRequired()
@@ -182,18 +194,35 @@ namespace Evento.DAL.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("EventId")
-                        .HasColumnType("int");
-
                     b.Property<string>("TagName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
+                    b.ToTable("Tags");
+                });
+
+            modelBuilder.Entity("Evento.DTO.Entities.TagEvent", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("EventId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TagId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
                     b.HasIndex("EventId");
 
-                    b.ToTable("Tags");
+                    b.HasIndex("TagId");
+
+                    b.ToTable("TagEvent");
                 });
 
             modelBuilder.Entity("Evento.DTO.Entities.User", b =>
@@ -448,11 +477,17 @@ namespace Evento.DAL.Migrations
                         .HasForeignKey("UserId1");
                 });
 
-            modelBuilder.Entity("Evento.DTO.Entities.Tag", b =>
+            modelBuilder.Entity("Evento.DTO.Entities.TagEvent", b =>
                 {
                     b.HasOne("Evento.DTO.Entities.Event", "Event")
-                        .WithMany("Tags")
+                        .WithMany("TagEvents")
                         .HasForeignKey("EventId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Evento.DTO.Entities.Tag", "Tag")
+                        .WithMany("TagEvents")
+                        .HasForeignKey("TagId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

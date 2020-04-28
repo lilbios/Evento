@@ -10,7 +10,7 @@ namespace Evento.DTO.Repositories
       where TEntity : class
     {
         Task<IEnumerable<TEntity>> GetAll();
-
+        IEnumerable<TEntity> GetWithInclude(params Expression<Func<TEntity, object>>[] includeProperties);
         IEnumerable<TEntity> GetByCondition(Expression<Func<TEntity, bool>> expression);
 
         Task Create(TEntity entity);

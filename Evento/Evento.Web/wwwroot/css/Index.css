@@ -25,13 +25,7 @@
 
 
 
-h1 {
-    font-family: "Canela", Times, serif;
-    font-size: 30px;
-    line-height: 42px;
-    letter-spacing: 1.2px;
-    font-weight: 400;
-}
+
 
 @media (min-width: 770px) {
     h1 {
@@ -611,7 +605,7 @@ ul {
 }
 
 .newsletter__form {
-    background-color: #ededed;
+    background-color: #cac1c1;
     padding: inherit 0;
 }
 
@@ -801,7 +795,7 @@ h1 {
     font-weight: 900;
     font-size: 4.5rem;
     text-transform: uppercase;
-    color: #3b365e;
+   
 }
 
 .para {
