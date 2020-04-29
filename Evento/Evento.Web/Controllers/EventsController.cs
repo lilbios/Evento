@@ -8,16 +8,14 @@ using Evento.BLL.Interfaces;
 using Evento.Models.Entities;
 using AutoMapper;
 using Evento.Web.Models.Events;
-using Evento.Models.DTO;
-using Evento.BLL.Services;
 
 namespace Evento.Web.Controllers
 {
     public class EventsController : Controller
     {
-        private readonly IEventService<EventDTO> eventService;
+        private readonly IEventService<Event> eventService;
         private readonly IMapper mapper;
-        public EventsController(IEventService<EventDTO> eventService, IMapper mapper)
+        public EventsController(IEventService<Event> eventService, IMapper mapper)
         {
             this.eventService = eventService;
             this.mapper = mapper;
@@ -50,7 +48,7 @@ namespace Evento.Web.Controllers
 
             if (ModelState.IsValid)
             {
-                var newEvent = mapper.Map<EventDTO>(eventViewModel);
+                var newEvent = mapper.Map<Event>(eventViewModel);
                 await eventService.AddEvent(newEvent);
 
                 return RedirectToAction(nameof(Index));
@@ -73,7 +71,7 @@ namespace Evento.Web.Controllers
         public async Task<ActionResult> Edit(int id, EventViewModel eventView)
         {
 
-            var editEvent = mapper.Map<EventDTO>(eventView);
+            var editEvent = mapper.Map<Event>(eventView);
             await eventService.EditEvent(id, editEvent);
             return RedirectToAction(nameof(Index));
 
