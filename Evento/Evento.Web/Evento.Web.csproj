@@ -5,6 +5,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
         <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.3" />
         <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.3" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.3" />
@@ -17,8 +18,6 @@
 
     <ItemGroup>
         <ProjectReference Include="..\Evento.BLL\Evento.BLL.csproj" />
-        <ProjectReference Include="..\Evento.DAL\Evento.DAL.csproj" />
-        <ProjectReference Include="..\Evento.DTO\Evento.DTO.csproj" />
     </ItemGroup>
 
 </Project>

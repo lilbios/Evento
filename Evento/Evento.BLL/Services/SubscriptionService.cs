@@ -1,43 +1,43 @@
-﻿using Evento.BLL.Interfaces;
-using Evento.DTO.Entities;
-using Evento.DTO.Repositories;
-using System;
+﻿using AutoMapper;
+using Evento.BLL.Interfaces;
+using Evento.Models.DTO;
+using Evento.Models.Entities;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Evento.BLL.Services
 {
-    public class SubscriptionService : ISubscriptionService<Subscription>
+    public class SubscriptionService : ISubscriptionService<SubscriptionDTO>
     {
-        private readonly IUnitOfWork _unitOfWork;
-        public SubscriptionService(IUnitOfWork unitOfWork)
+        private readonly IUnitOfWork unitOfWork;
+        private readonly IMapper mapper;
+        public SubscriptionService(IUnitOfWork _unitOfWork,IMapper _mapper)
         {
-            _unitOfWork = unitOfWork;
+            unitOfWork = _unitOfWork;
+            mapper = _mapper;
         }
 
         public async Task<IEnumerable<Subscription>> GetSubscriptionsCurrentUser(string id)
         {
             //add user manager
-            var subscriptions =  _unitOfWork.Subscriptions.GetByCondition(x => x.User.Id == id).ToList();
-           return  subscriptions;
+            var subscriptions = await unitOfWork.Subscriptions.GetByCondition(x => x.User.Id == id);
+            return subscriptions.ToList();
         }
 
-        public async Task Subscribe(Subscription subscription)
+        public async Task Subscribe(SubscriptionDTO subscriptionDto)
         {
-            Subscription follow = new Subscription();
-            follow.EventId = subscription.EventId;
-            follow.UserId = subscription.UserId; 
-           await _unitOfWork.Subscriptions.Create(follow);
-        }
-       
 
-     
+            var subscription = mapper.Map<Subscription>(subscriptionDto);
+            await unitOfWork.Subscriptions.Create(subscription);
+        }
+
+
+
         public async Task Unsubscribe(int id)
         {
-            var subscription = _unitOfWork.Subscriptions.GetByID(id);
-           await _unitOfWork.Subscriptions.Delete(subscription);
+            var subscription = unitOfWork.Subscriptions.GetByID(id);
+            await unitOfWork.Subscriptions.Delete(subscription);
         }
     }
 }

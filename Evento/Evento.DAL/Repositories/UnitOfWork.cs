@@ -1,5 +1,5 @@
-﻿using Evento.DTO.Entities;
-using Evento.DTO.Repositories;
+﻿
+using Evento.Models.Entities;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -104,11 +104,6 @@ namespace Evento.DAL.Repositories
                 return _tagevents ??
                 (_tagevents = new Repository<TagEvent>(_eventoDbContext));
             }
-        }
-
-        public async Task SaveChangesAsync()
-        {
-            await _eventoDbContext.SaveChangesAsync();
-        }
+        }   
     }
 }

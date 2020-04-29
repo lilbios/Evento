@@ -5,27 +5,33 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Evento.BLL.Interfaces;
-using Evento.DTO.Entities;
+using Evento.Models.Entities;
+using AutoMapper;
+using Evento.Web.Models.Events;
+using Evento.Models.DTO;
+using Evento.BLL.Services;
 
 namespace Evento.Web.Controllers
 {
     public class EventsController : Controller
     {
-        private readonly IEventService<Event> _eventService;
-        public EventsController(IEventService<Event> eventService)
+        private readonly IEventService<EventDTO> eventService;
+        private readonly IMapper mapper;
+        public EventsController(IEventService<EventDTO> eventService, IMapper mapper)
         {
-            _eventService = eventService;
+            this.eventService = eventService;
+            this.mapper = mapper;
         }
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
-            var events = _eventService.GetAllEvents();
+            var events = await eventService.GetAllEvents();
             return View(events);
         }
 
         // GET: Events/Details/5
-        public ActionResult Details(int id)
+        public async Task<ActionResult> Details(int id)
         {
-            var eventForDetail = _eventService.GetById(id);
+            var eventForDetail = await eventService.GetById(id);
             return View(eventForDetail);
         }
 
@@ -38,50 +44,47 @@ namespace Evento.Web.Controllers
         // POST: Events/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Event create)
+        public async Task<ActionResult> Create(EventViewModel eventViewModel)
         {
-            try
+
+
+            if (ModelState.IsValid)
             {
-                
-                _eventService.AddEvent(create);
+                var newEvent = mapper.Map<EventDTO>(eventViewModel);
+                await eventService.AddEvent(newEvent);
 
                 return RedirectToAction(nameof(Index));
             }
-            catch
-            {
-                return View();
-            }
+            return View();
         }
 
         // GET: Events/Edit/5
-        public ActionResult Edit(int id)
+        [HttpGet]
+        public async Task<ActionResult> Edit(int id)
         {
-            var edit = _eventService.GetById(id);
-            
+            var edit = await eventService.GetById(id);
+
             return View(edit);
         }
 
         // POST: Events/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, Event edit)
+        public async Task<ActionResult> Edit(int id, EventViewModel eventView)
         {
-            try
-            {
-                _eventService.EditEvent(id, edit);
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+
+            var editEvent = mapper.Map<EventDTO>(eventView);
+            await eventService.EditEvent(id, editEvent);
+            return RedirectToAction(nameof(Index));
+
         }
 
         // GET: Events/Delete/5
-        public ActionResult Delete(int id)
+        public async Task<ActionResult> Delete(int id)
         {
-            var delete = _eventService.GetById(id);
-            return View(delete);
+            await eventService.RemoveEvent(id);
+            return RedirectToAction(nameof(Index));
+
         }
 
         // POST: Events/Delete/5
@@ -89,16 +92,7 @@ namespace Evento.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, IFormCollection collection)
         {
-            try
-            {
-                _eventService.RemoveEvent(id);
-
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            return RedirectToAction(nameof(Index));
         }
     }
 }

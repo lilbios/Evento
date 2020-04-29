@@ -1,32 +1,30 @@
-﻿using Evento.BLL.Interfaces;
-using Evento.DTO.Entities;
-using Evento.DTO.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using AutoMapper;
+using Evento.BLL.Interfaces;
+using Evento.Models.DTO;
+using Evento.Models.Entities;
 using System.Threading.Tasks;
 
 namespace Evento.BLL.Services
 {
-    public class TagService: ITagService<Tag>
+    public class TagService: ITagService<TagDTO>
     {
-        private readonly IUnitOfWork _unitOfWork;
-        public TagService(IUnitOfWork unitOfWork)
+        private readonly IUnitOfWork unitOfWork;
+        private readonly IMapper mapper;
+        public TagService(IUnitOfWork _unitOfWork, IMapper _mapper)
         {
-            _unitOfWork = unitOfWork;
+            unitOfWork = _unitOfWork;
+            mapper = _mapper;
         }
 
-        public async Task AddTag(Tag tag)
+        public async Task AddTag(TagDTO tag)
         {
-            Tag _tag = new Tag();
-            _tag.TagEvents = tag.TagEvents;
-            _tag.TagName = tag.TagName;
-            await _unitOfWork.Tags.Create(_tag);
+            var newTag = mapper.Map<Tag>(tag);
+            await unitOfWork.Tags.Create(newTag);
         }
 
         public async Task RemoveTag(int tagId)
         {
-            await _unitOfWork.Tags.Delete(tagId);
+            await unitOfWork.Tags.Delete(tagId);
         }
     }
 }

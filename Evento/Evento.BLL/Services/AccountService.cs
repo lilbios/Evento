@@ -1,9 +1,6 @@
 ﻿using Evento.BLL.Interfaces;
-using Evento.DTO.Entities;
+using Evento.Models.Entities;
 using Microsoft.AspNetCore.Identity;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Evento.BLL.Services

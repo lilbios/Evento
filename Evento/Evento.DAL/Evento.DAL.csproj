@@ -19,7 +19,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\Evento.DTO\Evento.DTO.csproj" />
+      <ProjectReference Include="..\Evento.Models\Evento.Models.csproj" />
     </ItemGroup>
 
 </Project>
