@@ -67,5 +67,17 @@ namespace Evento.DAL.Repositories
 
             return result;
         }
+
+        public async Task<IEnumerable<TEntity>> GetWithInclude(params Expression<Func<TEntity, object>>[] includeProperties)
+        {
+            return await Include(includeProperties);
+        }
+
+        public async Task<IQueryable<TEntity>> Include(params Expression<Func<TEntity, object>>[] includeProperties)
+        {
+            IQueryable<TEntity> query = eventoDbSet.AsNoTracking();
+            return  includeProperties
+                .Aggregate(query, (current, includeProperty) => current.Include(includeProperty));
+        }
     }
 }

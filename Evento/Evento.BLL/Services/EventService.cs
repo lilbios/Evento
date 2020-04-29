@@ -93,7 +93,7 @@ namespace Evento.BLL.Services
 
         public async Task<IEnumerable<Event>> GetAllEvents()
         {
-            var eventList = await _unitOfWork.Events.GetAll();
+            var eventList =await _unitOfWork.Events.GetWithInclude(s=>s.Category);
             return eventList;
         }
 

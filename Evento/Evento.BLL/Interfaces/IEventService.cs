@@ -14,6 +14,8 @@ namespace Evento.BLL.Interfaces
 
         Task RemoveEvent(object id);
 
+        Task GetById(object id);
+
         Task<IEnumerable<T>> GetEventByLocation(int id);
 
         Task<IEnumerable<T>> GetEventByTitle(string search);

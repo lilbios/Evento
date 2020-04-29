@@ -21,4 +21,8 @@
         <ProjectReference Include="..\Evento.DTO\Evento.DTO.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Resources\" />
+    </ItemGroup>
+
 </Project>

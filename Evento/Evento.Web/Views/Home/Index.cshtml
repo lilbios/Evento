@@ -1,4 +1,4 @@
-﻿
+﻿@model IEnumerable<Evento.DTO.Entities.Event>
 <div class="background"></div>
 <div class="background-texture"></div>
 <header class="header">
@@ -210,14 +210,11 @@
             <h2 class="recipe__title">Actual Events</h2>
             <div class="palette-container">
                 @foreach (var item in Model)
-                {
-                    @foreach (var category in item.Category.Title)
-                    {
-                        <div class="palette-item"> <span class="palette-item__bg" style="background-color:#eaeaea"> </span><span class="palette-item__name">@category</span></div>
-                    }
+                {                   
+                        <div class="palette-item"> <span class="palette-item__bg" style="background-color:#eaeaea"> </span><span class="palette-item__name">@item.Category.Title</span></div>                   
                 }
 
-            </div>
+                </div>
             <div class="recipe-list">
                 <div class="recipe-scroll">
                     @foreach (var item in Model)

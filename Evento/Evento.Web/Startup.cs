@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Evento.BLL;
 using Evento.DAL;
 using Evento.DTO.Entities;
 using Microsoft.AspNetCore.Builder;
@@ -37,7 +38,7 @@ namespace Evento.Web
                 .AddEntityFrameworkStores<EventoDbContext>();
 
             services.RegisterEventoServices(Configuration);
-
+            services.AddServices();
             services.Configure<IdentityOptions>(options =>
             {
                 // Password settings.
