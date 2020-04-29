@@ -2,8 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Evento.DAL;
-using Evento.DTO.Entities;
+using Evento.Models.Entities;
+using Evento.Web.Common;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -29,7 +31,7 @@ namespace Evento.Web
         {
             services.AddControllersWithViews();
             services.AddDbContext<EventoDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"), x => x.MigrationsAssembly("Evento.DAL")));
-
+            services.AddAutoMapper(typeof(AutoMapperProfile));
             services.AddIdentity<User, IdentityRole>(opts =>
             {
                 opts.User.RequireUniqueEmail = true;

@@ -19,7 +19,7 @@ namespace Evento.DAL.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("Evento.DTO.Entities.Category", b =>
+            modelBuilder.Entity("Evento.Models.Entities.Category", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -39,15 +39,21 @@ namespace Evento.DAL.Migrations
                     b.ToTable("Categories");
                 });
 
-            modelBuilder.Entity("Evento.DTO.Entities.Comment", b =>
+            modelBuilder.Entity("Evento.Models.Entities.Comment", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<DateTime>("CommentTime")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("EventComment")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsModified")
+                        .HasColumnType("bit");
 
                     b.Property<int>("SubscriptionId")
                         .HasColumnType("int");
@@ -59,7 +65,7 @@ namespace Evento.DAL.Migrations
                     b.ToTable("Comments");
                 });
 
-            modelBuilder.Entity("Evento.DTO.Entities.Event", b =>
+            modelBuilder.Entity("Evento.Models.Entities.Event", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -95,7 +101,7 @@ namespace Evento.DAL.Migrations
                     b.ToTable("Events");
                 });
 
-            modelBuilder.Entity("Evento.DTO.Entities.Location", b =>
+            modelBuilder.Entity("Evento.Models.Entities.Location", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -110,6 +116,12 @@ namespace Evento.DAL.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<float>("Latitute")
+                        .HasColumnType("real");
+
+                    b.Property<float>("Longtitute")
+                        .HasColumnType("real");
+
                     b.Property<string>("Street")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -119,7 +131,7 @@ namespace Evento.DAL.Migrations
                     b.ToTable("Locations");
                 });
 
-            modelBuilder.Entity("Evento.DTO.Entities.Memorize", b =>
+            modelBuilder.Entity("Evento.Models.Entities.Memorize", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -147,7 +159,7 @@ namespace Evento.DAL.Migrations
                     b.ToTable("Memorizes");
                 });
 
-            modelBuilder.Entity("Evento.DTO.Entities.Subscription", b =>
+            modelBuilder.Entity("Evento.Models.Entities.Subscription", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -175,7 +187,23 @@ namespace Evento.DAL.Migrations
                     b.ToTable("Subscriptions");
                 });
 
-            modelBuilder.Entity("Evento.DTO.Entities.Tag", b =>
+            modelBuilder.Entity("Evento.Models.Entities.Tag", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("TagName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Tags");
+                });
+
+            modelBuilder.Entity("Evento.Models.Entities.TagEvent", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -185,18 +213,19 @@ namespace Evento.DAL.Migrations
                     b.Property<int>("EventId")
                         .HasColumnType("int");
 
-                    b.Property<string>("TagName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("TagId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("EventId");
 
-                    b.ToTable("Tags");
+                    b.HasIndex("TagId");
+
+                    b.ToTable("TagEvent");
                 });
 
-            modelBuilder.Entity("Evento.DTO.Entities.User", b =>
+            modelBuilder.Entity("Evento.Models.Entities.User", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -402,57 +431,63 @@ namespace Evento.DAL.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("Evento.DTO.Entities.Comment", b =>
+            modelBuilder.Entity("Evento.Models.Entities.Comment", b =>
                 {
-                    b.HasOne("Evento.DTO.Entities.Subscription", "Subscription")
+                    b.HasOne("Evento.Models.Entities.Subscription", "Subscription")
                         .WithMany("Comments")
                         .HasForeignKey("SubscriptionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Evento.DTO.Entities.Event", b =>
+            modelBuilder.Entity("Evento.Models.Entities.Event", b =>
                 {
-                    b.HasOne("Evento.DTO.Entities.Category", "Category")
+                    b.HasOne("Evento.Models.Entities.Category", "Category")
                         .WithMany("Events")
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Evento.DTO.Entities.Location", "Location")
+                    b.HasOne("Evento.Models.Entities.Location", "Location")
                         .WithMany("Events")
                         .HasForeignKey("LocationId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Evento.DTO.Entities.Memorize", b =>
+            modelBuilder.Entity("Evento.Models.Entities.Memorize", b =>
                 {
-                    b.HasOne("Evento.DTO.Entities.Subscription", "Subscription")
+                    b.HasOne("Evento.Models.Entities.Subscription", "Subscription")
                         .WithMany("Memorizes")
                         .HasForeignKey("SubscriptionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Evento.DTO.Entities.Subscription", b =>
+            modelBuilder.Entity("Evento.Models.Entities.Subscription", b =>
                 {
-                    b.HasOne("Evento.DTO.Entities.Event", "Event")
+                    b.HasOne("Evento.Models.Entities.Event", "Event")
                         .WithMany("Subscriptions")
                         .HasForeignKey("EventId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Evento.DTO.Entities.User", "User")
+                    b.HasOne("Evento.Models.Entities.User", "User")
                         .WithMany("Subscriptions")
                         .HasForeignKey("UserId1");
                 });
 
-            modelBuilder.Entity("Evento.DTO.Entities.Tag", b =>
+            modelBuilder.Entity("Evento.Models.Entities.TagEvent", b =>
                 {
-                    b.HasOne("Evento.DTO.Entities.Event", "Event")
-                        .WithMany("Tags")
+                    b.HasOne("Evento.Models.Entities.Event", "Event")
+                        .WithMany("TagEvents")
                         .HasForeignKey("EventId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Evento.Models.Entities.Tag", "Tag")
+                        .WithMany("TagEvents")
+                        .HasForeignKey("TagId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -468,7 +503,7 @@ namespace Evento.DAL.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("Evento.DTO.Entities.User", null)
+                    b.HasOne("Evento.Models.Entities.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -477,7 +512,7 @@ namespace Evento.DAL.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("Evento.DTO.Entities.User", null)
+                    b.HasOne("Evento.Models.Entities.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -492,7 +527,7 @@ namespace Evento.DAL.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Evento.DTO.Entities.User", null)
+                    b.HasOne("Evento.Models.Entities.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -501,7 +536,7 @@ namespace Evento.DAL.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("Evento.DTO.Entities.User", null)
+                    b.HasOne("Evento.Models.Entities.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)

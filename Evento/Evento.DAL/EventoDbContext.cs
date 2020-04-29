@@ -1,4 +1,4 @@
-﻿using Evento.DTO.Entities;
+﻿using Evento.Models.Entities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;

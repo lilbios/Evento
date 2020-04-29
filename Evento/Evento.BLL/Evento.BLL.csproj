@@ -5,17 +5,25 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Components\" />
-    <Folder Include="Third-part\" />
-    <Folder Include="Processes\" />
+    <Compile Remove="Components\**" />
+    <Compile Remove="Processes\**" />
+    <Compile Remove="Third-part\**" />
+    <EmbeddedResource Remove="Components\**" />
+    <EmbeddedResource Remove="Processes\**" />
+    <EmbeddedResource Remove="Third-part\**" />
+    <None Remove="Components\**" />
+    <None Remove="Processes\**" />
+    <None Remove="Third-part\**" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Evento.DTO\Evento.DTO.csproj" />
+    <ProjectReference Include="..\Evento.DAL\Evento.DAL.csproj" />
+    <ProjectReference Include="..\Evento.Models\Evento.Models.csproj" />
   </ItemGroup>
 
 </Project>

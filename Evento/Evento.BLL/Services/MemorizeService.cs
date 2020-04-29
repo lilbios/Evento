@@ -1,44 +1,36 @@
-﻿using Evento.BLL.Interfaces;
-using Evento.DTO.Entities;
-using Evento.DTO.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using AutoMapper;
+using Evento.BLL.Interfaces;
+using Evento.Models.DTO;
+using Evento.Models.Entities;
 using System.Threading.Tasks;
 
 namespace Evento.BLL.Services
 {
-    public class MemorizeService : IMemorizeService<Memorize>
+    public class MemorizeService : IMemorizeService<MemorizeDTO>
     {
 
-        private readonly IUnitOfWork _unitOfWork;
-        public MemorizeService(IUnitOfWork unitOfWork)
+        private readonly IUnitOfWork unitOfWork;
+        private readonly IMapper mapper;
+        public MemorizeService(IUnitOfWork _unitOfWork, IMapper _mapper)
         {
-            _unitOfWork = unitOfWork;
+            unitOfWork = _unitOfWork;
+            mapper = _mapper;
         }
-        public async Task AttachMemorizeToVisitedEvent(Memorize memorize, int subscriptionId)
+        public async Task AttachMemorizeToVisitedEvent(MemorizeDTO _memorize, int subscriptionId)
         {
-            Memorize _memorize = new Memorize();
-            _memorize.MemorizeComment = memorize.MemorizeComment;
-            _memorize.MemorizePhoto = memorize.MemorizePhoto;
-            _memorize.Title = memorize.Title;
-            _memorize.SubscriptionId = subscriptionId;
-           await _unitOfWork.Memorizes.Create(_memorize);
+            var memorize = mapper.Map<Memorize>(_memorize);
+            await unitOfWork.Memorizes.Create(memorize);
         }
 
         public async Task DeleteMemorize(int id)
         {
-            await _unitOfWork.Memorizes.Delete(id);
+            await unitOfWork.Memorizes.Delete(id);
         }
 
-        public async Task Edit(int id, Memorize memorize)
+        public async Task Edit(int id, MemorizeDTO _memorize)
         {
-            var _memorize = _unitOfWork.Memorizes.GetByID(id);
-            _memorize.Result.MemorizeComment = memorize.MemorizeComment;
-            _memorize.Result.MemorizePhoto = memorize.MemorizePhoto;
-            _memorize.Result.Title = memorize.Title;
-            _memorize.Result.SubscriptionId = memorize.SubscriptionId;
-            _unitOfWork.Memorizes.Update(_memorize.Result);
+            var memorize = mapper.Map<Memorize>(_memorize);
+            await unitOfWork.Memorizes.Update(memorize);
         }
 
 

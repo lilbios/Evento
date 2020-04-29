@@ -1,4 +1,4 @@
-﻿using Evento.DTO.Repositories;
+﻿using Evento.Models.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
