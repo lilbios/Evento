@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Evento.BLL.Services
 {
-    public class SubscriptionService : ISubscriptionService<SubscriptionDTO>
+    public class SubscriptionService : ISubscriptionService<Subscription>
     {
         private readonly IUnitOfWork unitOfWork;
         private readonly IMapper mapper;
@@ -18,17 +18,17 @@ namespace Evento.BLL.Services
             mapper = _mapper;
         }
 
-        public async Task<IEnumerable<Subscription>> GetSubscriptionsCurrentUser(string id)
+        public async Task<ICollection<Subscription>> GetSubscriptionsCurrentUser(string id)
         {
             //add user manager
             var subscriptions = await unitOfWork.Subscriptions.GetByCondition(x => x.User.Id == id);
             return subscriptions.ToList();
         }
 
-        public async Task Subscribe(SubscriptionDTO subscriptionDto)
+        public async Task Subscribe(Subscription Subscription)
         {
 
-            var subscription = mapper.Map<Subscription>(subscriptionDto);
+            var subscription = mapper.Map<Subscription>(Subscription);
             await unitOfWork.Subscriptions.Create(subscription);
         }
 
