@@ -29,9 +29,9 @@ namespace Evento.DAL.Repositories
             return result;
         }
 
-        public IEnumerable<TEntity> GetByCondition(Expression<Func<TEntity, bool>> expression)
+        public async Task<IEnumerable<TEntity>> GetByCondition(Expression<Func<TEntity, bool>> expression)
         {
-            return eventoDbSet.Where(expression);
+            return  await Task.Run(()=>eventoDbSet.Where(expression));
         }
 
         public async Task Create(TEntity entity)
@@ -39,26 +39,27 @@ namespace Evento.DAL.Repositories
             await eventoDbSet.AddAsync(entity);
         }
 
-        public void Update(TEntity entity)
+        public async Task Update(TEntity entity)
         {
             eventoDbSet.Attach(entity);
             repositoryContext.Entry(entity).State = EntityState.Modified;
+            await repositoryContext.SaveChangesAsync();
         }
 
-        public void Delete(TEntity entity)
+        public async Task Delete(TEntity entity)
         {
             if (repositoryContext.Entry(entity).State == EntityState.Detached)
             {
                 eventoDbSet.Attach(entity);
             }
-
             eventoDbSet.Remove(entity);
+            await repositoryContext.SaveChangesAsync();
         }
 
-        public async Task Delete(object id)
+        public async Task Delete(object id) 
         {
             TEntity entityToDelete = await eventoDbSet.FindAsync(id);
-            Delete(entityToDelete);
+           await Delete(entityToDelete);
         }
 
         public async Task<TEntity> GetByID(object id)
@@ -68,31 +69,6 @@ namespace Evento.DAL.Repositories
             return result;
         }
 
-        public async Task<IEnumerable<TEntity>> GetWithInclude(params Expression<Func<TEntity, object>>[] includeProperties)
-        {
-            return await Include(includeProperties);
-        }
-
-        public async Task<IQueryable<TEntity>> Include(params Expression<Func<TEntity, object>>[] includeProperties)
-        {
-            IQueryable<TEntity> query =  eventoDbSet.AsNoTracking();
-            return   includeProperties
-                .Aggregate(query, (current, includeProperty) => current.Include(includeProperty));
-        }
-
-        Task<IEnumerable<TEntity>> IRepository<TEntity>.GetByCondition(Expression<Func<TEntity, bool>> expression)
-        {
-            throw new NotImplementedException();
-        }
-
-        Task IRepository<TEntity>.Update(TEntity entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        Task IRepository<TEntity>.Delete(TEntity entity)
-        {
-            throw new NotImplementedException();
-        }
+      
     }
 }

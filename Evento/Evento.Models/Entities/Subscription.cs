@@ -8,16 +8,16 @@ namespace Evento.Models.Entities
     {
         public bool IsOwner { get; set; }
 
-        public User User { get; set; }
+        public virtual User User { get; set; }
 
         public int UserId { get; set; }
 
-        public Event Event { get; set; }
+        public virtual Event Event { get; set; }
 
         public int EventId { get; set; }
 
-        public ICollection<Memorize> Memorizes { get; set; }
+        public virtual ICollection<Memorize> Memorizes { get; set; }
 
-        public ICollection<Comment> Comments { get; set; }
+        public virtual ICollection<Comment> Comments { get; set; }
     }
 }

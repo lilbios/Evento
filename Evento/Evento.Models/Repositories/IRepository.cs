@@ -23,10 +23,6 @@ namespace Evento.Models.Entities
         Task Delete(object id);
 
         Task<TEntity> GetByID(object id);
-        Task<IEnumerable<TEntity>> GetWithInclude(params Expression<Func<TEntity, object>>[] includeProperties);
-
-
-        Task<IQueryable<TEntity>> Include(params Expression<Func<TEntity, object>>[] includeProperties);
 
     }
 }

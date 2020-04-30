@@ -11,7 +11,7 @@ namespace Evento.Models.Entities
         public DateTime CommentTime { get; set; }
         public bool IsModified { get; set; }
 
-        public Subscription Subscription { get; set; }
+        public virtual Subscription Subscription { get; set; }
 
         public int SubscriptionId { get; set; }
     }

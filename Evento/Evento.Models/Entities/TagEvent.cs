@@ -6,9 +6,9 @@ namespace Evento.Models.Entities
 {
     public class TagEvent:Entity
     {
-        public Event Event { get; set; }
+        public virtual Event Event { get; set; }
         public int EventId { get; set; }
-        public Tag Tag { get; set; }
+        public virtual Tag Tag { get; set; }
         public int TagId { get; set; }
     }
 }

@@ -15,7 +15,7 @@ namespace Evento.Models.Entities
 
         public string MemorizePhoto { get; set; }
 
-        public Subscription Subscription { get; set; }
+        public virtual Subscription Subscription { get; set; }
 
         public int SubscriptionId { get; set; }
     }

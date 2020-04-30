@@ -20,16 +20,16 @@ namespace Evento.Models.Entities
         public string Description { get; set; }
 
         [Required]
-        public Location Location { get; set; }
+        public virtual Location Location { get; set; }
 
         public int LocationId { get; set; }
 
         [Required(ErrorMessage = "Required field")]
-        public Category Category { get; set; }
+        public virtual Category Category { get; set; }
 
         public int CategoryId { get; set; }
 
-        public ICollection<Subscription> Subscriptions { get; set; }
-        public ICollection<TagEvent> TagEvents { get; set; }
+        public virtual ICollection<Subscription> Subscriptions { get; set; }
+        public virtual ICollection<TagEvent> TagEvents { get; set; }
     }
 }

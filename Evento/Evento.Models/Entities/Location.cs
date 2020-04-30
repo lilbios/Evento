@@ -22,6 +22,6 @@ namespace Evento.Models.Entities
         [Required]
         public float Longtitute { get; set; }
 
-        public ICollection<Event> Events { get; set; }
+        public virtual ICollection<Event> Events { get; set; }
     }
 }
