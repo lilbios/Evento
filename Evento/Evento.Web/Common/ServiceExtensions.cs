@@ -1,7 +1,6 @@
 ﻿using Evento.BLL.Interfaces;
 using Evento.BLL.Services;
 using Evento.DAL.Repositories;
-using Evento.Models.DTO;
 using Evento.Models.Entities;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -24,7 +23,8 @@ namespace Evento.Web
             services.AddTransient<IRepository<Category>, Repository<Category>>();
             services.AddTransient<IRepository<Event>, Repository<Event>>();
 
-            services.AddTransient<IEventService<EventDTO>, EventService>();
+            services.AddTransient<IEventService<Event>, EventService>();
+
 
             return services;
         }

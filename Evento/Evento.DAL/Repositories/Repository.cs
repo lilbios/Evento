@@ -75,8 +75,8 @@ namespace Evento.DAL.Repositories
 
         public async Task<IQueryable<TEntity>> Include(params Expression<Func<TEntity, object>>[] includeProperties)
         {
-            IQueryable<TEntity> query = eventoDbSet.AsNoTracking();
-            return  includeProperties
+            IQueryable<TEntity> query =  eventoDbSet.AsNoTracking();
+            return   includeProperties
                 .Aggregate(query, (current, includeProperty) => current.Include(includeProperty));
         }
 

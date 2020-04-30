@@ -108,7 +108,7 @@ namespace Evento.BLL.Services
             eventForEditing.Result.DateStart = e.DateStart;
             eventForEditing.Result.Description = e.Description;
             eventForEditing.Result.Subscriptions = e.Subscriptions;
-            _unitOfWork.Events.Update(eventForEditing.Result);
+            await _unitOfWork.Events.Update(eventForEditing.Result);
 
         }
     }
