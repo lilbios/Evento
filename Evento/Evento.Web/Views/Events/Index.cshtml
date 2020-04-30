@@ -1,65 +1,123 @@
-﻿@model IEnumerable<Evento.Models.Entities.Event>
+﻿
+@model IEnumerable<Evento.Models.Entities.Event>
+    <link rel="stylesheet" href="~/css/Index.css" />
+<div class="container">
 
-@{
-    ViewData["Title"] = "Index";
-}
+    <main class="main">
+        <section class="recipe">
+            <h2 class="recipe__title">Actual Events</h2>
+            <div class="palette-container">
+                @foreach (var item in Model)
+                {
+                    @foreach (var category in item.Category.Title)
+                    {
+                        <div class="palette-item"> <span class="palette-item__bg" style="background-color:#eaeaea"> </span><span class="palette-item__name">@category</span></div>
+                    }
+                }
 
-<h1>Index</h1>
+            </div>
+            <div class="recipe-list">
+                <div class="recipe-scroll">
+                    @foreach (var item in Model)
+                    {
+                        <article class="recipe-item">
+                            <div class="recipe-item__bg"><a href="Event?@item.Id"><img class="recipe-item__img" src="https://github.com/ricardoolivaalonso/Feinkoch/blob/master/public/img/recipes-5.jpg?raw=true" alt="Foto de receta"></a></div><span class="recipe-item__name">@item.Title</span>
+                            <div class="palette"><span class="palette__color" style="background-color:#aed9b7"></span><span class="palette__color" style="background-color:#f98667"></span><span class="palette__color" style="background-color:#97d1ec"></span></div>
+                        </article>
+                    }
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DateStart)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DateFinish)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Location)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Category)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DateStart)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DateFinish)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Location.City)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Category.CategoryPhoto)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+                </div>
+            </div><a class="recipe__button button" href="~/Views/Events/Index">All events</a>
+        </section>
+        @*<section class="news">
+                <article class="news__item">
+                    <img class="news__img" src="https://github.com/ricardoolivaalonso/Feinkoch/blob/master/public/img/news-1.jpg?raw=true" alt="Imagen de news"><span class="news__date">&#183; 07/05/2019</span>
+                    <h2 class="news__title">Zu Gast in der Brauküche 35</h2>
+                    <p class="news__description">Die Neugier auf Bier ist groß. Und in Schalladorf hat sich was ganz Neues zusammengebraut.</p><a class="news__button button" href="#">Zur Story        </a>
+                </article>
+                <article class="news__item">
+                    <img class="news__img" src="https://github.com/ricardoolivaalonso/Feinkoch/blob/master/public/img/news-2.jpg?raw=true" alt="Imagen de news"><span class="news__date">&#183; 10/05/2018</span>
+                    <h2 class="news__title">Sonja Priller</h2>
+                    <p class="news__description">Food-Fotografin, Ästhetin, Denkerin, Hobby-Winzerin & unverzichtbares Mitglied des feinkoch-Teams</p><a class="news__button button" href="#">Zur Story</a>
+                </article>
+            </section>
+            <section class="recipe">
+                <h2 class="recipe__title">Schnelle Küche</h2>
+                <div class="palette-container">
+                    <div class="palette-item"> <span class="palette-item__bg" style="background-color:#ffea5e"> </span><span class="palette-item__name">Sommer</span></div>
+                    <div class="palette-item"><span class="palette-item__bg" style="background-color:#f98667"> </span><span class="palette-item__name">Schnelle Küche</span></div>
+                    <div class="palette-item"><span class="palette-item__bg" style="background-color:#eaeaea"> </span><span class="palette-item__name">Laktosefrei</span></div>
+                    <div class="palette-item"><span class="palette-item__bg" style="background-color:#c2ced2"> </span><span class="palette-item__name">Gesund</span></div>
+                    <div class="palette-item"><span class="palette-item__bg" style="background-color:#aed9b7"> </span><span class="palette-item__name">Frühling</span></div>
+                </div>
+                <div class="recipe-list">
+                    <div class="recipe-scroll">
+                        <article class="recipe-item">
+                            <div class="recipe-item__bg"><img class="recipe-item__img" src="https://github.com/ricardoolivaalonso/Feinkoch/blob/master/public/img/recipes-5.jpg?raw=true" alt="Foto de receta"></div><span class="recipe-item__name">Kimchi Pancake mit Bonitoflocken</span>
+                            <div class="palette"><span class="palette__color" style="background-color:#aed9b7"></span><span class="palette__color" style="background-color:#f98667"></span><span class="palette__color" style="background-color:#97d1ec"></span></div>
+                        </article>
+                        <article class="recipe-item">
+                            <div class="recipe-item__bg"><img class="recipe-item__img" src="https://github.com/ricardoolivaalonso/Feinkoch/blob/master/public/img/recipes-6.jpg?raw=true" alt="Foto de receta"></div><span class="recipe-item__name">Bibimbap mit Sushireis, Shiitake und Gochujang-Sauce</span>
+                            <div class="palette"><span class="palette__color" style="background-color:#aed9b7"></span><span class="palette__color" style="background-color:#c2ced2"></span><span class="palette__color" style="background-color:#ecc590"></span></div>
+                        </article>
+                        <article class="recipe-item">
+                            <div class="recipe-item__bg"><img class="recipe-item__img" src="https://github.com/ricardoolivaalonso/Feinkoch/blob/master/public/img/recipes-7.jpg?raw=true" alt="Foto de receta"></div><span class="recipe-item__name">Crispy Duck mit Miso-Pflaumen-Sauce</span>
+                            <div class="palette"><span class="palette__color" style="background-color:#ecc590"></span><span class="palette__color" style="background-color:#e18181"></span><span class="palette__color" style="background-color:#51b1fb"></span></div>
+                        </article>
+                        <article class="recipe-item">
+                            <div class="recipe-item__bg"><img class="recipe-item__img" src="https://github.com/ricardoolivaalonso/Feinkoch/blob/master/public/img/recipes-8.jpg?raw=true" alt="Foto de receta"></div><span class="recipe-item__name">Mayonnaise by Mochi</span>
+                            <div class="palette"><span class="palette__color" style="background-color:#ffea5e"></span><span class="palette__color" style="background-color:#24b184"></span><span class="palette__color" style="background-color:#ecb266"></span></div>
+                        </article>
+                    </div>
+                </div><a class="recipe__button button" href="#">Alle Rezepte</a>
+            </section>
+            <section class="recipe">
+                <h2 class="recipe__title">Dessert Rezepte</h2>
+                <div class="palette-container">
+                    <div class="palette-item"> <span class="palette-item__bg" style="background-color:#f6bfba"> </span><span class="palette-item__name">Süß</span></div>
+                    <div class="palette-item"><span class="palette-item__bg" style="background-color:#b783b3"> </span><span class="palette-item__name">Party</span></div>
+                    <div class="palette-item"><span class="palette-item__bg" style="background-color:#ffea5e"> </span><span class="palette-item__name">Sommer</span></div>
+                    <div class="palette-item"><span class="palette-item__bg" style="background-color:#e18181"> </span><span class="palette-item__name">Obst</span></div>
+                    <div class="palette-item"><span class="palette-item__bg" style="background-color:#aed9b7"> </span><span class="palette-item__name">Süßspeise</span></div>
+                </div>
+                <div class="recipe-list">
+                    <div class="recipe-scroll">
+                        <article class="recipe-item">
+                            <div class="recipe-item__bg"><img class="recipe-item__img" src="https://github.com/ricardoolivaalonso/Feinkoch/blob/master/public/img/dessert-1.jpg?raw=true" alt="Foto de receta"></div><span class="recipe-item__name">Vanille-Spargel, Bier-Granita &amp; Mandel-Crumble an Vanille-Eis</span>
+                            <div class="palette"><span class="palette__color" style="background-color:#FFA4A0"></span><span class="palette__color" style="background-color:#00B286"></span><span class="palette__color" style="background-color:#82C6D5"></span></div>
+                        </article>
+                        <article class="recipe-item">
+                            <div class="recipe-item__bg"><img class="recipe-item__img" src="https://github.com/ricardoolivaalonso/Feinkoch/blob/master/public/img/dessert-2.jpg?raw=true" alt="Foto de receta"></div><span class="recipe-item__name">Bibimbap mit Sushireis, Shiitake und Gochujang-Sauce</span>
+                            <div class="palette"><span class="palette__color" style="background-color:#FF826B"></span><span class="palette__color" style="background-color:#82C6D5"></span><span class="palette__color" style="background-color:#EE7E82"></span></div>
+                        </article>
+                        <article class="recipe-item">
+                            <div class="recipe-item__bg"><img class="recipe-item__img" src="https://github.com/ricardoolivaalonso/Feinkoch/blob/master/public/img/dessert-3.jpg?raw=true" alt="Foto de receta"></div><span class="recipe-item__name">Crispy Duck mit Miso-Pflaumen-Sauce</span>
+                            <div class="palette"><span class="palette__color" style="background-color:#aed9b7"></span><span class="palette__color" style="background-color:#f6bfba"></span><span class="palette__color" style="background-color:#f6bfba"></span></div>
+                        </article>
+                        <article class="recipe-item">
+                            <div class="recipe-item__bg"><img class="recipe-item__img" src="https://github.com/ricardoolivaalonso/Feinkoch/blob/master/public/img/dessert-4.jpg?raw=true" alt="Foto de receta"></div><span class="recipe-item__name">Mayonnaise by Mochi</span>
+                            <div class="palette"><span class="palette__color" style="background-color:#ffea5e"></span><span class="palette__color" style="background-color:#847659"></span><span class="palette__color" style="background-color:#847659"></span></div>
+                        </article>
+                    </div>
+                </div><a class="recipe__button button" href="#">Alle Rezepte    </a>
+            </section>*@
+    <section class="newsletter">
+        <div class="newsletter__item newsletter__item--100"><img class="newsletter__icon icon-n" src="https://github.com/ricardoolivaalonso/Feinkoch/blob/master/public/img/newsletter-1.png?raw=true" alt="icono de newsletter"><a class="newsletter__link" href="#">“Make your life the best adventure!”</a></div>
+
+        <div class="newsletter__form">
+            <img class="newsletter__icon icon-n" src="https://www.freepnglogos.com/uploads/email-logo-png-27.png" />
+            <input class="newsletter__input" type="text" placeholder="Put your email to contact us">
+            <button class="newsletter__button" type="submit">Connect with us</button>
+        </div>
+        <div class="newsletter__item">
+            <img class="newsletter__icon icon-n" src="https://pngimage.net/wp-content/uploads/2018/05/event-icon-png-9.png" />
+            <p class="newsletter__description">“There is a lot of adventures out there, waiting for us to live them!”</p>
+            <button class="newsletter__button" type="submit">Find event</button>
+        </div>
+
+    </section>
+    </main>
+
+
+</div>
+
