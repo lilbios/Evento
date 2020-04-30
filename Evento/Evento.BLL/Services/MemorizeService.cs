@@ -1,5 +1,6 @@
 ﻿using Evento.BLL.Interfaces;
 using Evento.DTO.Entities;
+using Evento.DTO.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -9,19 +10,37 @@ namespace Evento.BLL.Services
 {
     public class MemorizeService : IMemorizeService<Memorize>
     {
-        public Task AttachMemorizeToVisitedEvent(Memorize memorize, int subscriptionId)
+
+        private readonly IUnitOfWork _unitOfWork;
+        public MemorizeService(IUnitOfWork unitOfWork)
         {
-            throw new NotImplementedException();
+            _unitOfWork = unitOfWork;
+        }
+        public async Task AttachMemorizeToVisitedEvent(Memorize memorize, int subscriptionId)
+        {
+            Memorize _memorize = new Memorize();
+            _memorize.MemorizeComment = memorize.MemorizeComment;
+            _memorize.MemorizePhoto = memorize.MemorizePhoto;
+            _memorize.Title = memorize.Title;
+            _memorize.SubscriptionId = subscriptionId;
+           await _unitOfWork.Memorizes.Create(_memorize);
         }
 
-        public Task DeleteMemorize(int id)
+        public async Task DeleteMemorize(int id)
         {
-            throw new NotImplementedException();
+            await _unitOfWork.Memorizes.Delete(id);
         }
 
-        public Task Edit(int id)
+        public async Task Edit(int id, Memorize memorize)
         {
-            throw new NotImplementedException();
+            var _memorize = _unitOfWork.Memorizes.GetByID(id);
+            _memorize.Result.MemorizeComment = memorize.MemorizeComment;
+            _memorize.Result.MemorizePhoto = memorize.MemorizePhoto;
+            _memorize.Result.Title = memorize.Title;
+            _memorize.Result.SubscriptionId = memorize.SubscriptionId;
+            _unitOfWork.Memorizes.Update(_memorize.Result);
         }
+
+
     }
 }

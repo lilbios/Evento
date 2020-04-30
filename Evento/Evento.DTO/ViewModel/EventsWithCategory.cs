@@ -1,30 +1,30 @@
-﻿using System;
+﻿using Evento.DTO.Entities;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace Evento.DTO.Entities
+namespace Evento.DTO.ViewModel
 {
-    public class Event : Entity
+   public class EventsWithCategory
     {
-        [Required(ErrorMessage = "Required field")]
+        
         public string Title { get; set; }
 
-        [Required(ErrorMessage = "Required field")]
+      
         public DateTime DateStart { get; set; }
 
-        [Required(ErrorMessage = "Required field")]
+       
         public DateTime DateFinish { get; set; }
 
-        [Required(ErrorMessage = "Required field")]
+       
         public string Description { get; set; }
 
-        [Required]
+     
         public Location Location { get; set; }
 
         public int LocationId { get; set; }
 
-        [Required(ErrorMessage = "Required field")]
+      
         public Category Category { get; set; }
 
         public int CategoryId { get; set; }

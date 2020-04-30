@@ -1,6 +1,65 @@
 ﻿@model Evento.Web.Models.Accounts.RegisterViewModel
 
-<h2>Регистрация нового пользователя</h2>
+
+
+<div class="containerLog" id="container">
+    <div class="form-container sign-in-container">
+        <form method="post" asp-controller="Account" asp-action="Register">
+            <div asp-validation-summary="ModelOnly"></div>
+            <h1>Create Account</h1>
+            <div class="social-container">
+                <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+                <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+            <span>or use your email for registration</span>
+            <div>
+                <label asp-for="FirstName"></label><br />
+                <input asp-for="FirstName" />
+                <span asp-validation-for="FirstName"></span>
+            </div>
+            <div>
+                <label asp-for="LastName"></label><br />
+                <input asp-for="LastName" />
+                <span asp-validation-for="LastName"></span>
+            </div>
+            <div>
+                <label asp-for="DataOfBirth"></label><br />
+                <input asp-for="DataOfBirth" />
+                <span asp-validation-for="DataOfBirth"></span>
+            </div>
+            <div>
+                <label asp-for="Email"></label><br />
+                <input asp-for="Email" />
+                <span asp-validation-for="Email"></span>
+            </div>
+            <div>
+                <label asp-for="Password"></label><br />
+                <input asp-for="Password" />
+                <span asp-validation-for="Password"></span>
+            </div>
+            <div>
+                <label asp-for="PasswordConfirm"></label><br />
+                <input asp-for="PasswordConfirm" />
+                <span asp-validation-for="PasswordConfirm"></span>
+            </div>
+            <button>Sign Up</button>
+        </form>
+    </div>
+
+    <div class="overlay-container">
+        <div class="overlay">
+            <div class="overlay-panel overlay-right">
+                <h1>Welcome Back!</h1>
+                <p>To keep connected with us please login with your personal info</p>
+                <a href="/Account/Login" class="ghost" id="signIn">Sign In </a>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@*<h2>Регистрация нового пользователя</h2>
 
 <form method="post" asp-controller="Account" asp-action="Register">
     <div asp-validation-summary="ModelOnly"></div>
@@ -37,5 +96,5 @@
     <div>
         <input type="submit" value="Регистрация" />
     </div>
-</form>
+</form>*@
 

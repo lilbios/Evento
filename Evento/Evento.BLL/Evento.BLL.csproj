@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <Folder Include="Components\" />
+    <Folder Include="Third-part\" />
     <Folder Include="Processes\" />
   </ItemGroup>
 

@@ -9,7 +9,6 @@ namespace Evento.DTO.Entities
     {
         [Required]
         public string TagName { get; set; }
-        public Event Event { get; set; }
-        public int EventId { get; set; }
+        public ICollection<TagEvent> TagEvents { get; set; }
     }
 }

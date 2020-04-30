@@ -1,0 +1,41 @@
+﻿
+<link rel="stylesheet" href="~/css/BackUp.css" />
+
+
+
+
+<article class="wrapper">
+
+    <header>
+
+        <h1 class="pageTitle">Backup was successfully created</h1>
+        <h2 class="pageSubTitle">You can find it in </h2>
+        <h2 class="pageSubTitle">@ViewBag.Path</h2>
+    </header>
+    <section>
+
+
+        @using (Html.BeginForm("Index", "Home", FormMethod.Post, new { style = "margin: 3em" }))
+        {
+
+            <button class="button  button-block btn" type="submit">
+                Back to home
+            </button>
+        }
+
+
+
+        <img src="https://images.unsplash.com/photo-1483736762161-1d107f3c78e1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=967&q=80" height="330em" />
+
+        }
+    </section>
+
+
+</article>
+
+
+
+
+
+
+

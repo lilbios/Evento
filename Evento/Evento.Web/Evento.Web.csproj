@@ -16,8 +16,13 @@
     </ItemGroup>
 
     <ItemGroup>
+        <ProjectReference Include="..\Evento.BLL\Evento.BLL.csproj" />
         <ProjectReference Include="..\Evento.DAL\Evento.DAL.csproj" />
         <ProjectReference Include="..\Evento.DTO\Evento.DTO.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Resources\" />
     </ItemGroup>
 
 </Project>

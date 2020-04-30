@@ -7,11 +7,32 @@ namespace Evento.BLL.Interfaces
 {
     public interface IEventService<T> where T : class
     {
-        public Task<ICollection<T>> GetAllEvents();
-        public Task<T> GetCurrentEvent(int id);
-        public Task CreateNewEvent(T newEvent);
-        public Task DeleteEvent(int id);
-        public Task EditEvent(int id);
+         Task<IEnumerable<T>> GetAllEvents();
+        Task AddEvent(T e);
+
+        Task EditEvent(object id, T e);
+
+        Task RemoveEvent(object id);
+
+        Task GetById(object id);
+
+        Task<IEnumerable<T>> GetEventByLocation(int id);
+
+        Task<IEnumerable<T>> GetEventByTitle(string search);
+
+        Task<IEnumerable<T>> GetEventByDateStart(string date);
+
+        Task<IEnumerable<T>> GetEventByDateStartAndLater(string date);
+
+        Task<IEnumerable<T>> GetStartedEvent();
+
+        Task<IEnumerable<T>> GetNotStartedEvent();
+
+        Task<IEnumerable<T>> GetStartedandNotFinishedEvent();
+
+        Task<IEnumerable<T>> GetNotFinishedEvent();
+
+        Task<IEnumerable<T>> GetFinishedEvent();
 
     }
 }

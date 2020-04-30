@@ -1,7 +1,9 @@
 ﻿using Evento.BLL.Interfaces;
 using Evento.DTO.Entities;
+using Evento.DTO.Repositories;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -9,24 +11,40 @@ namespace Evento.BLL.Services
 {
     public class CommentService : ICommentService<Comment>
     {
-        public Task AddNewComment(Comment comment)
+        private readonly IUnitOfWork unitOfWork;
+        public CommentService( IUnitOfWork _unitOfWork)
         {
-            throw new NotImplementedException();
+            unitOfWork = _unitOfWork;
+        }
+        public async Task AddNewComment(Comment comment)
+        {
+            Comment _comment = new Comment();
+            _comment.EventComment = comment.EventComment;
+           _comment.SubscriptionId = comment.SubscriptionId;
+           await unitOfWork.Comments.Create(comment);
         }
 
-        public Task DeleteComment(Comment comment)
+        public async Task DeleteComment(object id)
         {
-            throw new NotImplementedException();
+            var comment = unitOfWork.Comments.GetByID(id);
+            await unitOfWork.Comments.Delete(comment);
         }
 
-        public Task EditComment(Comment comment)
+        public async Task EditComment(object id,Comment comment)
         {
-            throw new NotImplementedException();
+          
+           var _comment = unitOfWork.Comments.GetByID(id);
+            _comment.Result.EventComment = comment.EventComment;
+             unitOfWork.Comments.Update(_comment.Result);
+        
         }
 
-        public Task<ICollection<Comment>> GetEventComments(int eventId)
+        public async Task<IEnumerable<Comment>> GetEventComments(int eventId)
         {
-            throw new NotImplementedException();
+            var eventList =  unitOfWork.Comments.GetByCondition(x =>x.Subscription.EventId == eventId).ToList();
+            return eventList;
         }
-    }
+
+       
+}
 }
