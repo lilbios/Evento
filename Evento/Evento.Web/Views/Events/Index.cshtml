@@ -1,5 +1,5 @@
 ﻿
-@model IEnumerable<Evento.Models.Entities.Event>
+@model ICollection<Evento.Models.Entities.Event>
     <link rel="stylesheet" href="~/css/Index.css" />
 <div class="container">
 
@@ -139,9 +139,6 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Location.City)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Category.CategoryPhoto)

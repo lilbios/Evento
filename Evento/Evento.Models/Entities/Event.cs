@@ -18,13 +18,22 @@ namespace Evento.Models.Entities
 
         [Required]
         public string Description { get; set; }
+        [Required]
+        public string City { get; set; }
 
         [Required]
-        public virtual Location Location { get; set; }
+        public string Country { get; set; }
 
-        public int LocationId { get; set; }
+        [Required]
+        public string Street { get; set; }
 
-        [Required(ErrorMessage = "Required field")]
+        [Required]
+        public double Latitute { get; set; }
+
+        [Required]
+        public double Longtitute { get; set; }
+
+        [Required]
         public virtual Category Category { get; set; }
 
         public int CategoryId { get; set; }

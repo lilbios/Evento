@@ -31,10 +31,9 @@ namespace Evento.DAL
 
         public DbSet<Comment> Comments { get; set; }
 
-        public DbSet<Location> Locations { get; set; }
-
         public DbSet<Category> Categories { get; set; }
 
         public DbSet<Tag> Tags { get; set; }
+        public DbSet<TagEvent> TagEvent { get; set; }
     }
 }

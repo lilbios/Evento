@@ -14,7 +14,6 @@ namespace Evento.DAL.Repositories
         private IRepository<Subscription> _subscriptions;
         private IRepository<Memorize> _memorizes;
         private IRepository<Comment> _comments;
-        private IRepository<Location> _locations;
         private IRepository<Category> _categories;
         private IRepository<Tag> _tags;
         private IRepository<TagEvent> _tagevents;
@@ -69,14 +68,7 @@ namespace Evento.DAL.Repositories
             }
         }
 
-        public IRepository<Location> Locations
-        {
-            get
-            {
-                return _locations ??
-                    (_locations = new Repository<Location>(_eventoDbContext));
-            }
-        }
+ 
 
         public IRepository<Category> Categories
         {

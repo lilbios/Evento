@@ -23,7 +23,6 @@ namespace Evento.Web
             services.AddTransient<IRepository<Category>, Repository<Category>>();
             services.AddTransient<IRepository<Event>, Repository<Event>>();
             services.AddTransient<IRepository<Tag>, Repository<Tag>>();
-            services.AddTransient<IRepository<Location>, Repository<Location>>();
             services.AddTransient<IRepository<Memorize>, Repository<Memorize>>();
             services.AddTransient<IRepository<Category>, Repository<Category>>();
             services.AddTransient<IRepository<Subscription>, Repository<Subscription>>();
@@ -34,7 +33,6 @@ namespace Evento.Web
             services.AddTransient<ISubscriptionService<Subscription>, SubscriptionService>();
             services.AddTransient<ICategoryService<Category>, CategoryService>();
             services.AddTransient<ICommentService<Comment>, CommentService>();
-            services.AddTransient<ILocationService<Location>, LocationService>();
             services.AddTransient<IMemorizeService<Memorize>, MemorizeService>();
 
 
