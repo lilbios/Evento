@@ -2,101 +2,165 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Evento.DTO.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 
 namespace Evento.Web.Controllers
 {
+    [Authorize]
     public class AdminController : Controller
     {
-        IConfiguration _configuration;
-        public AdminController(IConfiguration configuration)
+
+        private UserManager<User> userManager;
+        private IPasswordHasher<User> passwordHasher;
+        private IPasswordValidator<User> passwordValidator;
+        private IUserValidator<User> userValidator;
+
+        public AdminController(UserManager<User> usrMgr, IPasswordHasher<User> passwordHash, IPasswordValidator<User> passwordVal, IUserValidator<User> userValid)
         {
-            _configuration = configuration;
-        }
-        // GET: Admin
-        public ActionResult Index()
-        {
-            return View();
+            userManager = usrMgr;
+            passwordHasher = passwordHash;
+            passwordValidator = passwordVal;
+            userValidator = userValid;
         }
 
-        // GET: Admin/Details/5
-        public ActionResult Details(int id)
+        public IActionResult Index()
         {
-            return View();
+            return View(userManager.Users);
         }
 
-        // GET: Admin/Create
-        public ActionResult Create()
+        public ViewResult Create() => View();
+
+       
+
+        public async Task<IActionResult> Update(string id)
         {
-            return View();
+            User user = await userManager.FindByIdAsync(id);
+            if (user != null)
+                return View(user);
+            else
+                return RedirectToAction("Index");
         }
 
-        // POST: Admin/Create
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public async Task<IActionResult> Update(string id, string email, string password, int age, string country, string salary)
         {
-            try
+            User user = await userManager.FindByIdAsync(id);
+            if (user != null)
             {
-                // TODO: Add insert logic here
+                IdentityResult validEmail = null;
+                if (!string.IsNullOrEmpty(email))
+                {
+                    validEmail = await userValidator.ValidateAsync(userManager, user);
+                    if (validEmail.Succeeded)
+                        user.Email = email;
+                    else
+                        Errors(validEmail);
+                }
+                else
+                    ModelState.AddModelError("", "Email cannot be empty");
 
-                return RedirectToAction(nameof(Index));
+                IdentityResult validPass = null;
+                if (!string.IsNullOrEmpty(password))
+                {
+                    validPass = await passwordValidator.ValidateAsync(userManager, user, password);
+                    if (validPass.Succeeded)
+                        user.PasswordHash = passwordHasher.HashPassword(user, password);
+                    else
+                        Errors(validPass);
+                }
+                else
+                    ModelState.AddModelError("", "Password cannot be empty");
+
+
+
+              
+
+
+                if (validEmail != null && validPass != null && validEmail.Succeeded && validPass.Succeeded && !string.IsNullOrEmpty(salary))
+                {
+                    IdentityResult result = await userManager.UpdateAsync(user);
+                    if (result.Succeeded)
+                        return RedirectToAction("Index");
+                    else
+                        Errors(result);
+                }
             }
-            catch
-            {
-                return View();
-            }
+            else
+                ModelState.AddModelError("", "User Not Found");
+
+            return View(user);
         }
 
-        // GET: Admin/Edit/5
-        public ActionResult Edit(int id)
+
+        void Errors(IdentityResult result)
         {
-            return View();
+            foreach (IdentityError error in result.Errors)
+                ModelState.AddModelError("", error.Description);
         }
 
-        // POST: Admin/Edit/5
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public async Task<IActionResult> Delete(string id)
         {
-            try
+            User user = await userManager.FindByIdAsync(id);
+            if (user != null)
             {
-                // TODO: Add update logic here
-
-                return RedirectToAction(nameof(Index));
+                IdentityResult result = await userManager.DeleteAsync(user);
+                if (result.Succeeded)
+                    return RedirectToAction("Index");
+                else
+                    Errors(result);
             }
-            catch
-            {
-                return View();
-            }
+            else
+                ModelState.AddModelError("", "User Not Found");
+            return View("Index", userManager.Users);
         }
-
-        // GET: Admin/Delete/5
-        public ActionResult Delete(int id)
+        public async Task<ActionResult> Back()
         {
+            DateTime d = DateTime.Now;
+            string dd = d.Day + "-" + d.Month + "-" + d.Hour;
+
+            string aaa = @"Server=DESKTOP-AGJ5FF3\SQLEXPRESS;Initial Catalog=ComeTogetherDB;Persist Security Info=False;User ID=User;Password=User;MultipleActiveResultSets=True;Encrypt=False;TrustServerCertificate=False;";
+            SqlConnection con = new SqlConnection(aaa);
+            //con.ConnectionString = ConfigurationManager.ConnectionStrings["BackupCatalogDBSoft.Properties.Settings."+dbname+"ConnectionString"].ToString();
+
+            con.Open();
+            string str = "USE " + "BranchDB" + ";";
+            string str1 = "BACKUP DATABASE " + "ComeTogetherDb" +
+                " TO DISK = 'E:\\" + "ComeTogetherDB" + "_" + dd +
+                ".Bak' WITH FORMAT,MEDIANAME = 'Z_SQLServerBackups',NAME = 'Full Backup of " + "BranchDB" + "';";
+            ViewBag.Path = "E:\\" + "ComeTogetherDB" + "_" + dd + ".Bak";
+            SqlCommand cmd1 = new SqlCommand(str, con);
+            SqlCommand cmd2 = new SqlCommand(str1, con);
+            cmd1.ExecuteNonQuery();
+            cmd2.ExecuteNonQuery();
+
+            con.Close();
             return View();
-        }
 
-        // POST: Admin/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        }
+        public ActionResult OtherAction()
         {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            return View(GetData("OtherAction"));
         }
 
+        private Dictionary<string, object> GetData(string actionName)
+        {
+            Dictionary<string, object> dict = new Dictionary<string, object>();
+
+            dict.Add("Action", actionName);
+            dict.Add("Пользователь", HttpContext.User.Identity.Name);
+            dict.Add("Аутентифицирован?", HttpContext.User.Identity.IsAuthenticated);
+            dict.Add("Тип аутентификации", HttpContext.User.Identity.AuthenticationType);
+            dict.Add("В роли Users?", HttpContext.User.IsInRole("Users"));
+
+            return dict;
+        }
 
     }
 }

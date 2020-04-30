@@ -16,9 +16,9 @@ namespace Evento.Web.Controllers
         {
             _eventService = eventService;
         }
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
-            var events = _eventService.GetAllEvents();
+            var events = await _eventService.GetAllEvents();
             return View(events);
         }
 

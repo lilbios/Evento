@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -8,6 +10,7 @@ namespace Evento.Web.Models.Accounts
 {
     public class RegisterViewModel
     {
+       
         [Required(ErrorMessage = "Required field")]
         [Display(Name = "First Name")]
         public string FirstName { get; set; }
