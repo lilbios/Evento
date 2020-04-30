@@ -38,6 +38,10 @@ namespace Evento.Web
                 .AddEntityFrameworkStores<EventoDbContext>();
 
             services.RegisterEventoServices(Configuration);
+<<<<<<< HEAD
+=======
+           
+>>>>>>> 35cc34ddd24f28f07ed33ea75588dbb36077d071
             services.Configure<IdentityOptions>(options =>
             {
                 // Password settings.

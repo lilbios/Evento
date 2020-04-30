@@ -23,8 +23,7 @@ namespace Evento.Web
             services.AddTransient<IRepository<Category>, Repository<Category>>();
             services.AddTransient<IRepository<Event>, Repository<Event>>();
 
-            services.AddTransient<IEventService<Event>, EventService>();
-
+          
 
             return services;
         }
