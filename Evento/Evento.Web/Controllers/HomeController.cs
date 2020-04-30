@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Evento.Web.Models;
 using Evento.BLL.Interfaces;
-using Evento.DTO.Entities;
+using Evento.Models.Entities;
 
 namespace Evento.Web.Controllers
 {
