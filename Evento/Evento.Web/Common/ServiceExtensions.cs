@@ -1,7 +1,6 @@
 ﻿using Evento.BLL.Interfaces;
 using Evento.BLL.Services;
 using Evento.DAL.Repositories;
-
 using Evento.Models.Entities;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
