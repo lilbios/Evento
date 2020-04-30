@@ -22,7 +22,7 @@ namespace Evento.DAL.Repositories
             this.eventoDbSet = repositoryContext.Set<TEntity>();
         }
 
-        public  async Task<IEnumerable<TEntity>> GetAll()
+        public async Task<IEnumerable<TEntity>> GetAll()
         {
             var result = await eventoDbSet.ToListAsync();
 
@@ -31,7 +31,7 @@ namespace Evento.DAL.Repositories
 
         public async Task<IEnumerable<TEntity>> GetByCondition(Expression<Func<TEntity, bool>> expression)
         {
-            return  await Task.Run(()=>eventoDbSet.Where(expression));
+            return await Task.Run(() => eventoDbSet.Where(expression));
         }
 
         public async Task Create(TEntity entity)
@@ -56,10 +56,11 @@ namespace Evento.DAL.Repositories
             await repositoryContext.SaveChangesAsync();
         }
 
-        public async Task Delete(object id) 
+        public async Task Delete(object id)
         {
             TEntity entityToDelete = await eventoDbSet.FindAsync(id);
-           await Delete(entityToDelete);
+            await Delete(entityToDelete);
+            await repositoryContext.SaveChangesAsync();
         }
 
         public async Task<TEntity> GetByID(object id)
@@ -69,6 +70,12 @@ namespace Evento.DAL.Repositories
             return result;
         }
 
-      
+        public async Task<IQueryable<TEntity>> GetAllLazyLoad(Expression<Func<TEntity, bool>> filter,
+            params Expression<Func<TEntity, object>>[] children)
+        {
+            await Task.Run(() => children.ToList().ForEach(x => eventoDbSet.Include(x).Load()));
+            return eventoDbSet;
+        }
+
     }
 }
