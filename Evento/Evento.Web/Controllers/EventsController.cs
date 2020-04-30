@@ -2,103 +2,165 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Evento.BLL.Interfaces;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
+using Evento.DAL;
 using Evento.Models.Entities;
 
 namespace Evento.Web.Controllers
 {
     public class EventsController : Controller
     {
-        private readonly IEventService<Event> _eventService;
-        public EventsController(IEventService<Event> eventService)
+        private readonly EventoDbContext _context;
+
+        public EventsController(EventoDbContext context)
         {
-            _eventService = eventService;
+            _context = context;
         }
-        public async Task<ActionResult> Index()
+
+        // GET: Events
+        public async Task<IActionResult> Index()
         {
-            var events = await _eventService.GetAllEvents();
-            return View(events);
+            var eventoDbContext = _context.Events.Include(s => s.Category).Include(s => s.Location);
+            return View(await eventoDbContext.ToListAsync());
         }
 
         // GET: Events/Details/5
-        public ActionResult Details(int id)
+        public async Task<IActionResult> Details(int? id)
         {
-            var eventForDetail = _eventService.GetById(id);
-            return View(eventForDetail);
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var _event = await _context.Events
+                .Include(s => s.Category)
+                .Include(s => s.Location)
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (_event == null)
+            {
+                return NotFound();
+            }
+
+            return View(_event);
         }
 
         // GET: Events/Create
-        public ActionResult Create()
+        public IActionResult Create()
         {
+            ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "CategoryPhoto");
+            ViewData["LocationId"] = new SelectList(_context.Locations, "Id", "City");
             return View();
         }
 
         // POST: Events/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Event create)
+        public async Task<IActionResult> Create([Bind("Title,DateStart,DateFinish,Description,LocationId,CategoryId,Id")] Event _event)
         {
-            try
+            if (ModelState.IsValid)
             {
-                
-                _eventService.AddEvent(create);
-
+                _context.Add(_event);
+                await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            catch
-            {
-                return View();
-            }
+            ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "CategoryPhoto", _event.CategoryId);
+            ViewData["LocationId"] = new SelectList(_context.Locations, "Id", "City", _event.LocationId);
+            return View(_event);
         }
 
         // GET: Events/Edit/5
-        public ActionResult Edit(int id)
+        public async Task<IActionResult> Edit(int? id)
         {
-            var edit = _eventService.GetById(id);
-            
-            return View(edit);
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var _event = await _context.Events.FindAsync(id);
+            if (_event == null)
+            {
+                return NotFound();
+            }
+            ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "CategoryPhoto", _event.CategoryId);
+            ViewData["LocationId"] = new SelectList(_context.Locations, "Id", "City", _event.LocationId);
+            return View(_event);
         }
 
         // POST: Events/Edit/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, Event edit)
+        public async Task<IActionResult> Edit(int id, [Bind("Title,DateStart,DateFinish,Description,LocationId,CategoryId,Id")] Event _event)
         {
-            try
+            if (id != _event.Id)
             {
-                _eventService.EditEvent(id, edit);
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(_event);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!EventExists(_event.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
                 return RedirectToAction(nameof(Index));
             }
-            catch
-            {
-                return View();
-            }
+            ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "CategoryPhoto", _event.CategoryId);
+            ViewData["LocationId"] = new SelectList(_context.Locations, "Id", "City", _event.LocationId);
+            return View(_event);
         }
 
         // GET: Events/Delete/5
-        public ActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int? id)
         {
-            var delete = _eventService.GetById(id);
-            return View(delete);
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var _event = await _context.Events
+                .Include(s => s.Category)
+                .Include(s => s.Location)
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (_event == null)
+            {
+                return NotFound();
+            }
+
+            return View(_event);
         }
 
         // POST: Events/Delete/5
-        [HttpPost]
+        [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            try
-            {
-                _eventService.RemoveEvent(id);
+            var _event = await _context.Events.FindAsync(id);
+            _context.Events.Remove(_event);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
 
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+        private bool EventExists(int id)
+        {
+            return _context.Events.Any(e => e.Id == id);
         }
     }
 }
