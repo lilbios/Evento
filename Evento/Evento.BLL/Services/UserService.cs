@@ -1,11 +1,10 @@
 ﻿using AutoMapper;
 using Evento.BLL.Interfaces;
-using Evento.Models.DTO;
 using Evento.Models.Entities;
 
 namespace Evento.BLL.Services
 {
-    public class UserService:IUserService<UserDTO>
+    public class UserService:IUserService<User>
     {
         private readonly IUnitOfWork unitOfWork;
         private readonly IMapper mapper;
