@@ -20,4 +20,8 @@
         <ProjectReference Include="..\Evento.BLL\Evento.BLL.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Resources\" />
+    </ItemGroup>
+
 </Project>

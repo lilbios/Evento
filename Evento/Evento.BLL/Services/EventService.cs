@@ -1,115 +1,115 @@
-﻿using AutoMapper;
-using Evento.BLL.Interfaces;
-using Evento.Models.DTO;
-using Evento.Models.Entities;
+﻿using Evento.BLL.Interfaces;
+using Evento.DTO.Entities;
+using Evento.DTO.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace Evento.BLL.Services
 {
     public class EventService : IEventService<Event>
     {
-        private readonly IUnitOfWork unitOfWork;
-        private readonly IMapper mapper;
-        public EventService(IUnitOfWork _unitOfWork, IMapper _mapper)
+        private readonly IUnitOfWork _unitOfWork;
+        public EventService(IUnitOfWork unitOfWork)
         {
-            unitOfWork = _unitOfWork;
-            mapper = _mapper;
+            _unitOfWork = unitOfWork;
         }
-        public async Task AddEvent(Event _event)
+        public async Task AddEvent(Event e)
         {
-            var newEvent = mapper.Map<Event>(_event);
-            await unitOfWork.Events.Create(newEvent);
+          await  _unitOfWork.Events.Create(e);
         }
-     
+        public async Task GetById(object id)
+        {
+            await _unitOfWork.Events.GetByID(id);
+        }
 
         public async Task RemoveEvent(object id)
         {
-            var eventForRemoving = await unitOfWork.Events.GetByID(id);
-            await unitOfWork.Events.Delete(eventForRemoving);
+            var eventForRemoving =await _unitOfWork.Events.GetByID(id);
+            _unitOfWork.Events.Delete(eventForRemoving);
         }
 
-        public async Task<ICollection<Event>> GetEventByLocation(int id)
+        public async Task<IEnumerable<Event>> GetEventByLocation(int id)
         {
-            var eventList = await unitOfWork.Events.GetByCondition(x => x.LocationId == id);
-            return eventList.ToList();
+            var eventList = _unitOfWork.Events.GetByCondition(x => x.LocationId == id);
+            return eventList;
         }
 
-        public async Task<ICollection<Event>> GetEventByTitle(string search)
+        public async Task<IEnumerable<Event>> GetEventByTitle(string search)
         {
-            var eventList = await unitOfWork.Events.GetByCondition(s => s.Title.Contains(search));
-            return eventList.OrderBy(s => s.Title).ToList();
+            var eventList =  _unitOfWork.Events.GetByCondition(s => s.Title.Contains(search)).OrderBy(s => s.Title);
+            return eventList;
         }
 
-        public async Task<ICollection<Event>> GetEventByDateStart(string date)
-        {
-            DateTime searchDate = DateTime.Parse(date);
-            var eventList = await unitOfWork.Events.GetByCondition(s => s.DateStart == searchDate);
-            return eventList.OrderBy(s => s.DateStart).ToList();
-        }
-
-        public async Task<ICollection<Event>> GetEventByDateStartAndLater(string date)
+        public async Task<IEnumerable<Event>> GetEventByDateStart(string date)
         {
             DateTime searchDate = DateTime.Parse(date);
-            var eventList = await unitOfWork.Events.GetByCondition(s => s.DateStart <= searchDate);
-            return eventList.OrderBy(s => s.DateStart).ToList();
+            var eventList =  _unitOfWork.Events.GetByCondition(s => s.DateStart == searchDate).OrderBy(s => s.DateStart);
+            return eventList;
         }
 
-        public async Task<ICollection<Event>> GetStartedEvent()
+        public async Task<IEnumerable<Event>> GetEventByDateStartAndLater(string date)
+        {
+            DateTime searchDate = DateTime.Parse(date);
+            var eventList =  _unitOfWork.Events.GetByCondition(s => s.DateStart <= searchDate).OrderBy(s => s.DateStart);
+            return eventList;
+        }
+
+        public async Task<IEnumerable<Event>> GetStartedEvent()
         {
             DateTime date = DateTime.Now;
-            var eventList = await unitOfWork.Events.GetByCondition(s => s.DateStart >= date);
-            return eventList.OrderBy(s => s.DateStart).ToList();
+            var eventList =  _unitOfWork.Events.GetByCondition(s => s.DateStart >= date).OrderBy(s => s.DateStart);
+            return eventList;
         }
 
-        public async Task<ICollection<Event>> GetNotStartedEvent()
+        public async Task<IEnumerable<Event>> GetNotStartedEvent()
         {
             DateTime date = DateTime.Now;
-            var eventList = await unitOfWork.Events.GetByCondition(s => s.DateStart < date);
-            return eventList.OrderBy(s => s.DateStart).ToList();
+            var eventList =  _unitOfWork.Events.GetByCondition(s => s.DateStart < date).OrderBy(s => s.DateStart);
+            return eventList;
         }
 
-        public async Task<ICollection<Event>> GetStartedandNotFinishedEvent()
+        public async Task<IEnumerable<Event>> GetStartedandNotFinishedEvent()
         {
             DateTime date = DateTime.Now;
-            var eventList = await unitOfWork.Events.GetByCondition(s => s.DateStart >= date && s.DateFinish < date);
-            return eventList.OrderBy(s => s.DateStart).ToList();
+            var eventList =  _unitOfWork.Events.GetByCondition(s => s.DateStart >= date && s.DateFinish < date).OrderBy(s => s.DateStart);
+            return eventList;
         }
-        public async Task<ICollection<Event>> GetNotFinishedEvent()
+        public async Task<IEnumerable<Event>> GetNotFinishedEvent()
         {
             DateTime date = DateTime.Now;
-            var eventList = await unitOfWork.Events.GetByCondition(s => s.DateFinish <= date);
-            return eventList.OrderBy(s => s.DateStart).ToList();
+            var eventList =  _unitOfWork.Events.GetByCondition(s => s.DateFinish <= date).OrderBy(s => s.DateStart);
+            return eventList;
         }
 
-        public async Task<ICollection<Event>> GetFinishedEvent()
+        public async Task<IEnumerable<Event>> GetFinishedEvent()
         {
             DateTime date = DateTime.Now;
-            var eventList = await unitOfWork.Events.GetByCondition(s => s.DateFinish > date);
-            return eventList.OrderBy(s => s.DateStart).ToList();
+            var eventList =  _unitOfWork.Events.GetByCondition(s => s.DateFinish > date).OrderBy(s => s.DateStart);
+            return  eventList;
         }
 
-        public async Task<ICollection<Event>> GetAllEvents()
+        public async Task<IEnumerable<Event>> GetAllEvents()
         {
-            var eventList = await unitOfWork.Events.GetAll();
-            return eventList.ToList();
+            var eventList =await _unitOfWork.Events.GetWithInclude(s=>s.Category);
+            return eventList;
         }
 
-        public async Task EditEvent(object id, Event _event)
+        public async Task EditEvent(object id, Event e)
         {
-
-            var eventForEditing = await unitOfWork.Events.GetByID(id);
-            eventForEditing = mapper.Map<Event>(_event);
-            await unitOfWork.Events.Update(eventForEditing);
-
-        }
-
-        public async Task<Event> GetById(int id)
-        {
-            var _event = await unitOfWork.Events.GetByID(id);
-            return _event;
+           
+                var eventForEditing = _unitOfWork.Events.GetByID(id);
+                eventForEditing.Result.LocationId = e.LocationId;
+                eventForEditing.Result.Title = e.Title;
+                eventForEditing.Result.CategoryId = e.CategoryId;
+                eventForEditing.Result.DateFinish = e.DateFinish;
+                eventForEditing.Result.DateStart = e.DateStart;
+                eventForEditing.Result.Description = e.Description;
+                eventForEditing.Result.Subscriptions = e.Subscriptions;
+                _unitOfWork.Events.Update(eventForEditing.Result);
+            
         }
     }
 }
