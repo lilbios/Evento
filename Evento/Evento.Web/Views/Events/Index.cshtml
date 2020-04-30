@@ -1,11 +1,7 @@
-<<<<<<< HEAD
 ﻿
 @model ICollection<Evento.Models.Entities.Event>
     <link rel="stylesheet" href="~/css/Index.css" />
 <div class="container">
-=======
-﻿@model IEnumerable<Evento.Models.Entities.Event>
->>>>>>> 35cc34ddd24f28f07ed33ea75588dbb36077d071
 
 @{
     ViewData["Title"] = "Index";
@@ -16,31 +12,7 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DateStart)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DateFinish)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Location)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Category)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
+
 @foreach (var item in Model) {
         <tr>
             <td>

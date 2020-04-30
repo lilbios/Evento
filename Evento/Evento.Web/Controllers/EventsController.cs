@@ -7,14 +7,15 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Evento.DAL;
 using Evento.Models.Entities;
+using Evento.BLL.Interfaces;
 
 namespace Evento.Web.Controllers
 {
     public class EventsController : Controller
     {
-        private readonly EventoDbContext _context;
+        private readonly  IEventService<Event>
 
-        public EventsController(EventoDbContext context)
+        public EventsController(IEventService<Event> _eventService)
         {
             _context = context;
         }

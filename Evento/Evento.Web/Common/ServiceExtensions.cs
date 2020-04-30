@@ -22,6 +22,9 @@ namespace Evento.Web
             services.AddTransient<IRepository<User>, Repository<User>>();
             services.AddTransient<IRepository<Category>, Repository<Category>>();
             services.AddTransient<IRepository<Event>, Repository<Event>>();
+            services.AddTransient<IRepository<Tag>, Repository<Tag>>();
+            services.AddTransient<IRepository<Location>, Repository<Location>>();
+
 
           
 
