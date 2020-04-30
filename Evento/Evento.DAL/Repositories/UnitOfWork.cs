@@ -1,5 +1,4 @@
-﻿
-using Evento.Models.Entities;
+﻿using Evento.Models.Entities;
 using System;
 using System.Collections.Generic;
 using System.Text;

@@ -1,10 +1,10 @@
-﻿using Evento.DTO.Repositories;
+﻿using Evento.Models.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
+
 using System.Threading.Tasks;
 
 namespace Evento.DAL.Repositories
@@ -78,6 +78,21 @@ namespace Evento.DAL.Repositories
             IQueryable<TEntity> query = eventoDbSet.AsNoTracking();
             return  includeProperties
                 .Aggregate(query, (current, includeProperty) => current.Include(includeProperty));
+        }
+
+        Task<IEnumerable<TEntity>> IRepository<TEntity>.GetByCondition(Expression<Func<TEntity, bool>> expression)
+        {
+            throw new NotImplementedException();
+        }
+
+        Task IRepository<TEntity>.Update(TEntity entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        Task IRepository<TEntity>.Delete(TEntity entity)
+        {
+            throw new NotImplementedException();
         }
     }
 }
