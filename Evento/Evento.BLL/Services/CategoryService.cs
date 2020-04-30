@@ -1,6 +1,5 @@
 ﻿using Evento.BLL.Interfaces;
 using AutoMapper;
-using Evento.Models.DTO;
 using Evento.Models.Entities;
 using System.Threading.Tasks;
 

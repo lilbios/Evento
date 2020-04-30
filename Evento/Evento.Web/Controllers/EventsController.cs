@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Evento.BLL.Interfaces;
-using Evento.DTO.Entities;
+using Evento.Models.Entities;
 
 namespace Evento.Web.Controllers
 {
