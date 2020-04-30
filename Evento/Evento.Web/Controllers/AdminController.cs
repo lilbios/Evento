@@ -137,7 +137,7 @@ namespace Evento.Web.Controllers
             ViewBag.Path = "E:\\" + "ComeTogetherDB" + "_" + dd + ".Bak";
             SqlCommand cmd1 = new SqlCommand(str, con);
             SqlCommand cmd2 = new SqlCommand(str1, con);
-            await cmd1.ExecuteNonQueryAsync():
+            await cmd1.ExecuteNonQueryAsync();
             await cmd2.ExecuteNonQueryAsync();
 
             con.Close();

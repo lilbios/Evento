@@ -10,22 +10,17 @@ namespace Evento.DAL
 {
     public class EventoDbContext : IdentityDbContext<User>
     {
-        private readonly string connectionString;
         public EventoDbContext(DbContextOptions<EventoDbContext> options)
           : base(options)
         {
-            var sqlServerOptionsExtension = options.FindExtension<SqlServerOptionsExtension>();
-            if (sqlServerOptionsExtension != null)
-            {
-                connectionString = sqlServerOptionsExtension.ConnectionString;
-            }
+           
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
 
             optionsBuilder
                 .UseLazyLoadingProxies()
-                .UseSqlServer(connectionString);
+                .UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Initial Catalog=eventodb;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
         }
 
         public DbSet<Event> Events { get; set; }
