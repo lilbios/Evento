@@ -12,9 +12,6 @@ namespace Evento.Web.Common
             //View models mapping
             CreateMap<RegisterViewModel, User>();
             CreateMap<EventViewModel, Event>();
-
-            
-
         }
     }
 }
