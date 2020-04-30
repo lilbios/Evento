@@ -27,7 +27,14 @@ namespace Evento.BLL.Accounts
                 throw new ArgumentNullException();
             }
 
-            User user = new User { Email = model.Email, UserName = model.Email, DataOfBirth = model.DataOfBirth };
+            User user = new User 
+            { 
+                FirstName = model.FirstName,
+                LastName = model.LastName,
+                Email = model.Email, 
+                UserName = model.Email,
+                DataOfBirth = model.DataOfBirth 
+            };
 
             var result = await userManager.CreateAsync(user, model.Password);
 
