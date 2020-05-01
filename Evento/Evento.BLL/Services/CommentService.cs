@@ -1,10 +1,8 @@
-﻿using Evento.BLL.Interfaces;
-using Evento.DTO.Entities;
-using Evento.DTO.Repositories;
-using System;
+﻿using AutoMapper;
+using Evento.BLL.Interfaces;
+using Evento.Models.Entities;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Evento.BLL.Services
@@ -12,37 +10,38 @@ namespace Evento.BLL.Services
     public class CommentService : ICommentService<Comment>
     {
         private readonly IUnitOfWork unitOfWork;
-        public CommentService( IUnitOfWork _unitOfWork)
+        private readonly IMapper mapper;
+        public CommentService( IUnitOfWork _unitOfWork,IMapper _mapper)
         {
             unitOfWork = _unitOfWork;
+            mapper = _mapper;
+
         }
-        public async Task AddNewComment(Comment comment)
+        public async Task AddNewComment(Comment _comment)
         {
-            Comment _comment = new Comment();
-            _comment.EventComment = comment.EventComment;
-           _comment.SubscriptionId = comment.SubscriptionId;
-           await unitOfWork.Comments.Create(comment);
+            var comment = mapper.Map<Comment>(_comment);
+            await unitOfWork.Comments.Create(comment);
         }
 
         public async Task DeleteComment(object id)
         {
-            var comment = unitOfWork.Comments.GetByID(id);
+            var comment = await unitOfWork.Comments.GetByID(id);
             await unitOfWork.Comments.Delete(comment);
         }
 
-        public async Task EditComment(object id,Comment comment)
+        public async Task EditComment(object id,Comment Comment)
         {
-          
-           var _comment = unitOfWork.Comments.GetByID(id);
-            _comment.Result.EventComment = comment.EventComment;
-             unitOfWork.Comments.Update(_comment.Result);
-        
+
+            var comment =await unitOfWork.Comments.GetByID(id);
+            comment = mapper.Map<Comment>(Comment);
+            await unitOfWork.Comments.Update(comment);
+
         }
 
-        public async Task<IEnumerable<Comment>> GetEventComments(int eventId)
+        public async Task<ICollection<Comment>> GetEventComments(int eventId)
         {
-            var eventList =  unitOfWork.Comments.GetByCondition(x =>x.Subscription.EventId == eventId).ToList();
-            return eventList;
+            var eventList = await unitOfWork.Comments.GetByCondition(x => x.Subscription.EventId == eventId);
+            return eventList.ToList();
         }
 
        

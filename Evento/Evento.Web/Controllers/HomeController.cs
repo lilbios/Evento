@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -7,9 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Evento.Web.Models;
 using Evento.BLL.Interfaces;
-using Evento.DTO.Entities;
-using Microsoft.Extensions.Localization;
-using Evento.Web.Resources;
+
+using Evento.Models.Entities;
 
 namespace Evento.Web.Controllers
 {

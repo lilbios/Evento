@@ -1,5 +1,5 @@
 ﻿
-@model IEnumerable<Evento.DTO.Entities.Event>
+@model IEnumerable<Evento.Models.Entities.Event>
     <link rel="stylesheet" href="~/css/Index.css" />
 <div class="container">
 
@@ -121,3 +121,39 @@
 
 </div>
 
+<<<<<<< HEAD
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateStart)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateFinish)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Location.City)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Category.CategoryPhoto)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+=======
+>>>>>>> 099b913956f2b6ed47c9862749b4c5df8612db05

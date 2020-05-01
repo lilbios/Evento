@@ -1,10 +1,10 @@
-﻿using Evento.DTO.Repositories;
+﻿using Evento.Models.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
+
 using System.Threading.Tasks;
 
 namespace Evento.DAL.Repositories
@@ -22,16 +22,16 @@ namespace Evento.DAL.Repositories
             this.eventoDbSet = repositoryContext.Set<TEntity>();
         }
 
-        public  async Task<IEnumerable<TEntity>> GetAll()
+        public async Task<IEnumerable<TEntity>> GetAll()
         {
             var result = await eventoDbSet.ToListAsync();
 
             return result;
         }
 
-        public IEnumerable<TEntity> GetByCondition(Expression<Func<TEntity, bool>> expression)
+        public async Task<IEnumerable<TEntity>> GetByCondition(Expression<Func<TEntity, bool>> expression)
         {
-            return eventoDbSet.Where(expression);
+            return await Task.Run(() => eventoDbSet.Where(expression));
         }
 
         public async Task Create(TEntity entity)
@@ -39,26 +39,28 @@ namespace Evento.DAL.Repositories
             await eventoDbSet.AddAsync(entity);
         }
 
-        public void Update(TEntity entity)
+        public async Task Update(TEntity entity)
         {
             eventoDbSet.Attach(entity);
             repositoryContext.Entry(entity).State = EntityState.Modified;
+            await repositoryContext.SaveChangesAsync();
         }
 
-        public void Delete(TEntity entity)
+        public async Task Delete(TEntity entity)
         {
             if (repositoryContext.Entry(entity).State == EntityState.Detached)
             {
                 eventoDbSet.Attach(entity);
             }
-
             eventoDbSet.Remove(entity);
+            await repositoryContext.SaveChangesAsync();
         }
 
         public async Task Delete(object id)
         {
             TEntity entityToDelete = await eventoDbSet.FindAsync(id);
-            Delete(entityToDelete);
+            await Delete(entityToDelete);
+            await repositoryContext.SaveChangesAsync();
         }
 
         public async Task<TEntity> GetByID(object id)
@@ -68,16 +70,12 @@ namespace Evento.DAL.Repositories
             return result;
         }
 
-        public async Task<IEnumerable<TEntity>> GetWithInclude(params Expression<Func<TEntity, object>>[] includeProperties)
+        public async Task<IQueryable<TEntity>> GetAllLazyLoad(Expression<Func<TEntity, bool>> filter,
+            params Expression<Func<TEntity, object>>[] children)
         {
-            return await Include(includeProperties);
+            await Task.Run(() => children.ToList().ForEach(x => eventoDbSet.Include(x).Load()));
+            return eventoDbSet;
         }
 
-        public async Task<IQueryable<TEntity>> Include(params Expression<Func<TEntity, object>>[] includeProperties)
-        {
-            IQueryable<TEntity> query = eventoDbSet.AsNoTracking();
-            return  includeProperties
-                .Aggregate(query, (current, includeProperty) => current.Include(includeProperty));
-        }
     }
 }

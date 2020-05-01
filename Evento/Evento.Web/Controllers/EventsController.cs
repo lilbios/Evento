@@ -2,103 +2,77 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
+using Evento.DAL;
+using Evento.Models.Entities;
 using Evento.BLL.Interfaces;
-using Evento.DTO.Entities;
+using Microsoft.AspNetCore.Http;
 
 namespace Evento.Web.Controllers
 {
     public class EventsController : Controller
     {
-        private readonly IEventService<Event> _eventService;
+        private readonly IEventService<Event> eventService;
+
         public EventsController(IEventService<Event> eventService)
         {
-            _eventService = eventService;
+            this.eventService = eventService;
         }
-        public async Task<ActionResult> Index()
+
+        // GET: Events
+        public async Task<IActionResult> Index()
         {
-            var events = await _eventService.GetAllEvents();
+            var events = await eventService.GetAllEvents();
             return View(events);
         }
 
         // GET: Events/Details/5
-        public ActionResult Details(int id)
+        public IActionResult Details(int? id)
         {
-            var eventForDetail = _eventService.GetById(id);
-            return View(eventForDetail);
+            return View();
         }
 
         // GET: Events/Create
-        public ActionResult Create()
+        public IActionResult Create()
         {
             return View();
         }
 
         // POST: Events/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Event create)
+        public IActionResult Create(IFormCollection formCollection)
         {
-            try
-            {
-                
-                _eventService.AddEvent(create);
-
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            return View();
         }
 
         // GET: Events/Edit/5
-        public ActionResult Edit(int id)
+        public IActionResult Edit(int id)
         {
-            var edit = _eventService.GetById(id);
-            
-            return View(edit);
+            return View();
         }
 
         // POST: Events/Edit/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, Event edit)
+        public IActionResult Edit()
         {
-            try
-            {
-                _eventService.EditEvent(id, edit);
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            return View();
         }
 
         // GET: Events/Delete/5
-        public ActionResult Delete(int id)
+        public IActionResult Delete(int? id)
         {
-            var delete = _eventService.GetById(id);
-            return View(delete);
+            return View();
         }
 
-        // POST: Events/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                _eventService.RemoveEvent(id);
 
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
     }
 }
+

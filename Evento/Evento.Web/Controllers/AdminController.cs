@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Evento.DTO.Entities;
+using Evento.Models.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -137,8 +137,8 @@ namespace Evento.Web.Controllers
             ViewBag.Path = "E:\\" + "ComeTogetherDB" + "_" + dd + ".Bak";
             SqlCommand cmd1 = new SqlCommand(str, con);
             SqlCommand cmd2 = new SqlCommand(str1, con);
-            cmd1.ExecuteNonQuery();
-            cmd2.ExecuteNonQuery();
+            await cmd1.ExecuteNonQueryAsync();
+            await cmd2.ExecuteNonQueryAsync();
 
             con.Close();
             return View();

@@ -1,43 +1,37 @@
 ﻿using Evento.BLL.Interfaces;
-using Evento.DTO.Entities;
-using Evento.DTO.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using AutoMapper;
+using Evento.Models.Entities;
 using System.Threading.Tasks;
 
 namespace Evento.BLL.Services
 {
     public class CategoryService : ICategoryService<Category>
     {
-        private readonly IUnitOfWork _unitOfWork;
-        public CategoryService(IUnitOfWork unitOfWork)
+        private readonly IUnitOfWork unitOfWork;
+        private readonly IMapper mapper;
+        public CategoryService(IUnitOfWork _unitOfWork, IMapper _mapper)
         {
-            _unitOfWork = unitOfWork;
+            unitOfWork = _unitOfWork;
+            mapper = _mapper;
         }
-        public async Task AddCategory(Category category)
+
+        public async Task AddCategory(Category categoryDTO)
         {
-            Category _category = new Category();
-            _category.Title = category.Title;
-            _category.CategoryPhoto = category.CategoryPhoto;
-           await _unitOfWork.Categories.Create(_category);
+            var category = mapper.Map<Category>(categoryDTO);
+            await unitOfWork.Categories.Create(category);
         }
 
         public async Task DeleteCategory(int id)
         {
 
-            await _unitOfWork.Categories.Delete(id);
+            await unitOfWork.Categories.Delete(id);
         }
 
-        public async Task EditCategory(int id, Category category)
+        public async Task EditCategory(int id, Category categoryDTO)
         {
-            var _category = _unitOfWork.Categories.GetByID(id);
-            _category.Result.Title = category.Title;
-            if (category.CategoryPhoto != null)
-            {
-                _category.Result.CategoryPhoto = category.CategoryPhoto;
-            }
-           _unitOfWork.Categories.Update(_category.Result);
+            var category = await unitOfWork.Categories.GetByID(id);
+            category = mapper.Map<Category>(categoryDTO);
+            await unitOfWork.Categories.Update(category);
         }
     }
 }
