@@ -96,6 +96,7 @@ namespace Evento.BLL.Services
             var eventList = await _unitOfWork.Events.GetAll();
             return eventList.ToList();
         }
+      
 
         public async Task EditEvent(Event e)
         {

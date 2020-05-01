@@ -20,6 +20,7 @@ namespace Evento.Models.Entities
         IRepository<Category> Categories { get; }
 
         IRepository<Tag> Tags { get; }
+
         IRepository<TagEvent> TagEvents { get; }
 
     }
