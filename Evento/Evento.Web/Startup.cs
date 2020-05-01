@@ -25,18 +25,11 @@ namespace Evento.Web
     public class Startup
     {
         public Startup(IConfiguration configuration)
-        {            
-            var env = Environment.GetEnvironmentVariable("ÑRAWLER_ENV");
-
-            if (string.IsNullOrEmpty(env))
-            {
-                env = "Development";
-            }
-
+        {
             var builder = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-                .AddJsonFile($"appsettings.{env}.json", optional: true, reloadOnChange: true);
+                .AddJsonFile($"appsettings.Production.json", optional: true, reloadOnChange: true);
 
             var config = builder.Build();
             Configuration = config;
@@ -54,9 +47,7 @@ namespace Evento.Web
             {
                 opts.User.RequireUniqueEmail = true;
             })
-                .AddEntityFrameworkStores<EventoDbContext>();
-
-           
+                .AddEntityFrameworkStores<EventoDbContext>();          
 
             services.AddAuthentication()
                 .AddGoogle(options =>
@@ -92,6 +83,7 @@ namespace Evento.Web
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
