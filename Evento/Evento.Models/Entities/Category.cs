@@ -10,7 +10,7 @@ namespace Evento.Models.Entities
         [Required]
         public string Title { get; set; }
         [Required]
-        public string CategoryPhoto { get; set; }
+        public byte[] CategoryPhoto { get; set; }
 
         public virtual ICollection<Event> Events { get; set; }
     }

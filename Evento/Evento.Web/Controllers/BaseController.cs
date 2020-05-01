@@ -15,8 +15,7 @@ namespace Evento.Web.Controllers
     {
         private readonly IStringLocalizer<BaseController> _localizer;
 
-        public BaseController(IStringLocalizer<BaseController> localizer
-                 )
+        public BaseController(IStringLocalizer<BaseController> localizer)
         {
             _localizer = localizer;
          

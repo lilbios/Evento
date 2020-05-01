@@ -9,9 +9,11 @@ namespace Evento.BLL.Interfaces
 {
     public interface ICategoryService<T> where T : class
     {
-        public Task AddCategory(T category);
-        public Task DeleteCategory(int id);
-        public Task EditCategory(int id, T category);
+         Task AddCategory(T category);
+         Task DeleteCategory(int id);
+         Task EditCategory(int id, T category);
+
+        Task<ICollection<T>> GetAllCategories();
 
 
     }

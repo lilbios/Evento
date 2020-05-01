@@ -14,6 +14,7 @@ using Microsoft.Extensions.Localization;
 
 using Evento.Web.Models.Events;
 using AutoMapper;
+using System.IO;
 
 
 namespace Evento.Web.Controllers
@@ -21,17 +22,12 @@ namespace Evento.Web.Controllers
     public class EventsController : BaseController
     {
         private readonly IEventService<Event> eventService;
-
         private static readonly IStringLocalizer<BaseController> _localizer;
-
-      
-        
-           
-
         private readonly IMapper mapper;
-        public EventsController(IEventService<Event> eventService, IMapper mapper) : base(_localizer)
-
+        private ICategoryService<Category> caregoryService ;
+        public EventsController(IEventService<Event> eventService, ICategoryService<Category> caregoryService, IMapper mapper) : base(_localizer)
         {
+            this.caregoryService = caregoryService;
             this.eventService = eventService;
             this.mapper = mapper;
         }
@@ -64,9 +60,39 @@ namespace Evento.Web.Controllers
         {
             if (ModelState.IsValid)
             {
+
+               
+                   
+                       
+                       
+                        
+                  
+                
                 var newEvent = mapper.Map<Event>(viewModel);
+                if (Request.Form.Files.Count != 0)
+                {
+                    var img = Request.Form.Files[0];
+                    if (img.ContentType == "image/jpeg" || img.ContentType == "image/png"
+                         || img.ContentType == "image/tiff" || img.ContentType == "image/gif"
+                         || img.ContentType == "image/bmp")
+                    {
+                        using (var memoryStream = new MemoryStream())
+                        {
+                            await img.CopyToAsync(memoryStream);
+                            viewModel.Photo= memoryStream.ToArray();
+                        }
+
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("", "Uncorrect format file");
+                    }
+                }
                 await eventService.AddEvent(newEvent);
             }
+            var categories = await caregoryService.GetAllCategories();
+             ViewData["CategoryId"] = new SelectList(categories, "Id", "Title");
+         
             return View(viewModel);
         }
 

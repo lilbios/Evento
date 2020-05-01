@@ -35,7 +35,7 @@ namespace Evento.Models.Entities
 
         [Required]
         public virtual Category Category { get; set; }
-
+        public byte[] Photo { get; set; }
         public int CategoryId { get; set; }
 
         public virtual ICollection<Subscription> Subscriptions { get; set; }
