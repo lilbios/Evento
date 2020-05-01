@@ -9,20 +9,31 @@ using Evento.DAL;
 using Evento.Models.Entities;
 using Evento.BLL.Interfaces;
 using Microsoft.AspNetCore.Http;
+
 using Microsoft.Extensions.Localization;
+
+using Evento.Web.Models.Events;
+using AutoMapper;
+
 
 namespace Evento.Web.Controllers
 {
     public class EventsController : BaseController
     {
         private readonly IEventService<Event> eventService;
+
         private static readonly IStringLocalizer<BaseController> _localizer;
 
       
         
-            public EventsController(IEventService<Event> eventService) : base(_localizer)
+           
+
+        private readonly IMapper mapper;
+        public EventsController(IEventService<Event> eventService, IMapper mapper) : base(_localizer)
+
         {
             this.eventService = eventService;
+            this.mapper = mapper;
         }
 
         // GET: Events
@@ -32,16 +43,31 @@ namespace Evento.Web.Controllers
             return View(events);
         }
 
+
         // GET: Events/Details/5
-        public IActionResult Details(int? id)
+        [HttpGet]
+        public async Task<IActionResult> Details(int id)
         {
-            return View();
+            var selectedEvent = await eventService.GetById(id);
+
+            if (selectedEvent != null)
+            {
+                return View(selectedEvent);
+            }
+            return RedirectToAction(nameof(Index));
+
         }
 
         // GET: Events/Create
-        public IActionResult Create()
+        [HttpGet]
+        public async Task<IActionResult> CreateNewEvent(EventViewModel viewModel)
         {
-            return View();
+            if (ModelState.IsValid)
+            {
+                var newEvent = mapper.Map<Event>(viewModel);
+                await eventService.AddEvent(newEvent);
+            }
+            return View(viewModel);
         }
 
         // POST: Events/Create
@@ -49,15 +75,17 @@ namespace Evento.Web.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(IFormCollection formCollection)
+        public IActionResult Create()
         {
             return View();
         }
 
         // GET: Events/Edit/5
-        public IActionResult Edit(int id)
+        [HttpGet]
+        public async Task<IActionResult> Edit(int id)
         {
-            return View();
+            var exsistedEvent = await eventService.GetById(id);
+            return View(exsistedEvent);
         }
 
         // POST: Events/Edit/5
@@ -65,15 +93,30 @@ namespace Evento.Web.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit()
+        public async Task<IActionResult> Edit(EventViewModel viewModel)
         {
-            return View();
+            if (ModelState.IsValid)
+            {
+                var updatedEvent = mapper.Map<Event>(viewModel);
+                await eventService.EditEvent(updatedEvent);
+                return RedirectToAction(nameof(Index));
+            }
+            return View(viewModel);
+
         }
 
         // GET: Events/Delete/5
-        public IActionResult Delete(int? id)
+        [HttpPost]
+        public async Task<IActionResult> Delete(int id)
         {
-            return View();
+            await eventService.RemoveEvent(id);
+            return RedirectToAction(nameof(OrganizedEvents),new { userId = 1});
+        }
+        [HttpGet]
+        public async Task<IActionResult> OrganizedEvents(string userId) {
+
+            var usersOrganizedEvents = await eventService.GetUserCreatedEvents(userId);
+            return View(usersOrganizedEvents);
         }
 
 

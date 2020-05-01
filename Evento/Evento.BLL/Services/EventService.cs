@@ -31,9 +31,9 @@ namespace Evento.BLL.Services
             await _unitOfWork.Events.Delete(eventForRemoving);
         }
 
-        public async Task<ICollection<Event>> GetEventByLocation(int id)
+        public async Task<ICollection<Event>> GetEventByCity(string cityName)
         {
-            var eventList = await _unitOfWork.Events.GetByCondition(x => x.LocationId == id);
+            var eventList = await _unitOfWork.Events.GetByCondition(x => x.City.StartsWith(cityName));
             return eventList.ToList();
         }
 
@@ -98,11 +98,10 @@ namespace Evento.BLL.Services
         }
       
 
-        public async Task EditEvent(object id, Event e)
+        public async Task EditEvent(Event e)
         {
 
-            var eventForEditing = _unitOfWork.Events.GetByID(id);
-            eventForEditing.Result.LocationId = e.LocationId;
+            var eventForEditing = _unitOfWork.Events.GetByID(e.Id);
             eventForEditing.Result.Title = e.Title;
             eventForEditing.Result.CategoryId = e.CategoryId;
             eventForEditing.Result.DateFinish = e.DateFinish;
@@ -111,6 +110,14 @@ namespace Evento.BLL.Services
             eventForEditing.Result.Subscriptions = e.Subscriptions;
             await _unitOfWork.Events.Update(eventForEditing.Result);
 
+        }
+
+        public async Task<ICollection<Event>> GetUserCreatedEvents(string userId)
+        {
+            var user = await _unitOfWork.Users.GetByID(userId);
+            var subscriptionsOwner = await Task.Run(()=> user.Subscriptions.Where(s=> s.UserId == userId && s.IsOwner == true ));
+            return null;
+            
         }
     }
 }
