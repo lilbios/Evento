@@ -1,16 +1,25 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Evento.BLL;
 using Evento.DAL;
+
 using Evento.Models.Entities;
 using Evento.Web.Common;
+using Evento.Web.LanguageResources;
+
+using Evento.Web.SignalR;
+
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
+
+using Microsoft.AspNetCore.Localization;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -42,6 +51,7 @@ namespace Evento.Web
         {
             services.AddControllersWithViews();
             services.AddDbContext<EventoDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"), x => x.MigrationsAssembly("Evento.DAL")));
+
             services.AddAutoMapper(typeof(AutoMapperProfile));
             services.AddIdentity<User, IdentityRole>(opts =>
             {
@@ -68,6 +78,33 @@ namespace Evento.Web
                 options.Password.RequiredLength = 6;
                 options.Password.RequiredUniqueChars = 1;
             });
+
+            services.AddRazorPages();
+            services.AddSignalR();
+            services.AddSingleton<IUserIdProvider, CustomUserIdProvider>();
+
+            services.AddLocalization(options => options.ResourcesPath = "LanguageResources");
+            services.AddControllersWithViews()
+                .AddDataAnnotationsLocalization(options => {
+                    options.DataAnnotationLocalizerProvider = (type, factory) =>
+                        factory.Create(typeof(SharedResource));
+                })
+                .AddViewLocalization();
+
+            services.Configure<RequestLocalizationOptions>(options =>
+            {
+                var supportedCultures = new[]
+                {
+                    new CultureInfo("en"),
+                    new CultureInfo("uk")
+                   
+                };
+
+                options.DefaultRequestCulture = new RequestCulture("en");
+                options.SupportedCultures = supportedCultures;
+                options.SupportedUICultures = supportedCultures;
+            });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -84,6 +121,8 @@ namespace Evento.Web
                 app.UseHsts();
             }
 
+            app.UseRequestLocalization();
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
@@ -94,9 +133,12 @@ namespace Evento.Web
 
             app.UseEndpoints(endpoints =>
             {
+
+                endpoints.MapHub<ChatHub>("/chat");
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+                
             });
         }
     }

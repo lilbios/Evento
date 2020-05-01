@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -7,15 +7,22 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Evento.Web.Models;
 using Evento.BLL.Interfaces;
+
 using Evento.Models.Entities;
+using Microsoft.Extensions.Localization;
+
+using Evento.Web.LanguageResources;
 
 namespace Evento.Web.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
+        
         private readonly ILogger<HomeController> _logger;
         private readonly IEventService<Event> _eventService;
-        public HomeController(ILogger<HomeController> logger, IEventService<Event> eventService)
+        private static readonly IStringLocalizer<BaseController> _localizer;
+       
+        public HomeController(ILogger<HomeController> logger, IEventService<Event> eventService) : base(_localizer)
         {
             _logger = logger;
             _eventService = eventService;
@@ -28,6 +35,7 @@ namespace Evento.Web.Controllers
       
         public async Task<ActionResult> Index()
         {
+            
             var events =await _eventService.GetAllEvents();
             return View(events);
         }

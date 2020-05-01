@@ -10,7 +10,7 @@ namespace Evento.Models.Entities
 
         public virtual User User { get; set; }
 
-        public int UserId { get; set; }
+        public string UserId { get; set; }
 
         public virtual Event Event { get; set; }
 

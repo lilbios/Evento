@@ -24,10 +24,15 @@ namespace Evento.DAL
 
         public DbSet<Comment> Comments { get; set; }
 
-        public DbSet<Location> Locations { get; set; }
-
         public DbSet<Category> Categories { get; set; }
 
         public DbSet<Tag> Tags { get; set; }
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+
+            optionsBuilder
+                .UseLazyLoadingProxies()
+                .UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Initial Catalog=eventodb;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
+        }
     }
 }

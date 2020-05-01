@@ -17,12 +17,12 @@
                 <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
             </div>
             <span>or use your account</span>
-            <input type="email" placeholder="Email" asp-for="Email" />
+            <input class="login" type="email" placeholder="Email" asp-for="Email" />
             <span asp-validation-for="Email"></span>
-            <input type="password" placeholder="Password" asp-for="Password" />
+            <input class="login" type="password" placeholder="Password" asp-for="Password" />
             <span asp-validation-for="Password"></span>
             <label asp-for="RememberMe"></label>
-            <input asp-for="RememberMe" />
+            <input class="login" asp-for="RememberMe" />
             <a href="#">Forgot your password?</a>
             <button>Sign In</button>
         </form>

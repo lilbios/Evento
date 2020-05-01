@@ -6,14 +6,15 @@ using Evento.Models.Entities;
 using Evento.Web.Models.Users;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Localization;
 
 namespace Evento.Web.Controllers
 {
-    public class UsersController : Controller
+    public class UsersController : BaseController
     {
         UserManager<User> userManager;
-
-        public UsersController(UserManager<User> userManager)
+        private static readonly IStringLocalizer<BaseController> _localizer;
+        public UsersController(UserManager<User> userManager) : base(_localizer)
         {
             this.userManager = userManager;
         }

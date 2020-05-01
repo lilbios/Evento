@@ -9,19 +9,20 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Localization;
 
 namespace Evento.Web.Controllers
 {
     [Authorize]
-    public class AdminController : Controller
+    public class AdminController : BaseController
     {
 
         private UserManager<User> userManager;
         private IPasswordHasher<User> passwordHasher;
         private IPasswordValidator<User> passwordValidator;
         private IUserValidator<User> userValidator;
-
-        public AdminController(UserManager<User> usrMgr, IPasswordHasher<User> passwordHash, IPasswordValidator<User> passwordVal, IUserValidator<User> userValid)
+        private static readonly IStringLocalizer<BaseController> _localizer;
+        public AdminController(UserManager<User> usrMgr, IPasswordHasher<User> passwordHash, IPasswordValidator<User> passwordVal, IUserValidator<User> userValid) : base(_localizer)
         {
             userManager = usrMgr;
             passwordHasher = passwordHash;
