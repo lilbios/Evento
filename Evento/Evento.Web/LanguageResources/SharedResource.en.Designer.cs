@@ -8,7 +8,8 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Evento.Web.Resources {
+namespace Evento.Web.LanguageResources
+{
     using System;
     
     
@@ -39,7 +40,7 @@ namespace Evento.Web.Resources {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Evento.Web.Resources.SharedResource", typeof(SharedResource).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Evento.Web.LanguageResources.SharedResource", typeof(SharedResource).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

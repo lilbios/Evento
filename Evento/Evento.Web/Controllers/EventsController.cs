@@ -9,14 +9,18 @@ using Evento.DAL;
 using Evento.Models.Entities;
 using Evento.BLL.Interfaces;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Localization;
 
 namespace Evento.Web.Controllers
 {
-    public class EventsController : Controller
+    public class EventsController : BaseController
     {
         private readonly IEventService<Event> eventService;
+        private static readonly IStringLocalizer<BaseController> _localizer;
 
-        public EventsController(IEventService<Event> eventService)
+      
+        
+            public EventsController(IEventService<Event> eventService) : base(_localizer)
         {
             this.eventService = eventService;
         }

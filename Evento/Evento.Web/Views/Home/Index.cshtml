@@ -1,11 +1,18 @@
 ﻿@model ICollection<Evento.Models.Entities.Event>
+@using Microsoft.AspNetCore.Mvc.Localization
+
+@inject IViewLocalizer Localizer
+
+@inject IHtmlLocalizer<Evento.Web.LanguageResources.SharedResource> SharedLocalizer
 <link rel="stylesheet" href="~/css/Index.css" />
 <div class="background"></div>
 <div class="background-texture"></div>
 <header class="header">
     <div class="left-content">
-        <p class="stay-home">Stay Home!!</p>
-        <h1>Be a good party-goer</h1>
+        <p class="stay-home">  @Localizer["Stay"]</p>
+        
+       
+            <h1>Be a good party-goer</h1>
         <p></p>
         <p class="para">
             I wanna stay home today
@@ -211,9 +218,9 @@
             <h2 class="recipe__title">Actual Events</h2>
             <div class="palette-container">
                 @*@foreach (var item in Model)
-                {
-                    <div class="palette-item"> <span class="palette-item__bg" style="background-color:#eaeaea"> </span><span class="palette-item__name">@item.Category.Title</span></div>
-                }*@
+                    {
+                        <div class="palette-item"> <span class="palette-item__bg" style="background-color:#eaeaea"> </span><span class="palette-item__name">@item.Category.Title</span></div>
+                    }*@
 
             </div>
             <div class="recipe-list">

@@ -9,6 +9,9 @@ using Evento.Web.Models;
 using Evento.BLL.Interfaces;
 
 using Evento.Models.Entities;
+using Microsoft.Extensions.Localization;
+
+using Evento.Web.LanguageResources;
 
 namespace Evento.Web.Controllers
 {
@@ -17,9 +20,9 @@ namespace Evento.Web.Controllers
         
         private readonly ILogger<HomeController> _logger;
         private readonly IEventService<Event> _eventService;
-        private static readonly IStringLocalizer<BaseController> localizer;
-        private static readonly IStringLocalizer<SharedResource> sharedLocalizer;
-        public HomeController(ILogger<HomeController> logger, IEventService<Event> eventService) :base( localizer, sharedLocalizer)
+        private static readonly IStringLocalizer<BaseController> _localizer;
+       
+        public HomeController(ILogger<HomeController> logger, IEventService<Event> eventService) : base(_localizer)
         {
             _logger = logger;
             _eventService = eventService;
@@ -32,6 +35,7 @@ namespace Evento.Web.Controllers
       
         public async Task<ActionResult> Index()
         {
+            
             var events =await _eventService.GetAllEvents();
             return View(events);
         }
