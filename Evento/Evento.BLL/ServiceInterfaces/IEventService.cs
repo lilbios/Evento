@@ -11,13 +11,13 @@ namespace Evento.BLL.Interfaces
         Task<ICollection<T>> GetAllEvents();
         Task AddEvent(T e);
 
-        Task EditEvent(object id, T e);
+        Task EditEvent( T e);
 
         Task RemoveEvent(object id);
 
         Task<T> GetById(int id);
 
-        Task<ICollection<T>> GetEventByLocation(int id);
+        Task<ICollection<T>> GetEventByCity(string cityName);
 
         Task<ICollection<T>> GetEventByTitle(string search);
 
@@ -33,7 +33,8 @@ namespace Evento.BLL.Interfaces
 
         Task<ICollection<T>> GetNotFinishedEvent();
 
-        Task<ICollection<Event>> GetFinishedEvent();
+        Task<ICollection<T>> GetFinishedEvent();
+        Task<ICollection<T>> GetUserCreatedEvents(string userId);
 
     }
 }

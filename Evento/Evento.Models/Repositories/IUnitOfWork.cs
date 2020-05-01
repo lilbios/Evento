@@ -17,8 +17,6 @@ namespace Evento.Models.Entities
 
         IRepository<Comment> Comments { get; }
 
-        IRepository<Location> Locations { get; }
-
         IRepository<Category> Categories { get; }
 
         IRepository<Tag> Tags { get; }
