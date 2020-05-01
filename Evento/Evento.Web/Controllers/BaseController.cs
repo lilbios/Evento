@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
-using System.Threading.Tasks;
-using Evento.Web.Resources;
+using Evento.Web;
+using Evento.Web.LanguageResources;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
@@ -13,13 +14,18 @@ namespace Evento.Web.Controllers
     public class BaseController : Controller
     {
         private readonly IStringLocalizer<BaseController> _localizer;
-        private readonly IStringLocalizer<SharedResource> _sharedLocalizer;
-        public BaseController(IStringLocalizer<BaseController> localizer,
-                   IStringLocalizer<SharedResource> sharedLocalizer)
+
+        public BaseController(IStringLocalizer<BaseController> localizer
+                 )
         {
             _localizer = localizer;
-            _sharedLocalizer = sharedLocalizer;
+         
         }
+        public string GetCulture()
+        {
+            return $"CurrentCulture:{CultureInfo.CurrentCulture.Name}, CurrentUICulture:{CultureInfo.CurrentUICulture.Name}";
+        }
+        [HttpPost]
         public IActionResult SetLanguage(string culture, string returnUrl)
         {
             Response.Cookies.Append(
@@ -29,10 +35,6 @@ namespace Evento.Web.Controllers
             );
 
             return LocalRedirect(returnUrl);
-        }
-        public IActionResult Index()
-        {
-            return View();
         }
     }
 }

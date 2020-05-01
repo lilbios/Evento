@@ -6,15 +6,16 @@ using Evento.Models.Entities;
 using Evento.Web.Models.Roles;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Localization;
 
 namespace Evento.Web.Controllers
 {
-    public class RolesController : Controller
+    public class RolesController : BaseController
     {
         RoleManager<IdentityRole> roleManager;
         UserManager<User> userManager;
-
-        public RolesController(RoleManager<IdentityRole> roleManager, UserManager<User> userManager)
+        private static readonly IStringLocalizer<BaseController> _localizer;
+        public RolesController(RoleManager<IdentityRole> roleManager, UserManager<User> userManager) : base(_localizer)
         {
             this.roleManager = roleManager;
             this.userManager = userManager;

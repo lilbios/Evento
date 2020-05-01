@@ -9,6 +9,8 @@ using Evento.DAL;
 
 using Evento.Models.Entities;
 using Evento.Web.Common;
+using Evento.Web.LanguageResources;
+
 using Evento.Web.SignalR;
 
 using Microsoft.AspNetCore.Builder;
@@ -17,7 +19,7 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
 
 using Microsoft.AspNetCore.Localization;
-
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -64,7 +66,7 @@ namespace Evento.Web
             services.AddSignalR();
             services.AddSingleton<IUserIdProvider, CustomUserIdProvider>();
 
-            services.AddLocalization(options => options.ResourcesPath = "Resources");
+            services.AddLocalization(options => options.ResourcesPath = "LanguageResources");
             services.AddControllersWithViews()
                 .AddDataAnnotationsLocalization(options => {
                     options.DataAnnotationLocalizerProvider = (type, factory) =>
@@ -77,11 +79,11 @@ namespace Evento.Web
                 var supportedCultures = new[]
                 {
                     new CultureInfo("en"),
-                    new CultureInfo("uk"),
-                    new CultureInfo("ru")
+                    new CultureInfo("uk")
+                   
                 };
 
-                options.DefaultRequestCulture = new RequestCulture("ru");
+                options.DefaultRequestCulture = new RequestCulture("en");
                 options.SupportedCultures = supportedCultures;
                 options.SupportedUICultures = supportedCultures;
             });
@@ -117,7 +119,7 @@ namespace Evento.Web
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
-                endpoints.MapRazorPages();
+                
             });
         }
     }
