@@ -39,6 +39,7 @@ namespace Evento.Models.Entities
         public int CategoryId { get; set; }
 
         public virtual ICollection<Subscription> Subscriptions { get; set; }
+
         public virtual ICollection<TagEvent> TagEvents { get; set; }
     }
 }
