@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Authentication;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
@@ -20,5 +21,7 @@ namespace Evento.BLL.Accounts.DTO
         public bool RememberMe { get; set; }
 
         public string ReturnUrl { get; set; }
+
+        public IList<AuthenticationScheme> ExternalLogins { get; set; }
     }
 }

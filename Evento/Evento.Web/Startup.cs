@@ -15,14 +15,31 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.Authorization;
+using System.IO;
 
 namespace Evento.Web
 {
     public class Startup
     {
         public Startup(IConfiguration configuration)
-        {
-            Configuration = configuration;
+        {            
+            var env = Environment.GetEnvironmentVariable("ÑRAWLER_ENV");
+
+            if (string.IsNullOrEmpty(env))
+            {
+                env = "Development";
+            }
+
+            var builder = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+                .AddJsonFile($"appsettings.{env}.json", optional: true, reloadOnChange: true);
+
+            var config = builder.Build();
+            Configuration = config;
         }
 
         public IConfiguration Configuration { get; }
@@ -39,8 +56,17 @@ namespace Evento.Web
             })
                 .AddEntityFrameworkStores<EventoDbContext>();
 
-            services.RegisterEventoServices(Configuration);
            
+
+            services.AddAuthentication()
+                .AddGoogle(options =>
+                {
+                    options.ClientId = Configuration["ClientId"];
+                    options.ClientSecret = Configuration["ClientSecret"];
+                });
+
+            services.RegisterEventoServices(Configuration);
+
             services.Configure<IdentityOptions>(options =>
             {
                 // Password settings.

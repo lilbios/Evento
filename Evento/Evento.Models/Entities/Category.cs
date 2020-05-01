@@ -9,6 +9,7 @@ namespace Evento.Models.Entities
     {
         [Required]
         public string Title { get; set; }
+
         [Required]
         public string CategoryPhoto { get; set; }
 

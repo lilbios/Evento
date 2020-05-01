@@ -47,6 +47,8 @@ namespace Evento.BLL.Accounts
             return result.Errors.ToString();
         }
 
+
+
         public async Task<SignInResult> Login(LoginDTO model)
         {
             if (model == null)

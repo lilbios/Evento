@@ -13,6 +13,8 @@
 
     <ItemGroup>
         <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
+        <PackageReference Include="Microsoft.AspNetCore.Authentication.Facebook" Version="3.1.3" />
+        <PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="3.1.3" />
         <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.3" />
         <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.3" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.1.2" />
@@ -26,6 +28,18 @@
 
     <ItemGroup>
         <ProjectReference Include="..\Evento.BLL\Evento.BLL.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Update="appsettings.Development.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
+      <Content Update="appsettings.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
+      <Content Update="appsettings.Production.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
     </ItemGroup>
 
 </Project>

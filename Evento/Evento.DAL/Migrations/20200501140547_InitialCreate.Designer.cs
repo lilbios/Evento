@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Evento.DAL.Migrations
 {
     [DbContext(typeof(EventoDbContext))]
-    [Migration("20200430183134_Initial db")]
-    partial class Initialdb
+    [Migration("20200501140547_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -250,7 +250,6 @@ namespace Evento.DAL.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("FirstName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LastName")
