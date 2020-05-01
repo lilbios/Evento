@@ -3,89 +3,211 @@
 @{
     ViewData["Title"] = "CreateNewEvent";
 }
+    <link rel="stylesheet" href="~/css/Events.css" />
+@*<h1>CreateNewEvent</h1>
 
-<h1>CreateNewEvent</h1>
+    <h4>EventViewModel</h4>
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="CreateNewEvent">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Id" class="control-label"></label>
+                    <input asp-for="Id" class="form-control" />
+                    <span asp-validation-for="Id" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Title" class="control-label"></label>
+                    <input asp-for="Title" class="form-control" />
+                    <span asp-validation-for="Title" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="DateStart" class="control-label"></label>
+                    <input asp-for="DateStart" class="form-control" />
+                    <span asp-validation-for="DateStart" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="DateFinish" class="control-label"></label>
+                    <input asp-for="DateFinish" class="form-control" />
+                    <span asp-validation-for="DateFinish" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Description" class="control-label"></label>
+                    <input asp-for="Description" class="form-control" />
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="CategoryId" class="control-label"></label>
+                    <input asp-for="CategoryId" class="form-control" />
+                    <span asp-validation-for="CategoryId" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="City" class="control-label"></label>
+                    <input asp-for="City" type="hidden" class="form-control" />
+                    <span asp-validation-for="City" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Country" class="control-label"></label>
+                    <input asp-for="Country" type="hidden" class="form-control" />
+                    <span asp-validation-for="Country" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Street" class="control-label"></label>
+                    <input asp-for="Street" type="hidden" class="form-control" />
+                    <span asp-validation-for="Street" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Latitute" class="control-label"></label>
+                    <input asp-for="Latitute" type="hidden" class="form-control" />
+                    <span asp-validation-for="Latitute" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Longtitute" class="control-label"></label>
+                    <input asp-for="Longtitute" type="hidden" class="form-control" />
+                    <span asp-validation-for="Longtitute" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                </div>
+            </form>
 
-<h4>EventViewModel</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="CreateNewEvent">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Id" class="control-label"></label>
-                <input asp-for="Id" class="form-control" />
-                <span asp-validation-for="Id" class="text-danger"></span>
+            <div id="floating-panel">
+                <input id="latlng" type="text" value="40.714224,-73.961452">
+                <input id="submit" type="button" value="Reverse Geocode">
             </div>
-            <div class="form-group">
-                <label asp-for="Title" class="control-label"></label>
-                <input asp-for="Title" class="form-control" />
-                <span asp-validation-for="Title" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DateStart" class="control-label"></label>
-                <input asp-for="DateStart" class="form-control" />
-                <span asp-validation-for="DateStart" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DateFinish" class="control-label"></label>
-                <input asp-for="DateFinish" class="form-control" />
-                <span asp-validation-for="DateFinish" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Description" class="control-label"></label>
-                <input asp-for="Description" class="form-control" />
-                <span asp-validation-for="Description" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CategoryId" class="control-label"></label>
-                <input asp-for="CategoryId" class="form-control" />
-                <span asp-validation-for="CategoryId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="City" class="control-label"></label>
-                <input asp-for="City" type="hidden" class="form-control" />
-                <span asp-validation-for="City" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Country" class="control-label"></label>
-                <input asp-for="Country" type="hidden" class="form-control" />
-                <span asp-validation-for="Country" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Street" class="control-label"></label>
-                <input asp-for="Street" type="hidden" class="form-control" />
-                <span asp-validation-for="Street" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Latitute" class="control-label"></label>
-                <input asp-for="Latitute" type="hidden" class="form-control" />
-                <span asp-validation-for="Latitute" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Longtitute" class="control-label"></label>
-                <input asp-for="Longtitute" type="hidden" class="form-control" />
-                <span asp-validation-for="Longtitute" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
-
-        <div id="floating-panel">
-            <input id="latlng" type="text" value="40.714224,-73.961452">
-            <input id="submit" type="button" value="Reverse Geocode">
+            <div id="map"></div>
         </div>
-        <div id="map"></div>
     </div>
-</div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+    <div>
+        <a asp-action="Index">Back to List</a>
+    </div>*@
+
+
+
+
+
+
+
+
+
+@using (Html.BeginForm("CreateNewEvent", "Events", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+
+
+<article class="wrapper">
+    @ViewBag.Ok
+    <header>
+        <h1 class="pageTitle">Title</h1>
+
+        <div class="col-md-12">
+            @Html.EditorFor(model => model.Title, new
+       {
+           htmlAttributes = new
+           {
+               @class = "form-control"
+           }
+       })
+            @Html.ValidationMessageFor(model => model.Title, "", new
+       {
+           @class =
+ "text-danger"
+       })
+
+        </div>
+
+
+    </header>
+
+    <section>
+        <h2 class="pageSubTitle"> Category </h2>
+        <div class="form-group">
+
+            <select asp-for="CategoryId" class="form-control" asp-items="ViewBag.CategoryId"></select>
+        </div>
+
+    </section>
+    <section>
+        <h2 class="pageSubTitle"> Location </h2>
+
+        <div class="col-md-12">
+            @Html.EditorFor(model => model.Country, new
+       {
+           htmlAttributes = new
+           {
+               @class = "form-control",
+               @placeholder = "Country"
+
+           }
+
+       })
+            @Html.ValidationMessageFor(model => model.Country, "", new
+       {
+           @class =
+    "text-danger"
+       })
+
+        </div>
+        <div class="col-md-12">
+            @Html.EditorFor(model => model.City, new
+       {
+           htmlAttributes = new
+           {
+               @class = "form-control",
+               @placeholder = "City"
+
+           }
+
+       })
+            @Html.ValidationMessageFor(model => model.City, "", new
+       {
+           @class =
+    "text-danger"
+       })
+
+        </div>
+
+
+    </section>
+    <div align="center" class="mt-1">
+        <img src="~/images/users_icons/Путь_к_картинке" class="img" width="100%">
+    </div>
+    <div align="center">
+        <label id="profile-image">
+            <small>Upload</small>
+            <small>
+                <input type="file" id="fileinp" name="fileinp" hidden onchange="imgprev(this)" />
+                <i class="fa fa-camera" aria-hidden="true"></i>
+            </small>
+        </label>
+    </div>
+   
+</article>
+
+
+}
+<script type="text/javascript">
+    function imgprev(input) {
+        if (input.files[0]) {
+            var uploading = new FileReader();
+            var imgType = input.files[0].type;
+            if (imgType == "image/png" || imgType == "image/jpeg" || imgType == "image/gif" || imgType == "image/bmp") {
+                uploading.onload = function (displayImg) {
+                    $(".img").attr("src", displayImg.target.result)
+                }
+                uploading.readAsDataURL(input.files[0])
+            } else {
+
+            }
+        }
+    }
+</script>
+
+
 @section Scripts {
     <script async defer
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCCHJVhwLR43SEydzQrsFGrs4z8_7b5NZY&callback=initMap">
     </script>
-     <script src="~/js/googleMapAPI.js"> </script>
+    <script src="~/js/googleMapAPI.js"></script>
 }

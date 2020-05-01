@@ -2,6 +2,8 @@
 using AutoMapper;
 using Evento.Models.Entities;
 using System.Threading.Tasks;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Evento.BLL.Services
 {
@@ -32,6 +34,12 @@ namespace Evento.BLL.Services
             var category = await unitOfWork.Categories.GetByID(id);
             category = mapper.Map<Category>(categoryDTO);
             await unitOfWork.Categories.Update(category);
+        }
+
+        public async Task<ICollection<Category>> GetAllCategories()
+        {
+            var categoryList = await unitOfWork.Categories.GetAll();
+            return categoryList.ToList();
         }
     }
 }

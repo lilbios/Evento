@@ -1,4 +1,5 @@
-﻿using Evento.BLL.Interfaces;
+﻿using Evento.BLL.Accounts;
+using Evento.BLL.Interfaces;
 using Evento.BLL.Services;
 using Evento.DAL.Repositories;
 using Evento.Models.Entities;
@@ -19,6 +20,8 @@ namespace Evento.Web
             }
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<IAccountsService, AccountsService>();
+
             services.AddTransient<IRepository<User>, Repository<User>>();
             services.AddTransient<IRepository<Category>, Repository<Category>>();
             services.AddTransient<IRepository<Event>, Repository<Event>>();

@@ -4,14 +4,16 @@ using Evento.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Evento.DAL.Migrations
 {
     [DbContext(typeof(EventoDbContext))]
-    partial class EventoDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200501140547_InitialCreate")]
+    partial class InitialCreate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -26,9 +28,9 @@ namespace Evento.DAL.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<byte[]>("CategoryPhoto")
+                    b.Property<string>("CategoryPhoto")
                         .IsRequired()
-                        .HasColumnType("varbinary(max)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -75,14 +77,6 @@ namespace Evento.DAL.Migrations
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
 
-                    b.Property<string>("City")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Country")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<DateTime>("DateFinish")
                         .HasColumnType("datetime2");
 
@@ -93,18 +87,8 @@ namespace Evento.DAL.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double>("Latitute")
-                        .HasColumnType("float");
-
-                    b.Property<double>("Longtitute")
-                        .HasColumnType("float");
-
-                    b.Property<byte[]>("Photo")
-                        .HasColumnType("varbinary(max)");
-
-                    b.Property<string>("Street")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("LocationId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -114,7 +98,39 @@ namespace Evento.DAL.Migrations
 
                     b.HasIndex("CategoryId");
 
+                    b.HasIndex("LocationId");
+
                     b.ToTable("Events");
+                });
+
+            modelBuilder.Entity("Evento.Models.Entities.Location", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("City")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Country")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<float>("Latitute")
+                        .HasColumnType("real");
+
+                    b.Property<float>("Longtitute")
+                        .HasColumnType("real");
+
+                    b.Property<string>("Street")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Locations");
                 });
 
             modelBuilder.Entity("Evento.Models.Entities.Memorize", b =>
@@ -158,14 +174,17 @@ namespace Evento.DAL.Migrations
                     b.Property<bool>("IsOwner")
                         .HasColumnType("bit");
 
-                    b.Property<string>("UserId")
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId1")
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("EventId");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("UserId1");
 
                     b.ToTable("Subscriptions");
                 });
@@ -429,6 +448,12 @@ namespace Evento.DAL.Migrations
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("Evento.Models.Entities.Location", "Location")
+                        .WithMany("Events")
+                        .HasForeignKey("LocationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Evento.Models.Entities.Memorize", b =>
@@ -450,7 +475,7 @@ namespace Evento.DAL.Migrations
 
                     b.HasOne("Evento.Models.Entities.User", "User")
                         .WithMany("Subscriptions")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId1");
                 });
 
             modelBuilder.Entity("Evento.Models.Entities.TagEvent", b =>

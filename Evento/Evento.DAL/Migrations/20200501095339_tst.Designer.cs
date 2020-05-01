@@ -4,14 +4,16 @@ using Evento.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Evento.DAL.Migrations
 {
     [DbContext(typeof(EventoDbContext))]
-    partial class EventoDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200501095339_tst")]
+    partial class tst
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -26,9 +28,9 @@ namespace Evento.DAL.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<byte[]>("CategoryPhoto")
+                    b.Property<string>("CategoryPhoto")
                         .IsRequired()
-                        .HasColumnType("varbinary(max)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -98,9 +100,6 @@ namespace Evento.DAL.Migrations
 
                     b.Property<double>("Longtitute")
                         .HasColumnType("float");
-
-                    b.Property<byte[]>("Photo")
-                        .HasColumnType("varbinary(max)");
 
                     b.Property<string>("Street")
                         .IsRequired()
@@ -231,6 +230,7 @@ namespace Evento.DAL.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("FirstName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LastName")

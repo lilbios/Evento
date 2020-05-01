@@ -1,0 +1,69 @@
+﻿@model Evento.Web.Models.Events.EventViewModel
+
+@{
+    ViewData["Title"] = "CreateNewEvent";
+}
+<link rel="stylesheet" href="~/css/Events.css" />
+
+
+
+
+
+
+
+
+@using (Html.BeginForm("Edit", "Events", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+
+
+    <article class="wrapper">
+        @ViewBag.Ok
+        <header>
+            <h1 class="pageTitle">Title</h1>
+
+            <div class="col-md-12">
+                <h1 class="pageTitle"> @Html.TextBoxFor(x => x.Title, new { @class = "form-control" })</h1>
+
+            </div>
+
+
+        </header>
+
+        <section>
+            <h2 class="pageSubTitle"> Category </h2>
+            <div class="form-group">
+
+                <select asp-for="CategoryId" class="form-control" asp-items="ViewBag.CategoryId"></select>
+            </div>
+
+        </section>
+        <section>
+            <h2 class="pageSubTitle"> Location </h2>
+
+            <div class="col-md-12">
+                <h1 class="pageTitle"> @Html.TextBoxFor(x => x.Country, new { @class = "form-control" })</h1>
+                <h1 class="pageTitle"> @Html.TextBoxFor(x => x.City, new { @class = "form-control" })</h1>
+
+            </div>
+
+
+        </section>
+        <input type="file" name="ImageData" id="ImageData" style="margin:1.5em" />
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value=Create class="btn btn-default" />
+            </div>
+        </div>
+    </article>
+
+
+}
+
+
+
+@section Scripts {
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCCHJVhwLR43SEydzQrsFGrs4z8_7b5NZY&callback=initMap">
+    </script>
+    <script src="~/js/googleMapAPI.js"></script>
+}

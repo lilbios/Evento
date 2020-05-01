@@ -266,3 +266,5 @@ paket-files/
 *.exe
 /docs/log.txt
 /release_number.txt
+
+appsettings.Production.json
