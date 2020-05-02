@@ -33,12 +33,26 @@ namespace Evento.Web.Controllers
         }
 
         // GET: Events
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string sortOrder, string searchString)
         {
+            ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+
+            ViewData["CurrentFilter"] = searchString;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+               var eventsSearch = await eventService.GetEventByTitle(searchString);
+               
+                return View(eventsSearch);
+            }
             var events = await eventService.GetAllEvents();
             return View(events);
         }
+        
+           
 
+            
+         
+    
 
         // GET: Events/Details/5
         [HttpGet]

@@ -6,41 +6,85 @@
     <main class="main">
         <section class="recipe">
             <h2 class="recipe__title">Actual Events</h2>
-            @*<div class="palette-container">
-                @foreach (var item in Model)
-                {
-                    @foreach (var category in item.Category.Title)
-                    {
-                        <div class="palette-item"> <span class="palette-item__bg" style="background-color:#eaeaea"> </span><span class="palette-item__name">@category</span></div>
-                    }
-                }
+            <form asp-action="Index" method="get" defaultbutton="SubmitButton" runat="server">
+                <div id="container">
+                    <div class="mockup">
 
-            </div>*@
+                        <div class="outer-search">
+                            <div class="search-filter">
+                                <div class="search-container">
+                                    <i class="material-icons search-icon">search</i>
+                                    <input type="text" id="search" name="SearchString" placeholder="Search" value="@ViewData["currentFilter"]" />
+
+
+
+
+
+                                </div>
+
+
+
+                            </div>
+                            <div class="filter">
+
+                                <div class="pill active">Android</div>
+
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </form>
+            <a href="/Events/Index">
+                <button class="iconBtn" id="createProjectBtn">
+                    <div class="iconBtn__content">
+
+                        All events
+                    </div>
+                </button>
+            </a>
+
+
+
+
+            @*<div class="palette-container">
+            @foreach (var item in Model)
+            {
+                @foreach (var category in item.Category.Title)
+                {
+                    <div class="palette-item"> <span class="palette-item__bg" style="background-color:#eaeaea"> </span><span class="palette-item__name">@category</span></div>
+                }
+            }
+
+        </div>*@
             <div class="recipe-list">
                 <div class="recipe-scroll">
                     @foreach (var item in Model)
                     {
                         <article class="recipe-item">
-                            <div class="recipe-item__bg"><a href="@Url.Action("Details", "Events", new { id = item.Id }, null)">
+                            <div class="recipe-item__bg">
+                                <a href="@Url.Action("Details", "Events", new { id = item.Id }, null)">
 
-   @{ if (@item.Photo != null)
-       {
-           var base64 = Convert.ToBase64String(@item.Photo);
-           var imagesrc = string.Format("data:image/jpeg;base64,{0}", base64);
+                                    @{ if (@item.Photo != null)
+                                        {
+                                            var base64 = Convert.ToBase64String(@item.Photo);
+                                            var imagesrc = string.Format("data:image/jpeg;base64,{0}", base64);
 
-              <img src="@imagesrc" alt="" class="recipe-item__img"/>
-       }
-       else
-       {
+                                            <img src="@imagesrc" alt="" class="recipe-item__img" />
+                                        }
+                                        else
+                                        {
 
 
-    <img src="https://images.unsplash.com/photo-1572627614289-96a849461dd3?ixlib=rb-1.2.1&auto=format&fit=crop&w=675&q=80" alt="" class="recipe-item__img"/>
+                                            <img src="https://images.unsplash.com/photo-1572627614289-96a849461dd3?ixlib=rb-1.2.1&auto=format&fit=crop&w=675&q=80" alt="" class="recipe-item__img" />
 
-           }
-       }
+                                        }
+                                    }
 
-   
-</a></div><span class="recipe-item__name">@item.Title</span>
+
+                                </a>
+                            </div><span class="recipe-item__name">@item.Title</span>
                             <div class="palette"><span class="palette__color" style="background-color:#aed9b7"></span><span class="palette__color" style="background-color:#f98667"></span><span class="palette__color" style="background-color:#97d1ec"></span></div>
                         </article>
                     }

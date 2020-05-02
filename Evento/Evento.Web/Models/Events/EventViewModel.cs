@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Evento.Models.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -33,5 +34,6 @@ namespace Evento.Web.Models.Events
         public string[] Tags { get; set; }
 
          public byte[] Photo { get; set; }
+        
     }
 }
