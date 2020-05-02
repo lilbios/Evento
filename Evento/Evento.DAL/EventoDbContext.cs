@@ -13,7 +13,7 @@ namespace Evento.DAL
         public EventoDbContext(DbContextOptions<EventoDbContext> options)
           : base(options)
         {
-           
+
         }
 
         public DbSet<Event> Events { get; set; }

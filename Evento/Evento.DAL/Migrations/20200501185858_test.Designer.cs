@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Evento.DAL.Migrations
 {
     [DbContext(typeof(EventoDbContext))]
-    [Migration("20200501095339_tst")]
-    partial class tst
+    [Migration("20200501185858_test")]
+    partial class test
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -28,9 +28,9 @@ namespace Evento.DAL.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("CategoryPhoto")
+                    b.Property<byte[]>("CategoryPhoto")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("varbinary(max)");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -100,6 +100,9 @@ namespace Evento.DAL.Migrations
 
                     b.Property<double>("Longtitute")
                         .HasColumnType("float");
+
+                    b.Property<byte[]>("Photo")
+                        .HasColumnType("varbinary(max)");
 
                     b.Property<string>("Street")
                         .IsRequired()
@@ -230,7 +233,6 @@ namespace Evento.DAL.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("FirstName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LastName")

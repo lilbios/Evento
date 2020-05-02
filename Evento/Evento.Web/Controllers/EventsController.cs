@@ -33,12 +33,26 @@ namespace Evento.Web.Controllers
         }
 
         // GET: Events
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string sortOrder, string searchString)
         {
+            ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+
+            ViewData["CurrentFilter"] = searchString;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+               var eventsSearch = await eventService.GetEventByTitle(searchString);
+               
+                return View(eventsSearch);
+            }
             var events = await eventService.GetAllEvents();
             return View(events);
         }
+        
+           
 
+            
+         
+    
 
         // GET: Events/Details/5
         [HttpGet]
@@ -54,40 +68,42 @@ namespace Evento.Web.Controllers
 
         }
 
-        // GET: Events/Create
-        [HttpGet]
-        public async Task<IActionResult> CreateNewEvent(EventViewModel viewModel)
+        public async Task<IActionResult> CreateNewEvent()
+        {
+            var categories = await caregoryService.GetAllCategories();
+            ViewData["CategoryId"] = new SelectList(categories, "Id", "Title");
+            return View();
+        }
+
+       
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        
+        public async Task<IActionResult> CreateNewEvent(EventViewModel viewModel, IFormFile Image)
         {
             if (ModelState.IsValid)
             {
 
-               
-                   
-                       
-                       
-                        
-                  
-                
                 var newEvent = mapper.Map<Event>(viewModel);
-                if (Request.Form.Files.Count != 0)
+
+                if (Image != null)
+
                 {
-                    var img = Request.Form.Files[0];
-                    if (img.ContentType == "image/jpeg" || img.ContentType == "image/png"
-                         || img.ContentType == "image/tiff" || img.ContentType == "image/gif"
-                         || img.ContentType == "image/bmp")
+                    if (Image.Length > 0)                 
                     {
-                        using (var memoryStream = new MemoryStream())
+
+                        byte[] p1 = null;
+                        using (var fs1 = Image.OpenReadStream())
+                        using (var ms1 = new MemoryStream())
                         {
-                            await img.CopyToAsync(memoryStream);
-                            viewModel.Photo= memoryStream.ToArray();
+                            fs1.CopyTo(ms1);
+                            p1 = ms1.ToArray();
                         }
+                        newEvent.Photo = p1;
 
                     }
-                    else
-                    {
-                        ModelState.AddModelError("", "Uncorrect format file");
-                    }
                 }
+
                 await eventService.AddEvent(newEvent);
             }
             var categories = await caregoryService.GetAllCategories();
@@ -96,9 +112,6 @@ namespace Evento.Web.Controllers
             return View(viewModel);
         }
 
-        // POST: Events/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Create()

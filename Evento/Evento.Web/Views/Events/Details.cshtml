@@ -1,0 +1,220 @@
+﻿@model Evento.Models.Entities.Event
+
+@{
+    ViewData["Title"] = "CreateNewEvent";
+}
+<link rel="stylesheet" href="~/css/Events.css" />
+
+@using (Html.BeginForm("CreateNewEvent", "Events", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+
+
+<article class="wrapper">
+    @ViewBag.Ok
+    <header>
+        <h1 class="pageTitle">Title</h1>
+
+        <div class="col-md-12">
+            @Html.DisplayFor(model => model.Title, new
+       {
+           htmlAttributes = new
+           {
+               @class = "form-control"
+           }
+       })
+           
+      
+
+        </div>
+
+
+    </header>
+
+    <section>
+        <h2 class="pageSubTitle"> Category </h2>
+      
+
+            <div class="col-md-12">
+                @Html.DisplayFor(model => model.Category.Title, new
+           {
+               htmlAttributes = new
+               {
+                   @class = "form-control",
+                   @placeholder = "Country"
+
+               }
+
+           })
+
+
+            </div>
+
+        </section>
+        <section>
+            <h2 class="pageSubTitle"> Location </h2>
+
+            <div class="col-md-12">
+                <p>
+                    @Html.DisplayNameFor(model => model.DateStart):  @Html.DisplayFor(model => model.Country, new
+{
+htmlAttributes = new
+{
+@class = "form-control",
+@placeholder = "Country"
+
+}
+
+})
+</p>
+
+            </div>
+            <div class="col-md-12">
+                <p>
+                    @Html.DisplayNameFor(model => model.City):   @Html.DisplayFor(model => model.City, new
+{
+htmlAttributes = new
+{
+@class = "form-control",
+@placeholder = "City"
+
+}
+
+})
+</p>
+
+            </div>
+
+            <div class="col-md-12">
+                <p>
+                    @Html.DisplayNameFor(model => model.Street):   @Html.DisplayFor(model => model.Street, new
+{
+htmlAttributes = new
+{
+@class = "form-control",
+@placeholder = "City"
+
+}
+
+})
+</p>
+
+            </div>
+
+            <div class="col-md-12">
+                <p>
+                    @Html.DisplayNameFor(model => model.DateStart):  @Html.DisplayFor(model => model.Latitute, new
+{
+htmlAttributes = new
+{
+@class = "form-control",
+@placeholder = "City"
+
+}
+
+})
+                </p>
+               
+
+            </div>
+           
+            <div class="col-md-12">
+                <p>
+                    @Html.DisplayNameFor(model => model.Longtitute):  @Html.DisplayFor(model => model.Longtitute, new
+{
+htmlAttributes = new
+{
+@class = "form-control",
+@placeholder = "City"
+
+}
+
+})
+                </p>  
+
+            </div>
+
+        </section>
+        <section>
+            <h2 class="pageSubTitle"> Dates </h2>
+           
+            <div class="col-md-12">
+                <p>
+                    @Html.DisplayNameFor(model => model.DateStart):  @Html.DisplayFor(model => model.DateStart, new
+{
+htmlAttributes = new
+{
+@class = "form-control",
+@placeholder = "Country"
+
+}
+
+})
+                </p> 
+
+            </div>
+            
+            <div class="col-md-12">
+                <p>
+                    @Html.DisplayNameFor(model => model.DateFinish):   @Html.DisplayFor(model => model.DateFinish, new
+{
+htmlAttributes = new
+{
+@class = "form-control",
+@placeholder = "Country"
+
+}
+
+})
+                </p>
+               
+
+            </div>
+        </section>
+        <section>
+            <h2 class="pageSubTitle"> Description </h2>
+
+            <div class="col-md-12">
+                @Html.DisplayFor(model => model.Description, new
+           {
+               htmlAttributes = new
+               {
+                   @class = "form-control",
+                   @placeholder = "Country"
+
+               }
+
+           })
+
+            </div>
+        </section>
+
+        @{
+            if (@Model.Photo != null)
+            {
+                var base64 = Convert.ToBase64String(@Model.Photo);
+                var imagesrc = string.Format("data:image/jpeg;base64,{0}", base64);
+
+                <img src="@imagesrc" alt="" height="330em" />
+            }
+            else
+            {
+
+
+                <img src="~/Resource/thuan-pham-1Kj0OZiwLN8-unsplash.jpg" alt="" height="330em" />
+
+            }
+        }
+
+</article>
+
+
+}
+
+
+
+@section Scripts {
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCCHJVhwLR43SEydzQrsFGrs4z8_7b5NZY&callback=initMap">
+    </script>
+    <script src="~/js/googleMapAPI.js"></script>
+}

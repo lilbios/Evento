@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Evento.Models.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -29,7 +30,10 @@ namespace Evento.Web.Models.Events
         public double Latitute { get; set; }
 
         public double Longtitute { get; set; }
-        public byte[] Photo { get; set; }
+       
         public string[] Tags { get; set; }
+
+         public byte[] Photo { get; set; }
+        
     }
 }
