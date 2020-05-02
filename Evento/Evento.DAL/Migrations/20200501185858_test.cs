@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Evento.DAL.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class test : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -56,28 +56,11 @@ namespace Evento.DAL.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Title = table.Column<string>(nullable: false),
-                    CategoryPhoto = table.Column<string>(nullable: false)
+                    CategoryPhoto = table.Column<byte[]>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Categories", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Locations",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    City = table.Column<string>(nullable: false),
-                    Country = table.Column<string>(nullable: false),
-                    Street = table.Column<string>(nullable: false),
-                    Latitute = table.Column<float>(nullable: false),
-                    Longtitute = table.Column<float>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Locations", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -209,7 +192,12 @@ namespace Evento.DAL.Migrations
                     DateStart = table.Column<DateTime>(nullable: false),
                     DateFinish = table.Column<DateTime>(nullable: false),
                     Description = table.Column<string>(nullable: false),
-                    LocationId = table.Column<int>(nullable: false),
+                    City = table.Column<string>(nullable: false),
+                    Country = table.Column<string>(nullable: false),
+                    Street = table.Column<string>(nullable: false),
+                    Latitute = table.Column<double>(nullable: false),
+                    Longtitute = table.Column<double>(nullable: false),
+                    Photo = table.Column<byte[]>(nullable: true),
                     CategoryId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
@@ -221,12 +209,6 @@ namespace Evento.DAL.Migrations
                         principalTable: "Categories",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Events_Locations_LocationId",
-                        column: x => x.LocationId,
-                        principalTable: "Locations",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -236,8 +218,7 @@ namespace Evento.DAL.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     IsOwner = table.Column<bool>(nullable: false),
-                    UserId1 = table.Column<string>(nullable: true),
-                    UserId = table.Column<int>(nullable: false),
+                    UserId = table.Column<string>(nullable: true),
                     EventId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
@@ -250,8 +231,8 @@ namespace Evento.DAL.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Subscriptions_AspNetUsers_UserId1",
-                        column: x => x.UserId1,
+                        name: "FK_Subscriptions_AspNetUsers_UserId",
+                        column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -377,11 +358,6 @@ namespace Evento.DAL.Migrations
                 column: "CategoryId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Events_LocationId",
-                table: "Events",
-                column: "LocationId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Memorizes_SubscriptionId",
                 table: "Memorizes",
                 column: "SubscriptionId");
@@ -392,9 +368,9 @@ namespace Evento.DAL.Migrations
                 column: "EventId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Subscriptions_UserId1",
+                name: "IX_Subscriptions_UserId",
                 table: "Subscriptions",
-                column: "UserId1");
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_TagEvent_EventId",
@@ -450,9 +426,6 @@ namespace Evento.DAL.Migrations
 
             migrationBuilder.DropTable(
                 name: "Categories");
-
-            migrationBuilder.DropTable(
-                name: "Locations");
         }
     }
 }

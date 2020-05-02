@@ -18,6 +18,7 @@ namespace Evento.BLL.Services
         public async Task AddEvent(Event _event)
         {
             await _unitOfWork.Events.Create(_event);
+
         }
         public async Task<Event> GetById(int id)
         {

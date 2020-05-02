@@ -4,93 +4,6 @@
     ViewData["Title"] = "CreateNewEvent";
 }
     <link rel="stylesheet" href="~/css/Events.css" />
-@*<h1>CreateNewEvent</h1>
-
-    <h4>EventViewModel</h4>
-    <hr />
-    <div class="row">
-        <div class="col-md-4">
-            <form asp-action="CreateNewEvent">
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                <div class="form-group">
-                    <label asp-for="Id" class="control-label"></label>
-                    <input asp-for="Id" class="form-control" />
-                    <span asp-validation-for="Id" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Title" class="control-label"></label>
-                    <input asp-for="Title" class="form-control" />
-                    <span asp-validation-for="Title" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="DateStart" class="control-label"></label>
-                    <input asp-for="DateStart" class="form-control" />
-                    <span asp-validation-for="DateStart" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="DateFinish" class="control-label"></label>
-                    <input asp-for="DateFinish" class="form-control" />
-                    <span asp-validation-for="DateFinish" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Description" class="control-label"></label>
-                    <input asp-for="Description" class="form-control" />
-                    <span asp-validation-for="Description" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="CategoryId" class="control-label"></label>
-                    <input asp-for="CategoryId" class="form-control" />
-                    <span asp-validation-for="CategoryId" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="City" class="control-label"></label>
-                    <input asp-for="City" type="hidden" class="form-control" />
-                    <span asp-validation-for="City" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Country" class="control-label"></label>
-                    <input asp-for="Country" type="hidden" class="form-control" />
-                    <span asp-validation-for="Country" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Street" class="control-label"></label>
-                    <input asp-for="Street" type="hidden" class="form-control" />
-                    <span asp-validation-for="Street" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Latitute" class="control-label"></label>
-                    <input asp-for="Latitute" type="hidden" class="form-control" />
-                    <span asp-validation-for="Latitute" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Longtitute" class="control-label"></label>
-                    <input asp-for="Longtitute" type="hidden" class="form-control" />
-                    <span asp-validation-for="Longtitute" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <input type="submit" value="Create" class="btn btn-primary" />
-                </div>
-            </form>
-
-            <div id="floating-panel">
-                <input id="latlng" type="text" value="40.714224,-73.961452">
-                <input id="submit" type="button" value="Reverse Geocode">
-            </div>
-            <div id="map"></div>
-        </div>
-    </div>
-
-    <div>
-        <a asp-action="Index">Back to List</a>
-    </div>*@
-
-
-
-
-
-
-
-
 
 @using (Html.BeginForm("CreateNewEvent", "Events", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
@@ -168,7 +81,129 @@
 
         </div>
 
+        <div class="col-md-12">
+            @Html.EditorFor(model => model.Street, new
+       {
+           htmlAttributes = new
+           {
+               @class = "form-control",
+               @placeholder = "Street"
 
+           }
+
+       })
+            @Html.ValidationMessageFor(model => model.Street, "", new
+       {
+           @class =
+    "text-danger"
+       })
+
+        </div>
+
+        <div class="col-md-12">
+            @Html.EditorFor(model => model.Latitute, new
+       {
+           htmlAttributes = new
+           {
+               @class = "form-control",
+               @placeholder = "Latitute"
+
+           }
+
+       })
+            @Html.ValidationMessageFor(model => model.Latitute, "", new
+       {
+           @class =
+    "text-danger"
+       })
+
+        </div>
+
+        <div class="col-md-12">
+            @Html.EditorFor(model => model.Longtitute, new
+       {
+           htmlAttributes = new
+           {
+               @class = "form-control",
+               @placeholder = "Longtitute"
+
+           }
+
+       })
+            @Html.ValidationMessageFor(model => model.Longtitute, "", new
+       {
+           @class =
+    "text-danger"
+       })
+
+        </div>
+
+    </section>
+    <section>
+        <h2 class="pageSubTitle"> Dates </h2>
+
+        <div class="col-md-12">
+            <p>
+                @Html.DisplayNameFor(model => model.DateStart):
+                @Html.EditorFor(model => model.DateStart, new
+           {
+               htmlAttributes = new
+               {
+                   @class = "form-control",
+                   @placeholder = "DateStart"
+
+               }
+
+           })
+                @Html.ValidationMessageFor(model => model.DateStart, "", new
+           {
+               @class =
+        "text-danger"
+           })
+            </p>
+        </div>
+        <div class="col-md-12">
+            <p>
+                @Html.DisplayNameFor(model => model.DateStart):</p>
+                @Html.EditorFor(model => model.DateFinish, new
+           {
+               htmlAttributes = new
+               {
+                   @class = "form-control",
+                   @placeholder = "DateFinish"
+
+               }
+
+           })
+                @Html.ValidationMessageFor(model => model.DateFinish, "", new
+           {
+               @class =
+        "text-danger"
+           })
+
+        </div>
+    </section>
+    <section>
+        <h2 class="pageSubTitle"> Description </h2>
+
+        <div class="col-md-12">
+            @Html.EditorFor(model => model.Description, new
+       {
+           htmlAttributes = new
+           {
+               @class = "form-control",
+               @placeholder = "Country"
+
+           }
+
+       })
+            @Html.ValidationMessageFor(model => model.Description, "", new
+       {
+           @class =
+    "text-danger"
+       })
+
+        </div>
     </section>
     <div align="center" class="mt-1">
         <img src="~/images/users_icons/Путь_к_картинке" class="img" width="100%">
@@ -177,12 +212,17 @@
         <label id="profile-image">
             <small>Upload</small>
             <small>
-                <input type="file" id="fileinp" name="fileinp" hidden onchange="imgprev(this)" />
+                <input type="file" name="Image" id="Imageinput" id="fileinp" name="fileinp" hidden onchange="imgprev(this)">
+                
                 <i class="fa fa-camera" aria-hidden="true"></i>
             </small>
         </label>
     </div>
-   
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Create" class="btn btn-default" />
+        </div>
+    </div>
 </article>
 
 

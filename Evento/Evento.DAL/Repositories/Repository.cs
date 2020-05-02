@@ -37,6 +37,7 @@ namespace Evento.DAL.Repositories
         public async Task Create(TEntity entity)
         {
             await eventoDbSet.AddAsync(entity);
+            await repositoryContext.SaveChangesAsync();
         }
 
         public async Task Update(TEntity entity)
