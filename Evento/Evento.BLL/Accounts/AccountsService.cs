@@ -1,8 +1,12 @@
 ﻿using Evento.BLL.Accounts.DTO;
 using Evento.Models.Entities;
 using Microsoft.AspNetCore.Identity;
+using MimeKit;
 using System;
 using System.Collections.Generic;
+using System.Net;
+using System.Net.Mail;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -20,40 +24,39 @@ namespace Evento.BLL.Accounts
             this.signInManager = signInManager;
         }
 
-        public async Task<string> Register(RegisterDTO model)
+        public async Task<IdentityResult> Register(RegisterDTO model)
         {
             if (model == null)
             {
                 throw new ArgumentNullException();
             }
 
-            User user = new User 
-            { 
+            User user = new User
+            {
                 FirstName = model.FirstName,
                 LastName = model.LastName,
-                Email = model.Email, 
+                Email = model.Email,
                 UserName = model.Email,
-                DataOfBirth = model.DataOfBirth 
+                DataOfBirth = model.DataOfBirth
             };
 
             var result = await userManager.CreateAsync(user, model.Password);
 
-            if (result.Succeeded)
-            {
-                await signInManager.SignInAsync(user, false);
-                return "Ok";
-            }
-
-            return result.Errors.ToString();
+            return result;
         }
-
-
 
         public async Task<SignInResult> Login(LoginDTO model)
         {
             if (model == null)
             {
                 throw new ArgumentNullException();
+            }
+
+            var user = await userManager.FindByEmailAsync(model.Email);
+
+            if (!await userManager.IsEmailConfirmedAsync(user))
+            {
+                return null;
             }
 
             var result = await
