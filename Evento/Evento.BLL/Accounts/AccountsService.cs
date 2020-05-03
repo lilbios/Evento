@@ -54,11 +54,6 @@ namespace Evento.BLL.Accounts
 
             var user = await userManager.FindByEmailAsync(model.Email);
 
-            if (!await userManager.IsEmailConfirmedAsync(user))
-            {
-                return null;
-            }
-
             var result = await
                     signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
 

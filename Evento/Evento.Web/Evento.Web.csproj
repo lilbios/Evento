@@ -59,13 +59,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Content Update="appsettings.Productions.Development.json">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </Content>
       <Content Update="appsettings.Production.json">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </Content>
-      <Content Update="appsettings.Production.Development.json">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </Content>
       <Content Update="appsettings.Production.json">
