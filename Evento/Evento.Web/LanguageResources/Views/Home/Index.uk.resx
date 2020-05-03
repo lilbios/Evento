@@ -117,6 +117,34 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Actual" xml:space="preserve">
+    <value>Актуальні події</value>
+  </data>
+  <data name="AllEvents" xml:space="preserve">
+    <value>Усі події</value>
+  </data>
+  <data name="Connect" xml:space="preserve">
+    <value>Зв'яжіться з нами</value>
+  </data>
+  <data name="MainQuote" xml:space="preserve">
+    <value>Хочу залишитися вдома
+</value>
+  </data>
+  <data name="Online" xml:space="preserve">
+    <value>Онлайн події</value>
+  </data>
+  <data name="Party" xml:space="preserve">
+    <value>Відпочивай правильно</value>
+  </data>
+  <data name="Quoute" xml:space="preserve">
+    <value>"Там багато пригод, які чекають, коли ми їх проживемо!"</value>
+  </data>
+  <data name="QuouteFooter" xml:space="preserve">
+    <value>"Зробіть своє життя найкращою пригодою!"</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Знайти</value>
+  </data>
   <data name="Stay" xml:space="preserve">
     <value>Залишайтесь вдома</value>
   </data>

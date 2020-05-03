@@ -15,18 +15,22 @@ using Microsoft.Extensions.Localization;
 using Evento.Web.Models.Events;
 using AutoMapper;
 using System.IO;
-
+using Microsoft.AspNetCore.Authorization;
 
 namespace Evento.Web.Controllers
 {
     public class EventsController : BaseController
     {
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly ISubscriptionService<Subscription> Service;
         private readonly IEventService<Event> eventService;
         private static readonly IStringLocalizer<BaseController> _localizer;
         private readonly IMapper mapper;
         private ICategoryService<Category> caregoryService ;
-        public EventsController(IEventService<Event> eventService, ICategoryService<Category> caregoryService, IMapper mapper) : base(_localizer)
+        public EventsController(ISubscriptionService<Subscription> _Service,IUnitOfWork _unitOfWork,IEventService<Event> eventService, ICategoryService<Category> caregoryService, IMapper mapper) : base(_localizer)
         {
+             Service = _Service;
+            this._unitOfWork=  _unitOfWork;
             this.caregoryService = caregoryService;
             this.eventService = eventService;
             this.mapper = mapper;
@@ -35,7 +39,7 @@ namespace Evento.Web.Controllers
         // GET: Events
         public async Task<IActionResult> Index(string sortOrder, string searchString)
         {
-            ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+          
 
             ViewData["CurrentFilter"] = searchString;
             if (!String.IsNullOrEmpty(searchString))
@@ -151,12 +155,17 @@ namespace Evento.Web.Controllers
             await eventService.RemoveEvent(id);
             return RedirectToAction(nameof(OrganizedEvents),new { userId = 1});
         }
+        [Authorize]
         [HttpGet]
         public async Task<IActionResult> OrganizedEvents(string userId) {
+
+            
 
             var usersOrganizedEvents = await eventService.GetUserCreatedEvents(userId);
             return View(usersOrganizedEvents);
         }
+
+      
 
 
     }

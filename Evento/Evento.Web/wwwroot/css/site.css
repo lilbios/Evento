@@ -472,7 +472,7 @@ body {
 }
 
 .mainWindow {
-    display: flex;
+   
     overflow: hidden;
     font-family: Helvetica;
     transition: .2s ease-out;

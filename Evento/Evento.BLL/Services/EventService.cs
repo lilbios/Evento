@@ -107,6 +107,15 @@ namespace Evento.BLL.Services
 
         }
 
+        //public async Task<ICollection<Event>> GetUserCreatedEvents(string userId)
+        //{
+        //    var user = await _unitOfWork.Users.GetByID(userId);
+        //    var subscriptionsOwner = await Task.Run(()=> user.Subscriptions.Where(s=> s.UserId == userId && s.IsOwner == true ));
+        //    return null;
+            
+        //}
+
+
         public async Task<ICollection<Event>> GetUserCreatedEvents(string userId)
         {
             var user = await _unitOfWork.Users.GetByID(userId);
@@ -129,6 +138,7 @@ namespace Evento.BLL.Services
                         }).ToList();
             return usersEvents;
             
+
         }
 
       
