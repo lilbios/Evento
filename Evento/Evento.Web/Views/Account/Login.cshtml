@@ -13,7 +13,34 @@
             <h1>Sign in</h1>
             <div class="social-container">
                 <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
-                <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+               
+                   
+                        @{
+                            if (Model.ExternalLogins.Count == 0)
+                            {
+                                <div> No external logins configured</div>
+                            }
+                            else
+                            {
+                                <form method="post" asp-action="ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl">
+                                    
+                                        @foreach (var provider in Model.ExternalLogins)
+                                        {
+                                            <button type="submit"
+                                                    class="btn btn-primary"
+                                                    name="provider"
+                                                    value="@provider.Name"
+                                                    title="Login using your @provider.DisplayName account"
+                                                    @provider.DisplayName>
+                                                
+                                            </button>
+                                        }
+                                    
+                                </form>
+                            }
+                        }
+               
+<i class="fab fa-google-plus-g"></i>
                 <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
             </div>
             <span>or use your account</span>
@@ -38,7 +65,7 @@
         </div>
     </div>
 </div>
-<div>
+@*<div>
     <h1>External login</h1>
     @{
         if (Model.ExternalLogins.Count == 0)
@@ -62,6 +89,6 @@
             </form>
         }
     }
-</div>
+</div>*@
 
 

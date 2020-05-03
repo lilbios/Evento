@@ -113,12 +113,37 @@ namespace Evento.BLL.Services
 
         }
 
+        //public async Task<ICollection<Event>> GetUserCreatedEvents(string userId)
+        //{
+        //    var user = await _unitOfWork.Users.GetByID(userId);
+        //    var subscriptionsOwner = await Task.Run(()=> user.Subscriptions.Where(s=> s.UserId == userId && s.IsOwner == true ));
+        //    return null;
+            
+        //}
+
+
         public async Task<ICollection<Event>> GetUserCreatedEvents(string userId)
         {
             var user = await _unitOfWork.Users.GetByID(userId);
-            var subscriptionsOwner = await Task.Run(()=> user.Subscriptions.Where(s=> s.UserId == userId && s.IsOwner == true ));
-            return null;
-            
+            var events = await _unitOfWork.Events.GetAll();
+            var subscriptions = await Task.Run(() => user.Subscriptions.Where(s => s.UserId == userId && s.IsOwner == true));
+            var usersEvents = (from subs in subscriptions
+                               join e in events
+                               on subs.EventId equals e.Id
+                               select new Event()
+                               {
+                                   Id = e.Id,
+                                   Title = e.Title,
+                                   DateStart = e.DateStart,
+                                   DateFinish = e.DateFinish,
+                                   CategoryId = e.CategoryId,
+                                   Category = e.Category,
+                                   Country = e.Country,
+                                   City = e.City,
+                                   Street = e.Street
+                               }).ToList();
+            return usersEvents;
+
         }
     }
 }

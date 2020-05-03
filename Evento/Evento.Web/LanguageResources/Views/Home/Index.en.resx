@@ -126,7 +126,7 @@
   <data name="Connect" xml:space="preserve">
     <value>Connect with us</value>
   </data>
-  <data name="MainQuoute" xml:space="preserve">
+  <data name="MainQuote" xml:space="preserve">
     <value>I wanna stay home today
                 Don't wanna go out</value>
   </data>
@@ -138,6 +138,9 @@
   </data>
   <data name="Quoute" xml:space="preserve">
     <value>“There is a lot of adventures out there, waiting for us to live them!”</value>
+  </data>
+  <data name="QuouteFooter" xml:space="preserve">
+    <value>“Make your life the best adventure!”</value>
   </data>
   <data name="Search" xml:space="preserve">
     <value>Find event</value>
