@@ -75,14 +75,6 @@ namespace Evento.DAL.Migrations
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
 
-                    b.Property<string>("City")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Country")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<DateTime>("DateFinish")
                         .HasColumnType("datetime2");
 
@@ -102,8 +94,7 @@ namespace Evento.DAL.Migrations
                     b.Property<byte[]>("Photo")
                         .HasColumnType("varbinary(max)");
 
-                    b.Property<string>("Street")
-                        .IsRequired()
+                    b.Property<string>("Place")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Title")

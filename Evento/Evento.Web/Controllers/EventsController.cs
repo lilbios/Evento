@@ -26,8 +26,13 @@ namespace Evento.Web.Controllers
         private readonly IEventService<Event> eventService;
         private static readonly IStringLocalizer<BaseController> _localizer;
         private readonly IMapper mapper;
+<<<<<<< HEAD
+        private ICategoryService<Category> caregoryService;
+        public EventsController(IEventService<Event> eventService, ICategoryService<Category> caregoryService, IMapper mapper) : base(_localizer)
+=======
         private ICategoryService<Category> caregoryService ;
         public EventsController(ISubscriptionService<Subscription> _Service,IUnitOfWork _unitOfWork,IEventService<Event> eventService, ICategoryService<Category> caregoryService, IMapper mapper) : base(_localizer)
+>>>>>>> c00965a8a528d30d6fb6da2d1f784721f633ab0d
         {
              Service = _Service;
             this._unitOfWork=  _unitOfWork;
@@ -44,19 +49,19 @@ namespace Evento.Web.Controllers
             ViewData["CurrentFilter"] = searchString;
             if (!String.IsNullOrEmpty(searchString))
             {
-               var eventsSearch = await eventService.GetEventByTitle(searchString);
-               
+                var eventsSearch = await eventService.GetEventByTitle(searchString);
+
                 return View(eventsSearch);
             }
             var events = await eventService.GetAllEvents();
             return View(events);
         }
-        
-           
 
-            
-         
-    
+
+
+
+
+
 
         // GET: Events/Details/5
         [HttpGet]
@@ -72,6 +77,39 @@ namespace Evento.Web.Controllers
 
         }
 
+
+        [HttpGet]
+        public IActionResult AddDetailsToEvent(int id)
+        {
+            if (id != 0)
+            {
+                var placeView = new PlaceViewModel()
+                {
+                    EventId = id
+                };
+                return View(placeView);
+            }
+            return NotFound();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddDetailsToEvent(PlaceViewModel placeViewModel)
+        {
+
+            var currentEvent = await eventService.GetById(placeViewModel.EventId);
+            if (currentEvent != null)
+            {
+                currentEvent.Place = placeViewModel.Place;
+                currentEvent.Longtitute = Convert.ToDouble(placeViewModel.Longtitude);
+                currentEvent.Latitute = Convert.ToDouble(placeViewModel.Latitude);
+
+                await eventService.EditEvent(currentEvent);
+                return RedirectToAction(nameof(Details), new { Id = placeViewModel.EventId });
+            }
+            return View(placeViewModel);
+
+        }
+
         public async Task<IActionResult> CreateNewEvent()
         {
             var categories = await caregoryService.GetAllCategories();
@@ -79,10 +117,10 @@ namespace Evento.Web.Controllers
             return View();
         }
 
-       
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        
+
         public async Task<IActionResult> CreateNewEvent(EventViewModel viewModel, IFormFile Image)
         {
             if (ModelState.IsValid)
@@ -93,7 +131,7 @@ namespace Evento.Web.Controllers
                 if (Image != null)
 
                 {
-                    if (Image.Length > 0)                 
+                    if (Image.Length > 0)
                     {
 
                         byte[] p1 = null;
@@ -111,8 +149,8 @@ namespace Evento.Web.Controllers
                 await eventService.AddEvent(newEvent);
             }
             var categories = await caregoryService.GetAllCategories();
-             ViewData["CategoryId"] = new SelectList(categories, "Id", "Title");
-         
+            ViewData["CategoryId"] = new SelectList(categories, "Id", "Title");
+
             return View(viewModel);
         }
 
@@ -153,11 +191,12 @@ namespace Evento.Web.Controllers
         public async Task<IActionResult> Delete(int id)
         {
             await eventService.RemoveEvent(id);
-            return RedirectToAction(nameof(OrganizedEvents),new { userId = 1});
+            return RedirectToAction(nameof(OrganizedEvents), new { userId = 1 });
         }
         [Authorize]
         [HttpGet]
-        public async Task<IActionResult> OrganizedEvents(string userId) {
+        public async Task<IActionResult> OrganizedEvents(string userId)
+        {
 
             
 

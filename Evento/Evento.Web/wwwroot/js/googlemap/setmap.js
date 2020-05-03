@@ -1,24 +1,21 @@
 ﻿function initMap() {
 
-    var mapOptions, map, marker, searchBox, city,
-        infoWindow = '';
+    var mapOptions, map, marker, infoWindow = '';
     var element = document.getElementById('map');
     var longtitude = document.getElementById("lng");
     var latitude = document.getElementById("lat");
-
+    var place = document.getElementById("place");
 
     mapOptions = {
         zoom: 20,
         center: new google.maps.LatLng(49.993500, 36.230385),
 
         zoomControl: true,
-        // Disables the controls like zoom control on the map if set to true
-        scrollWheel: true, // If set to false disables the scrolling on the map.
-        draggable: true, // If set to false , you cannot move the map around.
+        scrollWheel: true, 
+        draggable: true, 
         maxZoom: 60,
         minZoom: 20,
         disableDefaultUI: true
-
     };
 
 
@@ -29,7 +26,10 @@
         map: map,
         draggable: true
     });
-
+    place.value = "Kharkiv,Ukraine";
+    latitude.value = marker.getPosition().lat();
+    longtitude.value = marker.getPosition().lng();
+ 
 
 
     google.maps.event.addListener(marker, "dragend", function (event) {

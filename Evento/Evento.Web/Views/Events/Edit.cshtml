@@ -41,8 +41,8 @@
             <h2 class="pageSubTitle"> Location </h2>
 
             <div class="col-md-12">
-                <h1 class="pageTitle"> @Html.TextBoxFor(x => x.Country, new { @class = "form-control" })</h1>
-                <h1 class="pageTitle"> @Html.TextBoxFor(x => x.City, new { @class = "form-control" })</h1>
+                <h1 class="pageTitle"> @Html.TextBoxFor(x => x.Place, new { @class = "form-control" })</h1>
+
 
             </div>
 
@@ -60,10 +60,3 @@
 }
 
 
-
-@section Scripts {
-    <script async defer
-            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCCHJVhwLR43SEydzQrsFGrs4z8_7b5NZY&callback=initMap">
-    </script>
-    <script src="~/js/googleMapAPI.js"></script>
-}
