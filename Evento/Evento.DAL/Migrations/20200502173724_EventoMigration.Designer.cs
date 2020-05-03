@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Evento.DAL.Migrations
 {
     [DbContext(typeof(EventoDbContext))]
-    [Migration("20200501185858_test")]
-    partial class test
+    [Migration("20200502173724_EventoMigration")]
+    partial class EventoMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

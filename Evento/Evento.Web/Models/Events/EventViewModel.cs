@@ -31,7 +31,7 @@ namespace Evento.Web.Models.Events
 
         public double Longtitute { get; set; }
        
-        public string[] Tags { get; set; }
+        public string Tags { get; set; }
 
          public byte[] Photo { get; set; }
         
