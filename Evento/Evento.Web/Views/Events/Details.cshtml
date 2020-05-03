@@ -1,12 +1,10 @@
-﻿@model Evento.Models.Entities.Event
+﻿@model Evento.Web.Models.Events.EventViewModel
 
 @{
     ViewData["Title"] = "CreateNewEvent";
 }
 <link rel="stylesheet" href="~/css/Events.css" />
 
-@using (Html.BeginForm("CreateNewEvent", "Events", FormMethod.Post, new { enctype = "multipart/form-data" }))
-{
 
 
     <article class="wrapper">
@@ -55,7 +53,7 @@
 
             <div class="col-md-12">
                 <p>
-                    @Html.DisplayNameFor(model => model.DateStart):  @Html.DisplayFor(model => model.Country, new
+                    @Html.DisplayNameFor(model => model.Country):  @Html.DisplayFor(model => model.Country, new
 {
 htmlAttributes = new
 {
@@ -91,7 +89,7 @@ htmlAttributes = new
 htmlAttributes = new
 {
 @class = "form-control",
-@placeholder = "City"
+@placeholder = "Street"
 
 }
 
@@ -102,12 +100,12 @@ htmlAttributes = new
 
             <div class="col-md-12">
                 <p>
-                    @Html.DisplayNameFor(model => model.DateStart):  @Html.DisplayFor(model => model.Latitute, new
+                    @Html.DisplayNameFor(model => model.Latitute):  @Html.DisplayFor(model => model.Latitute, new
 {
 htmlAttributes = new
 {
 @class = "form-control",
-@placeholder = "City"
+@placeholder = "Latitute"
 
 }
 
@@ -124,7 +122,7 @@ htmlAttributes = new
 htmlAttributes = new
 {
 @class = "form-control",
-@placeholder = "City"
+@placeholder = "Longtitute"
 
 }
 
@@ -208,7 +206,7 @@ htmlAttributes = new
     </article>
 
 
-}
+
 
 
 

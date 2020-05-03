@@ -1,36 +1,61 @@
-﻿@model Evento.Models.Entities.Category
+﻿@model Evento.Web.Models.Categories.CreateViewModel
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "CreateNewEvent";
+}
+<link rel="stylesheet" href="~/css/Events.css" />
+
+
+
+
+
+
+
+
+@using (Html.BeginForm("Edit", "Categories", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+
+
+<article class="wrapper">
+    @ViewBag.Ok
+    <header>
+        <h1 class="pageTitle">Title</h1>
+
+        <div class="col-md-12">
+            <h1 class="pageTitle"> @Html.TextBoxFor(x => x.Title, new { @class = "form-control" })</h1>
+
+        </div>
+
+
+    </header>
+
+    <div align="center" class="mt-1">
+        <img src="~/images/users_icons/Путь_к_картинке" class="img" width="100%">
+    </div>
+    <div align="center">
+        <label id="profile-image">
+            <small>Upload</small>
+            <small>
+                <input type="file" name="Image" id="Imageinput" hidden onchange="imgprev(this)">
+
+                <i class="fa fa-camera" aria-hidden="true"></i>
+            </small>
+        </label>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Edit" class="btn btn-default" />
+        </div>
+    </div>
+</article>
+
+
 }
 
-<h1>Edit</h1>
+@section Scripts {
 
-<h4>Category</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Title" class="control-label"></label>
-                <input asp-for="Title" class="form-control" />
-                <span asp-validation-for="Title" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CategoryPhoto" class="control-label"></label>
-                <input asp-for="CategoryPhoto" class="form-control" />
-                <span asp-validation-for="CategoryPhoto" class="text-danger"></span>
-            </div>
-            <input type="hidden" asp-for="Id" />
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
-</div>
+    <script src="~/js/others/imgloaderjs.js"></script>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+}
+
 

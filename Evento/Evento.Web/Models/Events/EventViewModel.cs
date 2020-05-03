@@ -34,6 +34,16 @@ namespace Evento.Web.Models.Events
         public string Tags { get; set; }
 
          public byte[] Photo { get; set; }
+
+
+      
+      
+        public virtual Category Category { get; set; }
         
+
+        public virtual ICollection<Subscription> Subscriptions { get; set; }
+
+        public virtual ICollection<TagEvent> TagEvents { get; set; }
+
     }
 }

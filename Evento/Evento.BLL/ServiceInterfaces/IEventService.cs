@@ -11,7 +11,7 @@ namespace Evento.BLL.Interfaces
         Task<ICollection<T>> GetAllEvents();
         Task AddEvent(T e);
 
-        Task EditEvent( T e);
+        Task EditEvent(int id, T e);
 
         Task RemoveEvent(object id);
 

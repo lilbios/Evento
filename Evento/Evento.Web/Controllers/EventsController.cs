@@ -21,7 +21,7 @@ namespace Evento.Web.Controllers
 {
     public class EventsController : BaseController
     {
-        private readonly IUnitOfWork _unitOfWork;
+        
         private readonly ISubscriptionService<Subscription> Service;
         private readonly IEventService<Event> eventService;
         private static readonly IStringLocalizer<BaseController> _localizer;
@@ -30,14 +30,14 @@ namespace Evento.Web.Controllers
         public EventsController(ISubscriptionService<Subscription> _Service,IUnitOfWork _unitOfWork,IEventService<Event> eventService, ICategoryService<Category> caregoryService, IMapper mapper) : base(_localizer)
         {
              Service = _Service;
-            this._unitOfWork=  _unitOfWork;
+          
             this.caregoryService = caregoryService;
             this.eventService = eventService;
             this.mapper = mapper;
         }
 
         // GET: Events
-        public async Task<IActionResult> Index(string sortOrder, string searchString)
+        public async Task<IActionResult> Index( string searchString)
         {
           
 
@@ -66,7 +66,8 @@ namespace Evento.Web.Controllers
 
             if (selectedEvent != null)
             {
-                return View(selectedEvent);
+                var detEvent = mapper.Map<EventViewModel>(selectedEvent);
+                return View(detEvent);
             }
             return RedirectToAction(nameof(Index));
 
@@ -89,9 +90,8 @@ namespace Evento.Web.Controllers
             {
 
                 var newEvent = mapper.Map<Event>(viewModel);
-
+                
                 if (Image != null)
-
                 {
                     if (Image.Length > 0)                 
                     {
@@ -123,30 +123,77 @@ namespace Evento.Web.Controllers
             return View();
         }
 
-        // GET: Events/Edit/5
-        [HttpGet]
+
         public async Task<IActionResult> Edit(int id)
         {
-            var exsistedEvent = await eventService.GetById(id);
-            return View(exsistedEvent);
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var editEvent = await eventService.GetById(id);
+
+            if (editEvent == null)
+            {
+                return NotFound();
+            }
+            var categories = await caregoryService.GetAllCategories();
+            ViewData["CategoryId"] = new SelectList(categories, "Id", "Title");
+            var edited = mapper.Map<EventViewModel>(editEvent);
+            return View(edited);
         }
 
-        // POST: Events/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(EventViewModel viewModel)
+        public async Task<IActionResult> Edit(int id, EventViewModel e, IFormFile Image)
         {
+
             if (ModelState.IsValid)
             {
-                var updatedEvent = mapper.Map<Event>(viewModel);
-                await eventService.EditEvent(updatedEvent);
-                return RedirectToAction(nameof(Index));
-            }
-            return View(viewModel);
 
+                var editEvent = mapper.Map<Event>(e);
+                try
+                {
+
+
+
+                    if (Image != null)
+
+                    {
+                        if (Image.Length > 0)
+                        {
+
+                            byte[] p1 = null;
+                            using (var fs1 = Image.OpenReadStream())
+                            using (var ms1 = new MemoryStream())
+                            {
+                                fs1.CopyTo(ms1);
+                                p1 = ms1.ToArray();
+                            }
+                            editEvent.Photo = p1;
+
+                        }
+                    }
+                    await eventService.EditEvent(id, editEvent);
+
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+
+                    throw;
+
+                }
+                return RedirectToAction(nameof(Index));
+
+            }
+            var categories = await caregoryService.GetAllCategories();
+            ViewData["CategoryId"] = new SelectList(categories, "Id", "Title");
+            return View(e);
         }
+
+
+      
 
         // GET: Events/Delete/5
         [HttpPost]

@@ -5,56 +5,92 @@
 }
 <link rel="stylesheet" href="~/css/Events.css" />
 
-
-
-
-
-
-
-
 @using (Html.BeginForm("Edit", "Events", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
 
 
-    <article class="wrapper">
-        @ViewBag.Ok
-        <header>
-            <h1 class="pageTitle">Title</h1>
+<article class="wrapper">
 
-            <div class="col-md-12">
-                <h1 class="pageTitle"> @Html.TextBoxFor(x => x.Title, new { @class = "form-control" })</h1>
+                @ViewBag.Ok
+                <header>
+                    <h1 class="pageTitle">Title</h1>
 
-            </div>
+                    <div class="col-md-12">
+                        <h1 class="pageTitle"> @Html.TextBoxFor(x => x.Title, new { @class = "form-control" })</h1>
+
+                    </div>
 
 
-        </header>
+                </header>
+                <section>
+                    <h2 class="pageSubTitle"> Description </h2>
+                    <div class="form-group">
 
-        <section>
-            <h2 class="pageSubTitle"> Category </h2>
+                        <h1 class="pageTitle"> @Html.TextBoxFor(x => x.Description, new { @class = "form-control" })</h1>
+                    </div>
+
+                </section>
+                <section>
+                    <h2 class="pageSubTitle"> Category </h2>
+                    <div class="form-group">
+
+                        <select asp-for="CategoryId" class="form-control" asp-items="ViewBag.CategoryId"></select>
+                    </div>
+
+                </section>
+                @*<section>
+            <h2 class="pageSubTitle"> Tags </h2>
             <div class="form-group">
 
-                <select asp-for="CategoryId" class="form-control" asp-items="ViewBag.CategoryId"></select>
+                <select asp-for="TagId" class="form-control" asp-items="ViewBag.TagId"></select>
             </div>
 
-        </section>
-        <section>
-            <h2 class="pageSubTitle"> Location </h2>
+        </section>*@
+                <section>
+                    <h2 class="pageSubTitle"> Dates </h2>
 
-            <div class="col-md-12">
-                <h1 class="pageTitle"> @Html.TextBoxFor(x => x.Country, new { @class = "form-control" })</h1>
-                <h1 class="pageTitle"> @Html.TextBoxFor(x => x.City, new { @class = "form-control" })</h1>
+                    <div class="col-md-12">
+                        <h1 class="pageTitle"> @Html.TextBoxFor(x => x.DateStart, new { @class = "form-control" })</h1>
+                        <h1 class="pageTitle"> @Html.TextBoxFor(x => x.DateFinish, new { @class = "form-control" })</h1>
+                       
 
-            </div>
+                    </div>
 
 
-        </section>
-        <input type="file" name="ImageData" id="ImageData" style="margin:1.5em" />
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value=Create class="btn btn-default" />
-            </div>
-        </div>
-    </article>
+                </section>
+                <section>
+                    <h2 class="pageSubTitle"> Location </h2>
+
+                    <div class="col-md-12">
+                        <h1 class="pageTitle"> @Html.TextBoxFor(x => x.Country, new { @class = "form-control" })</h1>
+                        <h1 class="pageTitle"> @Html.TextBoxFor(x => x.City, new { @class = "form-control" })</h1>
+                        <h1 class="pageTitle"> @Html.TextBoxFor(x => x.Street, new { @class = "form-control" })</h1>
+                        <h1 class="pageTitle"> @Html.TextBoxFor(x => x.Longtitute, new { @class = "form-control" })</h1>
+                        <h1 class="pageTitle"> @Html.TextBoxFor(x => x.Latitute, new { @class = "form-control" })</h1>
+
+                    </div>
+
+
+                </section>
+                <div align="center" class="mt-1">
+                    <img src="~/images/users_icons/Путь_к_картинке" class="img" width="100%">
+                </div>
+                <div align="center">
+                    <label id="profile-image">
+                        <small>Upload</small>
+                        <small>
+                            <input type="file" name="Image" id="Imageinput" hidden onchange="imgprev(this)">
+
+                            <i class="fa fa-camera" aria-hidden="true"></i>
+                        </small>
+                    </label>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Edit" class="btn btn-default" />
+                    </div>
+                </div>
+            </article>
 
 
 }

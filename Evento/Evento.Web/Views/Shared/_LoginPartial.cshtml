@@ -6,8 +6,14 @@
 
 @if (SignInManager.IsSignedIn(User))
 {
-    @if (User.IsInRole("Admin"))
-    {
+         <a href="/Categories/Index">
+            <button class="iconBtn" id="createProjectBtn">
+                <div class="iconBtn__content">
+
+                    Categories
+                </div>
+            </button>
+        </a>
         <a href="/Admin/Index">
             <button class="iconBtn" id="createProjectBtn">
                 <div class="iconBtn__content">
@@ -17,7 +23,7 @@
             </button>
         </a>
 
-    }
+    
     <a href="/Account/Profile">
         <button class="iconBtn" id="createProjectBtn">
             <div class="iconBtn__content">
