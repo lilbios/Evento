@@ -65,7 +65,7 @@ namespace Evento.Web.Controllers
                     }
                 }
 
-            return RedirectToAction("Index", "Admin");
+            return View(model);
 
         }
 
