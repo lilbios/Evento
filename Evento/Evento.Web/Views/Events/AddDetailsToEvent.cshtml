@@ -1,0 +1,27 @@
+﻿@model Evento.Web.Models.Events.PlaceViewModel
+
+
+<link rel="stylesheet" href="~/css/AddViewDetails.css" />
+<h1 align="center">Choose place that allow vistors to understand where is your event</h1>
+<div class="container">
+    <div class="col-sm-5">
+        <form asp-controller="Events" asp-action="AddDetailsToEvent" method="post">
+            <span asp-validation-for="Place"></span>
+            <input asp-for="Place" id="place" type="hidden" readonly />
+            <input asp-for="Latitude" id="lat" type="hidden"  readonly />
+            <input asp-for="Longtitude" id="lng" type="hidden" readonly />
+            <input asp-for="@Model.EventId" type="hidden" readonly>
+
+            <div class="form-group" align="center">
+                <input type="submit" value="Set location" class="iconBtn" id="createProjectBtn" />
+            </div>
+        </form>
+    </div>
+    <div id="map"></div>
+</div>
+@section Scripts {
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCCHJVhwLR43SEydzQrsFGrs4z8_7b5NZY&callback=initMap">
+    </script>
+    <script src="~/js/googlemap/setmap.js"></script>
+}

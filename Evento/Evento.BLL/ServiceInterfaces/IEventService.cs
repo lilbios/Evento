@@ -17,7 +17,6 @@ namespace Evento.BLL.Interfaces
 
         Task<T> GetById(int id);
 
-        Task<ICollection<T>> GetEventByCity(string cityName);
 
         Task<ICollection<T>> GetEventByTitle(string search);
 

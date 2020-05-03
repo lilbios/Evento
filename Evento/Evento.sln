@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Evento.BLL", "Evento.BLL\Ev
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Evento.Web", "Evento.Web\Evento.Web.csproj", "{E8930B65-86E7-4183-977E-B3F5044DE751}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Evento.Models", "Evento.Models\Evento.Models.csproj", "{2E495E5D-FCE4-4C04-BD25-950678C0C5F1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Evento.Models", "Evento.Models\Evento.Models.csproj", "{2E495E5D-FCE4-4C04-BD25-950678C0C5F1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

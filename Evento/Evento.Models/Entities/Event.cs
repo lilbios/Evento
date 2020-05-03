@@ -18,22 +18,14 @@ namespace Evento.Models.Entities
 
         [Required]
         public string Description { get; set; }
-        [Required]
-        public string City { get; set; }
+        
 
-        [Required]
-        public string Country { get; set; }
+        public string Place { get; set; }
 
-        [Required]
-        public string Street { get; set; }
-
-        [Required]
         public double Latitute { get; set; }
 
-        [Required]
         public double Longtitute { get; set; }
 
-        [Required]
         public virtual Category Category { get; set; }
         public byte[] Photo { get; set; }
         public int CategoryId { get; set; }
