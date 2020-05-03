@@ -1,8 +1,7 @@
 ﻿@model Evento.Models.Entities.Event
+@using Evento.BLL.Third_part
 
-@{
-    ViewData["Title"] = "CreateNewEvent";
-}
+
 <link rel="stylesheet" href="~/css/Events.css" />
 
 @using (Html.BeginForm("CreateNewEvent", "Events", FormMethod.Post, new { enctype = "multipart/form-data" }))
@@ -15,16 +14,7 @@
             <h1 class="pageTitle">Title</h1>
 
             <div class="col-md-12">
-                @Html.DisplayFor(model => model.Title, new
-           {
-               htmlAttributes = new
-               {
-                   @class = "form-control"
-               }
-           })
-
-
-
+                @Html.DisplayFor(model => model.Title, new{htmlAttributes = new{ @class = "form-control"}})
             </div>
 
 
@@ -32,8 +22,6 @@
 
         <section>
             <h2 class="pageSubTitle"> Category </h2>
-
-
             <div class="col-md-12">
                 @Html.DisplayFor(model => model.Category.Title, new
            {
@@ -55,87 +43,22 @@
 
             <div class="col-md-12">
                 <p>
-<<<<<<< HEAD
-                    @Html.DisplayNameFor(model => model.DateStart):  @Html.DisplayFor(model => model.Place, new
-=======
-                    @Html.DisplayNameFor(model => model.DateStart):  @Html.DisplayFor(model => model.Country, new
-{
-htmlAttributes = new
-{
-@class = "form-control",
-@placeholder = "Country"
 
-}
-
-})
-                </p>
-
-            </div>
-            <div class="col-md-12">
-                <p>
-                    @Html.DisplayNameFor(model => model.City):   @Html.DisplayFor(model => model.City, new
->>>>>>> c00965a8a528d30d6fb6da2d1f784721f633ab0d
-{
-htmlAttributes = new
-{
-@class = "form-control",
-@placeholder = "Place"
-
-}
-
-})
+                    @Html.DisplayNameFor(model => model.DateStart):
+                    @Html.DisplayFor(model => model.Place, new { htmlAttributes = new { @class = "form-control", @placeholder = "Place" } })
                 </p>
 
             </div>
 
-<<<<<<< HEAD
-=======
+
             <div class="col-md-12">
                 <p>
-                    @Html.DisplayNameFor(model => model.Street):   @Html.DisplayFor(model => model.Street, new
-{
-htmlAttributes = new
-{
-@class = "form-control",
-@placeholder = "City"
-
-}
-
-})
+                    @Html.DisplayNameFor(model => model.DateStart):  @Html.DisplayFor(model => model.Latitute, new { htmlAttributes = new { @class = "form-control", @placeholder = "City" } })
                 </p>
-
             </div>
->>>>>>> c00965a8a528d30d6fb6da2d1f784721f633ab0d
-
             <div class="col-md-12">
                 <p>
-                    @Html.DisplayNameFor(model => model.DateStart):  @Html.DisplayFor(model => model.Latitute, new
-{
-htmlAttributes = new
-{
-@class = "form-control",
-@placeholder = "City"
-
-}
-
-})
-                </p>
-
-
-            </div>
-
-            <div class="col-md-12">
-                <p>
-                    @Html.DisplayNameFor(model => model.Longtitute):  @Html.DisplayFor(model => model.Longtitute, new
-{
-htmlAttributes = new
-{
-@class = "form-control",
-@placeholder = "City"
-
-}
-
-})
+                    @Html.DisplayNameFor(model => model.Longtitute):  @Html.DisplayFor(model => model.Longtitute, new { htmlAttributes = new { @class = "form-control", @placeholder = "City" } })
                 </p>
 
             </div>
@@ -146,32 +69,13 @@ htmlAttributes = new
 
             <div class="col-md-12">
                 <p>
-                    @Html.DisplayNameFor(model => model.DateStart):  @Html.DisplayFor(model => model.DateStart, new
-{
-htmlAttributes = new
-{
-@class = "form-control",
-@placeholder = "Country"
-
-}
-
-})
+                    @Html.DisplayNameFor(model => model.DateStart):  @Html.DisplayFor(model => model.DateStart, new { htmlAttributes = new { @class = "form-control", @placeholder = "Country" } })
                 </p>
 
             </div>
-
             <div class="col-md-12">
                 <p>
-                    @Html.DisplayNameFor(model => model.DateFinish):   @Html.DisplayFor(model => model.DateFinish, new
-{
-htmlAttributes = new
-{
-@class = "form-control",
-@placeholder = "Country"
-
-}
-
-})
+                    @Html.DisplayNameFor(model => model.DateFinish):   @Html.DisplayFor(model => model.DateFinish, new { htmlAttributes = new { @class = "form-control", @placeholder = "Country" } })
                 </p>
 
 
@@ -181,16 +85,7 @@ htmlAttributes = new
             <h2 class="pageSubTitle"> Description </h2>
 
             <div class="col-md-12">
-                @Html.DisplayFor(model => model.Description, new
-           {
-               htmlAttributes = new
-               {
-                   @class = "form-control",
-                   @placeholder = "Country"
-
-               }
-
-           })
+                @Html.DisplayFor(model => model.Description, new { htmlAttributes = new { @class = "form-control", @placeholder = "Country" } })
 
             </div>
         </section>
@@ -198,10 +93,8 @@ htmlAttributes = new
         @{
             if (@Model.Photo != null)
             {
-                var base64 = Convert.ToBase64String(@Model.Photo);
-                var imagesrc = string.Format("data:image/jpeg;base64,{0}", base64);
-
-                <img src="@imagesrc" alt="" height="330em" />
+                var picture = ImageConvertor.ConvertBytesToImage(Model.Photo);
+                <img src="@picture" alt="" height="330em" />
             }
             else
             {

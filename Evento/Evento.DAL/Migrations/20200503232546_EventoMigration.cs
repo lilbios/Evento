@@ -42,7 +42,9 @@ namespace Evento.DAL.Migrations
                     AccessFailedCount = table.Column<int>(nullable: false),
                     FirstName = table.Column<string>(nullable: true),
                     LastName = table.Column<string>(nullable: true),
-                    DataOfBirth = table.Column<DateTime>(nullable: false)
+                    Address = table.Column<string>(nullable: true),
+                    DataOfBirth = table.Column<DateTime>(nullable: false),
+                    Photo = table.Column<byte[]>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -237,7 +239,7 @@ namespace Evento.DAL.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "TagEvent",
+                name: "TagEvents",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -247,15 +249,15 @@ namespace Evento.DAL.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TagEvent", x => x.Id);
+                    table.PrimaryKey("PK_TagEvents", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_TagEvent_Events_EventId",
+                        name: "FK_TagEvents_Events_EventId",
                         column: x => x.EventId,
                         principalTable: "Events",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_TagEvent_Tags_TagId",
+                        name: "FK_TagEvents_Tags_TagId",
                         column: x => x.TagId,
                         principalTable: "Tags",
                         principalColumn: "Id",
@@ -371,13 +373,13 @@ namespace Evento.DAL.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TagEvent_EventId",
-                table: "TagEvent",
+                name: "IX_TagEvents_EventId",
+                table: "TagEvents",
                 column: "EventId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TagEvent_TagId",
-                table: "TagEvent",
+                name: "IX_TagEvents_TagId",
+                table: "TagEvents",
                 column: "TagId");
         }
 
@@ -405,7 +407,7 @@ namespace Evento.DAL.Migrations
                 name: "Memorizes");
 
             migrationBuilder.DropTable(
-                name: "TagEvent");
+                name: "TagEvents");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

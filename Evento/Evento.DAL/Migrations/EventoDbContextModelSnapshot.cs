@@ -196,7 +196,7 @@ namespace Evento.DAL.Migrations
 
                     b.HasIndex("TagId");
 
-                    b.ToTable("TagEvent");
+                    b.ToTable("TagEvents");
                 });
 
             modelBuilder.Entity("Evento.Models.Entities.User", b =>

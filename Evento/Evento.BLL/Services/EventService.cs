@@ -98,7 +98,6 @@ namespace Evento.BLL.Services
         public async Task EditEvent(Event e)
         {
 
-            
             await _unitOfWork.Events.Update(e);
 
         }
@@ -137,7 +136,19 @@ namespace Evento.BLL.Services
 
         }
 
-      
+        public async Task<bool> IsExsistsEvent(string titleEvent)
+        {
+            var events = await _unitOfWork.Events.GetAll();
+            var e = events.Where(e => e.Title == titleEvent);
+            return e is null;
+        }
 
+        public async Task<Event> GetCurrentEventByTitle(string search)
+        {
+            var events = await _unitOfWork.Events.GetAll();
+            var e = events.FirstOrDefault();
+            return e;
+
+        }
     }
 }

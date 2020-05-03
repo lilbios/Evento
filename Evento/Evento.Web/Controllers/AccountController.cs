@@ -108,14 +108,7 @@ namespace Evento.Web.Controllers
 
             return RedirectToAction("Index", "Home");
         }
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Profile()
-        {
-           // await _userManager.GetUserAsync();
-
-            return RedirectToAction("Index", "Home");
-        }
+       
 
         [AllowAnonymous]
         [HttpPost]
