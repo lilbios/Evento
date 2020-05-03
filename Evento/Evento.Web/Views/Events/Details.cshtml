@@ -9,30 +9,30 @@
 {
 
 
-<article class="wrapper">
-    @ViewBag.Ok
-    <header>
-        <h1 class="pageTitle">Title</h1>
+    <article class="wrapper">
+        @ViewBag.Ok
+        <header>
+            <h1 class="pageTitle">Title</h1>
 
-        <div class="col-md-12">
-            @Html.DisplayFor(model => model.Title, new
-       {
-           htmlAttributes = new
+            <div class="col-md-12">
+                @Html.DisplayFor(model => model.Title, new
            {
-               @class = "form-control"
-           }
-       })
-           
-      
-
-        </div>
+               htmlAttributes = new
+               {
+                   @class = "form-control"
+               }
+           })
 
 
-    </header>
 
-    <section>
-        <h2 class="pageSubTitle"> Category </h2>
-      
+            </div>
+
+
+        </header>
+
+        <section>
+            <h2 class="pageSubTitle"> Category </h2>
+
 
             <div class="col-md-12">
                 @Html.DisplayFor(model => model.Category.Title, new
@@ -55,50 +55,20 @@
 
             <div class="col-md-12">
                 <p>
-                    @Html.DisplayNameFor(model => model.DateStart):  @Html.DisplayFor(model => model.Country, new
+                    @Html.DisplayNameFor(model => model.DateStart):  @Html.DisplayFor(model => model.Place, new
 {
 htmlAttributes = new
 {
 @class = "form-control",
-@placeholder = "Country"
+@placeholder = "Place"
 
 }
 
 })
-</p>
-
-            </div>
-            <div class="col-md-12">
-                <p>
-                    @Html.DisplayNameFor(model => model.City):   @Html.DisplayFor(model => model.City, new
-{
-htmlAttributes = new
-{
-@class = "form-control",
-@placeholder = "City"
-
-}
-
-})
-</p>
+                </p>
 
             </div>
 
-            <div class="col-md-12">
-                <p>
-                    @Html.DisplayNameFor(model => model.Street):   @Html.DisplayFor(model => model.Street, new
-{
-htmlAttributes = new
-{
-@class = "form-control",
-@placeholder = "City"
-
-}
-
-})
-</p>
-
-            </div>
 
             <div class="col-md-12">
                 <p>
@@ -113,10 +83,10 @@ htmlAttributes = new
 
 })
                 </p>
-               
+
 
             </div>
-           
+
             <div class="col-md-12">
                 <p>
                     @Html.DisplayNameFor(model => model.Longtitute):  @Html.DisplayFor(model => model.Longtitute, new
@@ -129,14 +99,14 @@ htmlAttributes = new
 }
 
 })
-                </p>  
+                </p>
 
             </div>
 
         </section>
         <section>
             <h2 class="pageSubTitle"> Dates </h2>
-           
+
             <div class="col-md-12">
                 <p>
                     @Html.DisplayNameFor(model => model.DateStart):  @Html.DisplayFor(model => model.DateStart, new
@@ -149,10 +119,10 @@ htmlAttributes = new
 }
 
 })
-                </p> 
+                </p>
 
             </div>
-            
+
             <div class="col-md-12">
                 <p>
                     @Html.DisplayNameFor(model => model.DateFinish):   @Html.DisplayFor(model => model.DateFinish, new
@@ -166,7 +136,7 @@ htmlAttributes = new
 
 })
                 </p>
-               
+
 
             </div>
         </section>
@@ -205,7 +175,7 @@ htmlAttributes = new
             }
         }
 
-</article>
+    </article>
 
 
 }

@@ -1,12 +1,9 @@
 ﻿@model Evento.Web.Models.Events.EventViewModel
 
-@{
-    ViewData["Title"] = "CreateNewEvent";
-}
 <link rel="stylesheet" href="~/css/Events.css" />
 
 <div class="container">
-    <div class="col-sm-6">
+    <div class="col-sm-8">
         @using (Html.BeginForm("CreateNewEvent", "Events", FormMethod.Post, new { enctype = "multipart/form-data" }))
         {
 
@@ -46,100 +43,7 @@
                 <section>
                     <h2 class="pageSubTitle"> Location </h2>
 
-                    <div class="col-md-12">
-                        @Html.EditorFor(model => model.Country, new
-                   {
-                       htmlAttributes = new
-                       {
-                           @class = "form-control",
-                           @placeholder = "Country"
-
-                       }
-
-                   })
-                        @Html.ValidationMessageFor(model => model.Country, "", new
-                   {
-                       @class =
-                "text-danger"
-                   })
-
-                    </div>
-                    <div class="col-md-12">
-                        @Html.EditorFor(model => model.City, new
-                   {
-                       htmlAttributes = new
-                       {
-                           @class = "form-control",
-                           @placeholder = "City"
-
-                       }
-
-                   })
-                        @Html.ValidationMessageFor(model => model.City, "", new
-                   {
-                       @class =
-                "text-danger"
-                   })
-
-                    </div>
-
-                    <div class="col-md-12">
-                        @Html.EditorFor(model => model.Street, new
-                   {
-                       htmlAttributes = new
-                       {
-                           @class = "form-control",
-                           @placeholder = "Street"
-
-                       }
-
-                   })
-                        @Html.ValidationMessageFor(model => model.Street, "", new
-                   {
-                       @class =
-                "text-danger"
-                   })
-
-                    </div>
-
-                    <div class="col-md-12">
-                        @Html.EditorFor(model => model.Latitute, new
-                   {
-                       htmlAttributes = new
-                       {
-                           @class = "form-control",
-                           @placeholder = "Latitute"
-
-                       }
-
-                   })
-                        @Html.ValidationMessageFor(model => model.Latitute, "", new
-                   {
-                       @class =
-                "text-danger"
-                   })
-
-                    </div>
-
-                    <div class="col-md-12">
-                        @Html.EditorFor(model => model.Longtitute, new
-                   {
-                       htmlAttributes = new
-                       {
-                           @class = "form-control",
-                           @placeholder = "Longtitute"
-
-                       }
-
-                   })
-                        @Html.ValidationMessageFor(model => model.Longtitute, "", new
-                   {
-                       @class =
-                "text-danger"
-                   })
-
-                    </div>
-
+               
                 </section>
                 <section>
                     <h2 class="pageSubTitle"> Dates </h2>
@@ -257,16 +161,12 @@
 
         }
     </div>
-    <div class="col-sm-5">
+    <div class="col-sm-4">
         <div id="map"></div>
     </div>
 </div>
 
 @section Scripts {
-    <script async defer
-            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCCHJVhwLR43SEydzQrsFGrs4z8_7b5NZY&callback=initMap">
-    </script>
-    <script src="~/js/googlemap/setmap.js"></script>
     <script src="~/js/others/imgloaderjs.js"></script>
     <script src="~/js/others/chain.js"></script>
 }

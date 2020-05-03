@@ -32,11 +32,7 @@ namespace Evento.BLL.Services
             await _unitOfWork.Events.Delete(eventForRemoving);
         }
 
-        public async Task<ICollection<Event>> GetEventByCity(string cityName)
-        {
-            var eventList = await _unitOfWork.Events.GetByCondition(x => x.City.StartsWith(cityName));
-            return eventList.ToList();
-        }
+      
 
         public async Task<ICollection<Event>> GetEventByTitle(string search)
         {
@@ -113,20 +109,20 @@ namespace Evento.BLL.Services
             var events = await _unitOfWork.Events.GetAll();
             var subscriptions = await Task.Run(()=> user.Subscriptions.Where(s=> s.UserId == userId && s.IsOwner == true ));
             var usersEvents = (from subs in subscriptions
-                        join e in events
-                        on subs.EventId equals e.Id
-                        select new Event()
-                        {
-                            Id  = e.Id,
-                            Title = e.Title,
-                            DateStart = e.DateStart,
-                            DateFinish = e.DateFinish,
-                            CategoryId = e.CategoryId,
-                            Category = e.Category,
-                            Country = e.Country,
-                            City = e.City,
-                            Street = e.Street
-                        }).ToList();
+                               join e in events
+                               on subs.EventId equals e.Id
+                               select new Event()
+                               {
+                                   Id = e.Id,
+                                   Title = e.Title,
+                                   DateStart = e.DateStart,
+                                   DateFinish = e.DateFinish,
+                                   CategoryId = e.CategoryId,
+                                   Category = e.Category,
+                                   TagEvents = e.TagEvents,
+                                   Place = e.Place
+
+                               }).ToList();
             return usersEvents;
             
         }
