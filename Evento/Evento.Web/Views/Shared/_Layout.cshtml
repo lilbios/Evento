@@ -71,14 +71,7 @@
                             </div>
                         </button>
                     </a> 
-                    <a href="/Account/Profile">
-                        <button class="iconBtn" id="createProjectBtn">
-                            <div class="iconBtn__content">
-
-                                My Account
-                            </div>
-                        </button>
-                    </a>
+                  
 
                     <div>
                         @await Html.PartialAsync("_SelectLanguagePartial")
@@ -300,124 +293,11 @@
 
             singlePageLinks[0].click();
 
-            // Navbar Functionality
-
-            //let navItems = document.querySelectorAll(".navigation__item");
-
-            //navItems.forEach(e => {
-            //    e.addEventListener("click", () => {
-            //        navItems.forEach(item => {
-            //            item.classList.remove("navigation__item--active");
-            //        });
-            //        e.classList.add("navigation__item--active");
-            //    });
-            //});
-
-            //navItems[0].click();
-
-            //// New Project Button Single Page Functionality
-
-            //document.querySelector('#createProjectBtn').addEventListener('click', () => {
-            //    navItems.forEach(item => {
-            //        item.classList.remove("navigation__item--active");
-            //    });
-            //    navItems.forEach(item => {
-            //        if (item.dataset.targetRef == 'project') {
-            //            item.classList.add("navigation__item--active");
-            //        }
-            //    });
-
-            //});
-
-            //// Current Amount of Notifications Functionality
-            //let newNotifications = document.querySelectorAll(".newNotification").length;
-            //let notificationBellValue = document.querySelector(".notificationBell__value");
-
-            //notificationBellValue.innerText = newNotifications;
-
-            //// Notifications Remove Functionality
-            //let deleteNotification = document.querySelectorAll(
-            //    ".notificationBox__header__delete"
-            //);
-            //let leftNotifications = deleteNotification.length;
-
-            //deleteNotification.forEach(e => {
-            //    e.addEventListener("click", () => {
-            //        let notificationBox = e.parentNode.parentNode;
-            //        notificationBar.removeChild(notificationBox);
-            //        leftNotifications--;
-            //        if (notificationBox.classList.contains("newNotification")) {
-            //            newNotifications--;
-            //        }
-            //        if (newNotifications != 0) {
-            //            notificationBellValue.innerText = newNotifications;
-            //        } else {
-            //            notificationBellValue.style.display = "none";
-            //            document.querySelector('.notificationBox__noResults').classList.toggle('notificationBox__noResults--inactive');
-            //        }
-            //    });
-            //});
-
-            // HR Filter Function
+         
 
 
 
 
-
-
-
-            // Dark Mode functionality
-
-            let darkModeBtn = document.querySelector(".darkModeBtn");
-            let navbar = document.querySelector(".navbar");
-            let topbar = document.querySelector(".topbar");
-            let popUpProjectNotes = document.querySelectorAll(".popUp__body__notes");
-            let popUpProjectEdit = document.querySelectorAll(".popUp__editProject");
-            let kpiTiles = document.querySelectorAll(".kpiComponent__tile");
-            let employeeTile = document.querySelectorAll(".hrWidget__employeeTile");
-            let navigationItem = document.querySelectorAll('.navigation__item');
-
-            let logOut = document.querySelector('.logout');
-            let blackFont = document.querySelectorAll(".blackFont");
-
-
-            darkModeBtn.addEventListener("click", () => {
-                if (darkModeSet == "false") {
-                    darkModeSet = "true";
-                } else {
-                    darkModeSet = "false";
-                }
-                siteBody.classList.toggle("body--dark");
-                navbar.classList.toggle("navbar--dark");
-                topbar.classList.toggle("topbar--dark");
-                kpiTiles.forEach(e => {
-                    e.classList.toggle("kpiComponent__tile--dark");
-                });
-                blackFont.forEach(e => {
-                    e.classList.toggle("blackFont--dark");
-                });
-                darkModeBtn.classList.toggle("darkModeBtn--dark");
-                popUp.forEach(popUp => {
-                    popUp.classList.toggle("popUp--dark");
-                });
-                popUpProjectNotes.forEach(e => {
-                    e.classList.toggle("popUp__body__notes--dark");
-                });
-                popUpProjectEdit.forEach(e => {
-                    e.classList.toggle("popUp__editProject--dark");
-                });
-                notificationBar.classList.toggle("notificationBar--dark");
-                employeeTile.forEach(e => {
-                    e.classList.toggle("hrWidget__employeeTile--dark");
-                });
-                navigationItem.forEach(e => {
-                    e.classList.toggle('navigation__item--dark')
-                });
-
-
-                document.querySelector('.navigation__item--active').classList.toggle('navigation__item--active--dark');
-                logOut.classList.toggle('logout--dark');
-            });
 
 
 

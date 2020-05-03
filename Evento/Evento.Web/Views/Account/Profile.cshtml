@@ -1,4 +1,4 @@
-﻿@model Evento.Models.Entities.User 
+﻿@model Evento.Models.Entities.User
 <link rel="stylesheet" href="~/css/Account.css" />
 <div class="wrapper">
 
@@ -11,7 +11,7 @@
                     var base64 = Convert.ToBase64String(@Model.Photo);
                     var imagesrc = string.Format("data:image/jpeg;base64,{0}", base64);
 
-                    <img src="@imagesrc"  />
+                    <img src="@imagesrc" />
                 }
                 else
                 {
@@ -41,19 +41,19 @@
                 </div>
 
                 @*<div class="profile-card-inf__item">
-                    <div class="profile-card-inf__title"> @Model.</div>
-                    <div class="profile-card-inf__txt">Following</div>
-                </div>
+                        <div class="profile-card-inf__title"> @Model.</div>
+                        <div class="profile-card-inf__txt">Following</div>
+                    </div>
 
-                <div class="profile-card-inf__item">
-                    <div class="profile-card-inf__title">123</div>
-                    <div class="profile-card-inf__txt">Articles</div>
-                </div>
+                    <div class="profile-card-inf__item">
+                        <div class="profile-card-inf__title">123</div>
+                        <div class="profile-card-inf__txt">Articles</div>
+                    </div>
 
-                <div class="profile-card-inf__item">
-                    <div class="profile-card-inf__title">85</div>
-                    <div class="profile-card-inf__txt">Works</div>
-                </div>*@
+                    <div class="profile-card-inf__item">
+                        <div class="profile-card-inf__title">85</div>
+                        <div class="profile-card-inf__txt">Works</div>
+                    </div>*@
             </div>
 
             <div class="profile-card-social">
@@ -80,9 +80,9 @@
             </div>
 
             @*<div class="profile-card-ctr">
-                <button class="profile-card__button button--blue js-message-btn">Message</button>
-                <button class="profile-card__button button--orange">Follow</button>
-            </div>*@
+                    <button class="profile-card__button button--blue js-message-btn">Message</button>
+                    <button class="profile-card__button button--orange">Follow</button>
+                </div>*@
         </div>
 
         <div class="profile-card-message js-message">
