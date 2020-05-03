@@ -105,15 +105,14 @@ namespace Evento.BLL.Services
             edited.Title = e.Title  ;
             
           
-            edited.Street = e.Street;
+          
             edited.Photo = e.Photo;
             edited.Longtitute = e.Longtitute;
             edited.Latitute = e.Latitute;
             edited.DateFinish = e.DateFinish;
             edited.Category = e.Category;
             edited.DateStart = e.DateStart;
-            edited.Country = e.Country;
-            edited.City = e.City;
+          
            
             await _unitOfWork.Events.Update(edited);
 

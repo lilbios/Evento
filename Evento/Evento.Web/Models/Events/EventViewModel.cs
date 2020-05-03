@@ -29,6 +29,7 @@ namespace Evento.Web.Models.Events
         public string Tags { get; set; }
 
         public byte[] Photo { get; set; }
+        public virtual Category Category { get; set; }
 
     }
 }

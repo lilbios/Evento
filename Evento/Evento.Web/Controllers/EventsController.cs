@@ -26,13 +26,11 @@ namespace Evento.Web.Controllers
         private readonly IEventService<Event> eventService;
         private static readonly IStringLocalizer<BaseController> _localizer;
         private readonly IMapper mapper;
-<<<<<<< HEAD
+
         private ICategoryService<Category> caregoryService;
-        public EventsController(IEventService<Event> eventService, ICategoryService<Category> caregoryService, IMapper mapper) : base(_localizer)
-=======
-        private ICategoryService<Category> caregoryService ;
+      
         public EventsController(ISubscriptionService<Subscription> _Service,IUnitOfWork _unitOfWork,IEventService<Event> eventService, ICategoryService<Category> caregoryService, IMapper mapper) : base(_localizer)
->>>>>>> c00965a8a528d30d6fb6da2d1f784721f633ab0d
+
         {
              Service = _Service;
           
@@ -104,7 +102,7 @@ namespace Evento.Web.Controllers
                 currentEvent.Longtitute = Convert.ToDouble(placeViewModel.Longtitude);
                 currentEvent.Latitute = Convert.ToDouble(placeViewModel.Latitude);
 
-                await eventService.EditEvent(currentEvent);
+                await eventService.EditEvent(3,currentEvent);
                 return RedirectToAction(nameof(Details), new { Id = placeViewModel.EventId });
             }
             return View(placeViewModel);
