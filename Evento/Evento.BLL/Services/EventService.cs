@@ -100,6 +100,7 @@ namespace Evento.BLL.Services
 
         public async Task EditEvent(int id, Event e)
         {
+
             var edited = await _unitOfWork.Events.GetByID(id);
             e = _mapper.Map<Event>(e);
             edited.Title = e.Title  ;
@@ -143,7 +144,19 @@ namespace Evento.BLL.Services
 
         }
 
-      
+        public async Task<bool> IsExsistsEvent(string titleEvent)
+        {
+            var events = await _unitOfWork.Events.GetAll();
+            var e = events.Where(e => e.Title == titleEvent);
+            return e is null;
+        }
 
+        public async Task<Event> GetCurrentEventByTitle(string search)
+        {
+            var events = await _unitOfWork.Events.GetAll();
+            var e = events.FirstOrDefault();
+            return e;
+
+        }
     }
 }

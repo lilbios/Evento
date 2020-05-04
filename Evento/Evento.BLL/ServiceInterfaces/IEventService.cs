@@ -19,6 +19,7 @@ namespace Evento.BLL.Interfaces
 
 
         Task<ICollection<T>> GetEventByTitle(string search);
+        Task<T> GetCurrentEventByTitle(string search);
 
         Task<ICollection<T>> GetEventByDateStart(string date);
 
@@ -34,6 +35,7 @@ namespace Evento.BLL.Interfaces
 
         Task<ICollection<T>> GetFinishedEvent();
         Task<ICollection<T>> GetUserCreatedEvents(string userId);
+        Task<bool> IsExsistsEvent(string titleEvent);
 
     }
 }
