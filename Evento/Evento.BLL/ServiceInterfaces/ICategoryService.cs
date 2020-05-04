@@ -12,8 +12,9 @@ namespace Evento.BLL.Interfaces
          Task AddCategory(T category);
          Task DeleteCategory(int id);
          Task EditCategory(int id, T category);
-
+        Task<Category> GetCategory(int id);
         Task<ICollection<T>> GetAllCategories();
+        Task<ICollection<T>> GetCategoryByTitle(string search);
 
 
     }

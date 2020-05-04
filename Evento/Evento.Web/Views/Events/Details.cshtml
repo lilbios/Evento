@@ -1,11 +1,7 @@
-﻿@model Evento.Models.Entities.Event
 @using Evento.BLL.Third_part
-
-
+@model Evento.Web.Models.Events.EventViewModel
 <link rel="stylesheet" href="~/css/Events.css" />
 
-@using (Html.BeginForm("CreateNewEvent", "Events", FormMethod.Post, new { enctype = "multipart/form-data" }))
-{
 
 
     <article class="wrapper">
@@ -63,6 +59,7 @@
 
             </div>
 
+
         </section>
         <section>
             <h2 class="pageSubTitle"> Dates </h2>
@@ -108,7 +105,7 @@
     </article>
 
 
-}
+
 
 
 

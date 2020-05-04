@@ -1,4 +1,5 @@
-﻿using Evento.BLL.Interfaces;
+﻿using AutoMapper;
+using Evento.BLL.Interfaces;
 using Evento.Models.Entities;
 using System;
 using System.Collections.Generic;
@@ -11,9 +12,11 @@ namespace Evento.BLL.Services
     public class EventService : IEventService<Event>
     {
         private readonly IUnitOfWork _unitOfWork;
-        public EventService(IUnitOfWork unitOfWork)
+        private readonly IMapper _mapper;
+        public EventService(IUnitOfWork unitOfWork,  IMapper mapper)
         {
-            _unitOfWork = unitOfWork;
+         _mapper= mapper;
+        _unitOfWork = unitOfWork;
         }
         public async Task AddEvent(Event _event)
         {
@@ -95,21 +98,26 @@ namespace Evento.BLL.Services
         }
       
 
-        public async Task EditEvent(Event e)
+        public async Task EditEvent(int id, Event e)
         {
 
-            await _unitOfWork.Events.Update(e);
+            var edited = await _unitOfWork.Events.GetByID(id);
+            e = _mapper.Map<Event>(e);
+            edited.Title = e.Title  ;
+            
+          
+          
+            edited.Photo = e.Photo;
+            edited.Longtitute = e.Longtitute;
+            edited.Latitute = e.Latitute;
+            edited.DateFinish = e.DateFinish;
+            edited.Category = e.Category;
+            edited.DateStart = e.DateStart;
+          
+           
+            await _unitOfWork.Events.Update(edited);
 
         }
-
-        //public async Task<ICollection<Event>> GetUserCreatedEvents(string userId)
-        //{
-        //    var user = await _unitOfWork.Users.GetByID(userId);
-        //    var subscriptionsOwner = await Task.Run(()=> user.Subscriptions.Where(s=> s.UserId == userId && s.IsOwner == true ));
-        //    return null;
-            
-        //}
-
 
         public async Task<ICollection<Event>> GetUserCreatedEvents(string userId)
         {

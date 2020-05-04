@@ -29,10 +29,23 @@ namespace Evento.BLL.Services
             await unitOfWork.Categories.Delete(id);
         }
 
+        public async Task<Category> GetCategory(int id)
+        {
+            var category = await unitOfWork.Categories.GetByID(id);
+            return category;
+        }
+
+        public async Task<ICollection<Category>> GetCategoryByTitle(string search)
+        {
+            var categoryList = await unitOfWork.Categories.GetByCondition(s => s.Title.Contains(search));
+            return categoryList.OrderBy(s => s.Title).ToList();
+        }
         public async Task EditCategory(int id, Category categoryDTO)
         {
             var category = await unitOfWork.Categories.GetByID(id);
-            category = mapper.Map<Category>(categoryDTO);
+             categoryDTO =  mapper.Map<Category>(categoryDTO);
+            category.Title = categoryDTO.Title;
+            category.CategoryPhoto= categoryDTO.CategoryPhoto;
             await unitOfWork.Categories.Update(category);
         }
 

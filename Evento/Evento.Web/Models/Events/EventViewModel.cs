@@ -30,6 +30,7 @@ namespace Evento.Web.Models.Events
         public bool IsOwner { get; set; }
         public bool IsSubscribed { get; set; }
         public byte[] Photo { get; set; }
+        public virtual Category Category { get; set; }
 
     }
 }
