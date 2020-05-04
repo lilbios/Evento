@@ -15,6 +15,7 @@ using Evento.Web.LanguageResources;
 
 namespace Evento.Web.Controllers
 {
+    
     public class HomeController : BaseController
     {
         

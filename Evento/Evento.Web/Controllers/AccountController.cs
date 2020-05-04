@@ -36,6 +36,16 @@ namespace Evento.Web.Controllers
             return View();
         }
 
+        
+        public async Task<IActionResult> Profile()
+        {
+            var id = _userManager.GetUserId(User);
+            var user = await _userManager.FindByIdAsync(id);
+            return View(user);
+        }
+
+
+
         [HttpPost]
         public async Task<IActionResult> Register(RegisterDTO model)
         {
@@ -107,6 +117,7 @@ namespace Evento.Web.Controllers
 
             return RedirectToAction("Index", "Home");
         }
+       
 
         [AllowAnonymous]
         [HttpPost]

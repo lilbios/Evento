@@ -7,13 +7,10 @@
   <ItemGroup>
     <Compile Remove="Components\**" />
     <Compile Remove="Processes\**" />
-    <Compile Remove="Third-part\**" />
     <EmbeddedResource Remove="Components\**" />
     <EmbeddedResource Remove="Processes\**" />
-    <EmbeddedResource Remove="Third-part\**" />
     <None Remove="Components\**" />
     <None Remove="Processes\**" />
-    <None Remove="Third-part\**" />
   </ItemGroup>
 
   <ItemGroup>

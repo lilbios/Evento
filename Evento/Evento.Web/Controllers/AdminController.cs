@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Evento.BLL.Accounts;
+using Evento.BLL.Accounts.DTO;
 using Evento.Models.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -22,9 +24,15 @@ namespace Evento.Web.Controllers
         private IPasswordValidator<User> passwordValidator;
         private IUserValidator<User> userValidator;
         private static readonly IStringLocalizer<BaseController> _localizer;
-        public AdminController(UserManager<User> usrMgr, IPasswordHasher<User> passwordHash, IPasswordValidator<User> passwordVal, IUserValidator<User> userValid) : base(_localizer)
+
+        private readonly IAccountsService accountsService;
+      
+
+      
+        public AdminController(IAccountsService accountsServ,UserManager<User> usrMgr, IPasswordHasher<User> passwordHash, IPasswordValidator<User> passwordVal, IUserValidator<User> userValid) : base(_localizer)
         {
-            userManager = usrMgr;
+             accountsService=  accountsServ;
+             userManager = usrMgr;
             passwordHasher = passwordHash;
             passwordValidator = passwordVal;
             userValidator = userValid;
@@ -32,12 +40,36 @@ namespace Evento.Web.Controllers
 
         public IActionResult Index()
         {
-            return View(userManager.Users);
+            return View(userManager.Users.ToList());
         }
 
-        public ViewResult Create() => View();
-
+        public async Task<IActionResult> Create(RegisterDTO model)
+        {
+            
        
+                if (ModelState.IsValid)
+                {
+                    var registerResult = await accountsService.Register(model);
+
+                    if (registerResult == "Ok")
+                    {
+
+                        return RedirectToAction("Index", "Home");
+                    }
+                    else
+                    {
+                        foreach (var error in registerResult)
+                        {
+                            ModelState.AddModelError(string.Empty, error.ToString());
+                        }
+                    }
+                }
+
+            return View(model);
+
+        }
+
+
 
         public async Task<IActionResult> Update(string id)
         {

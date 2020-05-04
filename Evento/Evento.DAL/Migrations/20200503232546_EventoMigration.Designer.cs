@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Evento.DAL.Migrations
 {
     [DbContext(typeof(EventoDbContext))]
-    [Migration("20200501185858_test")]
-    partial class test
+    [Migration("20200503232546_EventoMigration")]
+    partial class EventoMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -77,14 +77,6 @@ namespace Evento.DAL.Migrations
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
 
-                    b.Property<string>("City")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Country")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<DateTime>("DateFinish")
                         .HasColumnType("datetime2");
 
@@ -104,8 +96,7 @@ namespace Evento.DAL.Migrations
                     b.Property<byte[]>("Photo")
                         .HasColumnType("varbinary(max)");
 
-                    b.Property<string>("Street")
-                        .IsRequired()
+                    b.Property<string>("Place")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Title")
@@ -207,7 +198,7 @@ namespace Evento.DAL.Migrations
 
                     b.HasIndex("TagId");
 
-                    b.ToTable("TagEvent");
+                    b.ToTable("TagEvents");
                 });
 
             modelBuilder.Entity("Evento.Models.Entities.User", b =>
@@ -217,6 +208,9 @@ namespace Evento.DAL.Migrations
 
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
+
+                    b.Property<string>("Address")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
@@ -260,6 +254,9 @@ namespace Evento.DAL.Migrations
 
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
+
+                    b.Property<byte[]>("Photo")
+                        .HasColumnType("varbinary(max)");
 
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");

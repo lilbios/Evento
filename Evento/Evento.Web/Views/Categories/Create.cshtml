@@ -1,0 +1,71 @@
+﻿@model Evento.Web.Models.Categories.CreateViewModel
+
+@{
+    ViewData["Title"] = "CreateNewCategory";
+}
+<link rel="stylesheet" href="~/css/Events.css" />
+
+<div class="container">
+    <div class="col-sm-6">
+        @using (Html.BeginForm("Create", "Categories", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+
+
+            <article class="wrapper">
+                @ViewBag.Ok
+                <header>
+                    <h1 class="pageTitle">Name</h1>
+
+                    <div class="col-md-12">
+                        @Html.EditorFor(model => model.Title, new
+                   {
+                       htmlAttributes = new
+                       {
+                           @class = "form-control"
+                       }
+                   })
+                        @Html.ValidationMessageFor(model => model.Title, "", new
+                   {
+                       @class =
+             "text-danger"
+                   })
+
+                    </div>
+
+
+                </header>
+
+
+                <div align="center" class="mt-1">
+                    <img src="~/images/users_icons/Путь_к_картинке" class="img" width="100%">
+                </div>
+                <div align="center">
+                    <label id="profile-image">
+                        <small>Upload</small>
+                        <small>
+                            <input type="file" name="Image" id="Imageinput" hidden onchange="imgprev(this)">
+
+                            <i class="fa fa-camera" aria-hidden="true"></i>
+                        </small>
+                    </label>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Create" class="btn btn-default" />
+                    </div>
+                </div>
+                
+            </article>
+
+        }
+    </div>
+
+
+
+</div>
+
+@section Scripts {
+
+    <script src="~/js/others/imgloaderjs.js"></script>
+
+}

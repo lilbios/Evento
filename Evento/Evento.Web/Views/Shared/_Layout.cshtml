@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Evento.Web</title>
+    <title> Evento</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.2/css/all.min.css" rel='stylesheet' type='text/css' />
@@ -56,7 +56,7 @@
             <div class="topbar">
              
                 <div class="topbar-right">
-                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Evento.Web</a>
+                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Evento</a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                             aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
@@ -71,14 +71,7 @@
                             </div>
                         </button>
                     </a> 
-                    <a href="/Account/Profile">
-                        <button class="iconBtn" id="createProjectBtn">
-                            <div class="iconBtn__content">
-
-                                My Account
-                            </div>
-                        </button>
-                    </a>
+                  
 
                     <div>
                         @await Html.PartialAsync("_SelectLanguagePartial")
@@ -88,50 +81,23 @@
                         <div class="notificationBell__value"></div>
                     </div>
                     <div class="profile">
-                        <div class="profile__information">
+                       
                             <partial name="_LoginPartial" />
 
-                        </div>
+                      
                     </div>
 
                 </div>
             </div>
-            <div class="content">
-                <br><br><br><br>
-
-
-
-
-
-
+            <div class="content" style="margin-top:7em">
+               
                 @RenderBody()
 
-
-
-
-
-
-
-
-
-
             </div>
-
-
 </div>
-
-
-
 
     <div class="modalWindow modalWindow--inactive">
         <div class="closeModal"></div>
-
-
-
-
-
-       
-
 
         <div class="notificationBar notificationBar--inactive">
             <h2 class="blackFont">
@@ -300,124 +266,11 @@
 
             singlePageLinks[0].click();
 
-            // Navbar Functionality
-
-            //let navItems = document.querySelectorAll(".navigation__item");
-
-            //navItems.forEach(e => {
-            //    e.addEventListener("click", () => {
-            //        navItems.forEach(item => {
-            //            item.classList.remove("navigation__item--active");
-            //        });
-            //        e.classList.add("navigation__item--active");
-            //    });
-            //});
-
-            //navItems[0].click();
-
-            //// New Project Button Single Page Functionality
-
-            //document.querySelector('#createProjectBtn').addEventListener('click', () => {
-            //    navItems.forEach(item => {
-            //        item.classList.remove("navigation__item--active");
-            //    });
-            //    navItems.forEach(item => {
-            //        if (item.dataset.targetRef == 'project') {
-            //            item.classList.add("navigation__item--active");
-            //        }
-            //    });
-
-            //});
-
-            //// Current Amount of Notifications Functionality
-            //let newNotifications = document.querySelectorAll(".newNotification").length;
-            //let notificationBellValue = document.querySelector(".notificationBell__value");
-
-            //notificationBellValue.innerText = newNotifications;
-
-            //// Notifications Remove Functionality
-            //let deleteNotification = document.querySelectorAll(
-            //    ".notificationBox__header__delete"
-            //);
-            //let leftNotifications = deleteNotification.length;
-
-            //deleteNotification.forEach(e => {
-            //    e.addEventListener("click", () => {
-            //        let notificationBox = e.parentNode.parentNode;
-            //        notificationBar.removeChild(notificationBox);
-            //        leftNotifications--;
-            //        if (notificationBox.classList.contains("newNotification")) {
-            //            newNotifications--;
-            //        }
-            //        if (newNotifications != 0) {
-            //            notificationBellValue.innerText = newNotifications;
-            //        } else {
-            //            notificationBellValue.style.display = "none";
-            //            document.querySelector('.notificationBox__noResults').classList.toggle('notificationBox__noResults--inactive');
-            //        }
-            //    });
-            //});
-
-            // HR Filter Function
+         
 
 
 
 
-
-
-
-            // Dark Mode functionality
-
-            let darkModeBtn = document.querySelector(".darkModeBtn");
-            let navbar = document.querySelector(".navbar");
-            let topbar = document.querySelector(".topbar");
-            let popUpProjectNotes = document.querySelectorAll(".popUp__body__notes");
-            let popUpProjectEdit = document.querySelectorAll(".popUp__editProject");
-            let kpiTiles = document.querySelectorAll(".kpiComponent__tile");
-            let employeeTile = document.querySelectorAll(".hrWidget__employeeTile");
-            let navigationItem = document.querySelectorAll('.navigation__item');
-
-            let logOut = document.querySelector('.logout');
-            let blackFont = document.querySelectorAll(".blackFont");
-
-
-            darkModeBtn.addEventListener("click", () => {
-                if (darkModeSet == "false") {
-                    darkModeSet = "true";
-                } else {
-                    darkModeSet = "false";
-                }
-                siteBody.classList.toggle("body--dark");
-                navbar.classList.toggle("navbar--dark");
-                topbar.classList.toggle("topbar--dark");
-                kpiTiles.forEach(e => {
-                    e.classList.toggle("kpiComponent__tile--dark");
-                });
-                blackFont.forEach(e => {
-                    e.classList.toggle("blackFont--dark");
-                });
-                darkModeBtn.classList.toggle("darkModeBtn--dark");
-                popUp.forEach(popUp => {
-                    popUp.classList.toggle("popUp--dark");
-                });
-                popUpProjectNotes.forEach(e => {
-                    e.classList.toggle("popUp__body__notes--dark");
-                });
-                popUpProjectEdit.forEach(e => {
-                    e.classList.toggle("popUp__editProject--dark");
-                });
-                notificationBar.classList.toggle("notificationBar--dark");
-                employeeTile.forEach(e => {
-                    e.classList.toggle("hrWidget__employeeTile--dark");
-                });
-                navigationItem.forEach(e => {
-                    e.classList.toggle('navigation__item--dark')
-                });
-
-
-                document.querySelector('.navigation__item--active').classList.toggle('navigation__item--active--dark');
-                logOut.classList.toggle('logout--dark');
-            });
 
 
 
@@ -434,7 +287,7 @@
                 &copy; 2020 - Evento.Web - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
             </div>
         </footer>
-        <script src="~/lib/jquery/dist/jquery.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
         <script src="~/js/site.js" asp-append-version="true"></script>
         @RenderSection("Scripts", required: false)

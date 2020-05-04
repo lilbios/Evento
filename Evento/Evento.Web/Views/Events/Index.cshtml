@@ -16,34 +16,21 @@
                                     <i class="material-icons search-icon">search</i>
                                     <input type="text" id="search" name="SearchString" placeholder="Search" value="@ViewData["currentFilter"]" />
 
-
-
-
-
                                 </div>
 
-
-
                             </div>
-                            <div class="filter">
+                            @*<div class="filter">
 
                                 <div class="pill active">Android</div>
 
 
-                            </div>
+                            </div>*@
                         </div>
                     </div>
 
                 </div>
             </form>
-            <a href="/Events/Index">
-                <button class="iconBtn" id="createProjectBtn">
-                    <div class="iconBtn__content">
-
-                        All events
-                    </div>
-                </button>
-            </a>
+         
 
 
 
@@ -84,13 +71,14 @@
 
 
                                 </a>
-                            </div><span class="recipe-item__name">@item.Title</span>
+                            </div>
+                            <span class="recipe-item__name">@item.Title</span>
                             <div class="palette"><span class="palette__color" style="background-color:#aed9b7"></span><span class="palette__color" style="background-color:#f98667"></span><span class="palette__color" style="background-color:#97d1ec"></span></div>
                         </article>
                     }
 
                 </div>
-            </div><a class="recipe__button button" href="~/Views/Events/Index">All events</a>
+          
         </section>
          
     <section class="newsletter">

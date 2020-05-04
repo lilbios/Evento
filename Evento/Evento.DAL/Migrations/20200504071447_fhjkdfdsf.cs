@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Evento.DAL.Migrations
 {
-    public partial class test : Migration
+    public partial class fhjkdfdsf : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -42,7 +42,9 @@ namespace Evento.DAL.Migrations
                     AccessFailedCount = table.Column<int>(nullable: false),
                     FirstName = table.Column<string>(nullable: true),
                     LastName = table.Column<string>(nullable: true),
-                    DataOfBirth = table.Column<DateTime>(nullable: false)
+                    Address = table.Column<string>(nullable: true),
+                    DataOfBirth = table.Column<DateTime>(nullable: false),
+                    Photo = table.Column<byte[]>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -192,9 +194,7 @@ namespace Evento.DAL.Migrations
                     DateStart = table.Column<DateTime>(nullable: false),
                     DateFinish = table.Column<DateTime>(nullable: false),
                     Description = table.Column<string>(nullable: false),
-                    City = table.Column<string>(nullable: false),
-                    Country = table.Column<string>(nullable: false),
-                    Street = table.Column<string>(nullable: false),
+                    Place = table.Column<string>(nullable: true),
                     Latitute = table.Column<double>(nullable: false),
                     Longtitute = table.Column<double>(nullable: false),
                     Photo = table.Column<byte[]>(nullable: true),

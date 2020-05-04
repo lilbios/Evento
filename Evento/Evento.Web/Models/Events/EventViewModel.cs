@@ -21,19 +21,16 @@ namespace Evento.Web.Models.Events
 
         public int CategoryId { get; set; }
 
-        public string City { get; set; }
+        public string Place { get; set; }
 
-        public string Country { get; set; }
+        public string Latitude { get; set; }
 
-        public string Street { get; set; }
+        public string Longtitude { get; set; }
+        public string Tags { get; set; }
+        public bool IsOwner { get; set; }
+        public bool IsSubscribed { get; set; }
+        public byte[] Photo { get; set; }
+        public virtual Category Category { get; set; }
 
-        public double Latitute { get; set; }
-
-        public double Longtitute { get; set; }
-       
-        public string[] Tags { get; set; }
-
-         public byte[] Photo { get; set; }
-        
     }
 }

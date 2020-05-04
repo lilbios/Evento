@@ -1,39 +1,23 @@
-﻿@model Evento.Models.Entities.Event
-
-@{
-    ViewData["Title"] = "CreateNewEvent";
-}
+@using Evento.BLL.Third_part
+@model Evento.Web.Models.Events.EventViewModel
 <link rel="stylesheet" href="~/css/Events.css" />
 
-@using (Html.BeginForm("CreateNewEvent", "Events", FormMethod.Post, new { enctype = "multipart/form-data" }))
-{
 
 
-<article class="wrapper">
-    @ViewBag.Ok
-    <header>
-        <h1 class="pageTitle">Title</h1>
+    <article class="wrapper">
+        @ViewBag.Ok
+        <header>
+            <h1 class="pageTitle">Title</h1>
 
-        <div class="col-md-12">
-            @Html.DisplayFor(model => model.Title, new
-       {
-           htmlAttributes = new
-           {
-               @class = "form-control"
-           }
-       })
-           
-      
-
-        </div>
+            <div class="col-md-12">
+                @Html.DisplayFor(model => model.Title, new{htmlAttributes = new{ @class = "form-control"}})
+            </div>
 
 
-    </header>
+        </header>
 
-    <section>
-        <h2 class="pageSubTitle"> Category </h2>
-      
-
+        <section>
+            <h2 class="pageSubTitle"> Category </h2>
             <div class="col-md-12">
                 @Html.DisplayFor(model => model.Category.Title, new
            {
@@ -55,118 +39,32 @@
 
             <div class="col-md-12">
                 <p>
-                    @Html.DisplayNameFor(model => model.DateStart):  @Html.DisplayFor(model => model.Country, new
-{
-htmlAttributes = new
-{
-@class = "form-control",
-@placeholder = "Country"
 
-}
-
-})
-</p>
-
-            </div>
-            <div class="col-md-12">
-                <p>
-                    @Html.DisplayNameFor(model => model.City):   @Html.DisplayFor(model => model.City, new
-{
-htmlAttributes = new
-{
-@class = "form-control",
-@placeholder = "City"
-
-}
-
-})
-</p>
-
-            </div>
-
-            <div class="col-md-12">
-                <p>
-                    @Html.DisplayNameFor(model => model.Street):   @Html.DisplayFor(model => model.Street, new
-{
-htmlAttributes = new
-{
-@class = "form-control",
-@placeholder = "City"
-
-}
-
-})
-</p>
-
-            </div>
-
-            <div class="col-md-12">
-                <p>
-                    @Html.DisplayNameFor(model => model.DateStart):  @Html.DisplayFor(model => model.Latitute, new
-{
-htmlAttributes = new
-{
-@class = "form-control",
-@placeholder = "City"
-
-}
-
-})
+                    @Html.DisplayNameFor(model => model.DateStart):
+                    @Html.DisplayFor(model => model.Place, new { htmlAttributes = new { @class = "form-control", @placeholder = "Place" } })
                 </p>
-               
 
             </div>
-           
-            <div class="col-md-12">
-                <p>
-                    @Html.DisplayNameFor(model => model.Longtitute):  @Html.DisplayFor(model => model.Longtitute, new
-{
-htmlAttributes = new
-{
-@class = "form-control",
-@placeholder = "City"
 
-}
 
-})
-                </p>  
+          
 
-            </div>
 
         </section>
         <section>
             <h2 class="pageSubTitle"> Dates </h2>
-           
+
             <div class="col-md-12">
                 <p>
-                    @Html.DisplayNameFor(model => model.DateStart):  @Html.DisplayFor(model => model.DateStart, new
-{
-htmlAttributes = new
-{
-@class = "form-control",
-@placeholder = "Country"
-
-}
-
-})
-                </p> 
+                    @Html.DisplayNameFor(model => model.DateStart):  @Html.DisplayFor(model => model.DateStart, new { htmlAttributes = new { @class = "form-control", @placeholder = "Country" } })
+                </p>
 
             </div>
-            
             <div class="col-md-12">
                 <p>
-                    @Html.DisplayNameFor(model => model.DateFinish):   @Html.DisplayFor(model => model.DateFinish, new
-{
-htmlAttributes = new
-{
-@class = "form-control",
-@placeholder = "Country"
-
-}
-
-})
+                    @Html.DisplayNameFor(model => model.DateFinish):   @Html.DisplayFor(model => model.DateFinish, new { htmlAttributes = new { @class = "form-control", @placeholder = "Country" } })
                 </p>
-               
+
 
             </div>
         </section>
@@ -174,16 +72,7 @@ htmlAttributes = new
             <h2 class="pageSubTitle"> Description </h2>
 
             <div class="col-md-12">
-                @Html.DisplayFor(model => model.Description, new
-           {
-               htmlAttributes = new
-               {
-                   @class = "form-control",
-                   @placeholder = "Country"
-
-               }
-
-           })
+                @Html.DisplayFor(model => model.Description, new { htmlAttributes = new { @class = "form-control", @placeholder = "Country" } })
 
             </div>
         </section>
@@ -191,10 +80,8 @@ htmlAttributes = new
         @{
             if (@Model.Photo != null)
             {
-                var base64 = Convert.ToBase64String(@Model.Photo);
-                var imagesrc = string.Format("data:image/jpeg;base64,{0}", base64);
-
-                <img src="@imagesrc" alt="" height="330em" />
+                var picture = ImageConvertor.ConvertBytesToImage(Model.Photo);
+                <img src="@picture" alt="" height="330em" />
             }
             else
             {
@@ -205,10 +92,10 @@ htmlAttributes = new
             }
         }
 
-</article>
+    </article>
 
 
-}
+
 
 
 

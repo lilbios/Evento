@@ -1,4 +1,5 @@
-﻿using Evento.BLL.Interfaces;
+﻿using AutoMapper;
+using Evento.BLL.Interfaces;
 using Evento.Models.Entities;
 using System;
 using System.Collections.Generic;
@@ -11,9 +12,11 @@ namespace Evento.BLL.Services
     public class EventService : IEventService<Event>
     {
         private readonly IUnitOfWork _unitOfWork;
-        public EventService(IUnitOfWork unitOfWork)
+        private readonly IMapper _mapper;
+        public EventService(IUnitOfWork unitOfWork,  IMapper mapper)
         {
-            _unitOfWork = unitOfWork;
+         _mapper= mapper;
+        _unitOfWork = unitOfWork;
         }
         public async Task AddEvent(Event _event)
         {
@@ -32,11 +35,7 @@ namespace Evento.BLL.Services
             await _unitOfWork.Events.Delete(eventForRemoving);
         }
 
-        public async Task<ICollection<Event>> GetEventByCity(string cityName)
-        {
-            var eventList = await _unitOfWork.Events.GetByCondition(x => x.City.StartsWith(cityName));
-            return eventList.ToList();
-        }
+      
 
         public async Task<ICollection<Event>> GetEventByTitle(string search)
         {
@@ -99,26 +98,65 @@ namespace Evento.BLL.Services
         }
       
 
-        public async Task EditEvent(Event e)
+        public async Task EditEvent(int id, Event e)
         {
 
-            var eventForEditing = _unitOfWork.Events.GetByID(e.Id);
-            eventForEditing.Result.Title = e.Title;
-            eventForEditing.Result.CategoryId = e.CategoryId;
-            eventForEditing.Result.DateFinish = e.DateFinish;
-            eventForEditing.Result.DateStart = e.DateStart;
-            eventForEditing.Result.Description = e.Description;
-            eventForEditing.Result.Subscriptions = e.Subscriptions;
-            await _unitOfWork.Events.Update(eventForEditing.Result);
+            var edited = await _unitOfWork.Events.GetByID(id);
+            e = _mapper.Map<Event>(e);
+            edited.Title = e.Title  ;
+            
+          
+          
+            edited.Photo = e.Photo;
+            edited.Longtitute = e.Longtitute;
+            edited.Latitute = e.Latitute;
+            edited.DateFinish = e.DateFinish;
+            edited.Category = e.Category;
+            edited.DateStart = e.DateStart;
+          
+           
+            await _unitOfWork.Events.Update(edited);
 
         }
 
         public async Task<ICollection<Event>> GetUserCreatedEvents(string userId)
         {
             var user = await _unitOfWork.Users.GetByID(userId);
-            var subscriptionsOwner = await Task.Run(()=> user.Subscriptions.Where(s=> s.UserId == userId && s.IsOwner == true ));
-            return null;
+            var events = await _unitOfWork.Events.GetAll();
+            var subscriptions = await Task.Run(()=> user.Subscriptions.Where(s=> s.UserId == userId && s.IsOwner == true ));
+            var usersEvents = (from subs in subscriptions
+                               join e in events
+                               on subs.EventId equals e.Id
+                               select new Event()
+                               {
+                                   Id = e.Id,
+                                   Title = e.Title,
+                                   DateStart = e.DateStart,
+                                   DateFinish = e.DateFinish,
+                                   CategoryId = e.CategoryId,
+                                   Category = e.Category,
+                                   TagEvents = e.TagEvents,
+                                   Place = e.Place
+
+                               }).ToList();
+            return usersEvents;
             
+
+        }
+
+        public async Task<bool> IsExsistsEvent(string titleEvent)
+        {
+            var events = await _unitOfWork.Events.GetAll();
+            var e = events.Where(e => e.Title == titleEvent);
+            return e is null;
+        }
+
+        public async Task<Event> GetCurrentEventByTitle(string search)
+        {
+            var events = await _unitOfWork.Events.GetAll();
+            var e = events.FirstOrDefault();
+            return e;
+
         }
     }
 }
