@@ -35,7 +35,7 @@ namespace Evento.DAL
 
             optionsBuilder
                 .UseLazyLoadingProxies()
-                .UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Initial Catalog=eventodttt;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
+                .UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Initial Catalog=eventodb;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
         }
     }
 }

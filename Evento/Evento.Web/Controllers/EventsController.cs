@@ -11,6 +11,8 @@ using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Evento.BLL.Third_part;
 using System.Linq;
+using System.IO;
+using Microsoft.EntityFrameworkCore;
 
 namespace Evento.Web.Controllers
 {
@@ -24,7 +26,7 @@ namespace Evento.Web.Controllers
         private readonly IMapper mapper;
         private ICategoryService<Category> caregoryService;
       
-        public EventsController(ISubscriptionService<Subscription>subscriptionService; ,IEventService<Event> eventService, 
+        public EventsController(ISubscriptionService<Subscription>subscriptionService ,IEventService<Event> eventService, 
         ICategoryService<Category> caregoryService, ITagService<Tag> tagService,IMapper mapper) : base(_localizer)
 
         {
@@ -116,7 +118,6 @@ namespace Evento.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-
         public async Task<IActionResult> CreateNewEvent(EventViewModel viewModel, IFormFile image)
         {
 
@@ -157,9 +158,7 @@ namespace Evento.Web.Controllers
 
                     await tagService.AttachTagToEvent(tag, createdEvent);
 
-
                 }
-
 
             }
             var categories = await caregoryService.GetAllCategories();
@@ -167,8 +166,6 @@ namespace Evento.Web.Controllers
 
             return View(viewModel);
         }
-
-
 
         public async Task<IActionResult> Edit(int id)
         {
@@ -201,8 +198,6 @@ namespace Evento.Web.Controllers
                 var editEvent = mapper.Map<Event>(e);
                 try
                 {
-
-
 
                     if (Image != null)
 
@@ -238,10 +233,6 @@ namespace Evento.Web.Controllers
             return View(e);
         }
 
-
-      
-
-        // GET: Events/Delete/5
         [HttpPost]
         public async Task<IActionResult> Delete(int id)
         {
@@ -252,16 +243,9 @@ namespace Evento.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> OrganizedEvents(string userId)
         {
-
-
-
             var usersOrganizedEvents = await eventService.GetUserCreatedEvents(userId);
             return View(usersOrganizedEvents);
         }
-
-
-
-
     }
 }
 
