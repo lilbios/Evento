@@ -24,10 +24,11 @@ namespace Evento.Web.Models.Events
         public string Place { get; set; }
 
         public string Latitude { get; set; }
-   
+
         public string Longtitude { get; set; }
         public string Tags { get; set; }
-
+        public bool IsOwner { get; set; }
+        public bool IsSubscribed { get; set; }
         public byte[] Photo { get; set; }
 
     }
