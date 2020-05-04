@@ -18,7 +18,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace Evento.Web.Controllers
 {
-    [Authorize(Roles="Admin")]
+    
     public class CategoriesController : BaseController
     {
         private ICategoryService<Category> caregoryService;
