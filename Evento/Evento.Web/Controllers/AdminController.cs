@@ -16,23 +16,20 @@ using Microsoft.Extensions.Localization;
 namespace Evento.Web.Controllers
 {
     [Authorize]
-    public class AdminController : BaseController
+    public class AdminController : Controller
     {
-
         private UserManager<User> userManager;
         private IPasswordHasher<User> passwordHasher;
         private IPasswordValidator<User> passwordValidator;
         private IUserValidator<User> userValidator;
-        private static readonly IStringLocalizer<BaseController> _localizer;
-
         private readonly IAccountsService accountsService;
-      
 
-      
-        public AdminController(IAccountsService accountsServ,UserManager<User> usrMgr, IPasswordHasher<User> passwordHash, IPasswordValidator<User> passwordVal, IUserValidator<User> userValid) : base(_localizer)
+        public AdminController(IAccountsService accountsServ,
+            UserManager<User> usrMgr, IPasswordHasher<User> passwordHash,
+            IPasswordValidator<User> passwordVal, IUserValidator<User> userValid)
         {
-             accountsService=  accountsServ;
-             userManager = usrMgr;
+            accountsService = accountsServ;
+            userManager = usrMgr;
             passwordHasher = passwordHash;
             passwordValidator = passwordVal;
             userValidator = userValid;
@@ -45,31 +42,26 @@ namespace Evento.Web.Controllers
 
         public async Task<IActionResult> Create(RegisterDTO model)
         {
-            
-       
-                if (ModelState.IsValid)
+            if (ModelState.IsValid)
+            {
+                var registerResult = await accountsService.Register(model);
+
+                if (registerResult.Succeeded)
                 {
-                    var registerResult = await accountsService.Register(model);
 
-                    if (registerResult == "Ok")
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    foreach (var error in registerResult.Errors)
                     {
-
-                        return RedirectToAction("Index", "Home");
-                    }
-                    else
-                    {
-                        foreach (var error in registerResult)
-                        {
-                            ModelState.AddModelError(string.Empty, error.ToString());
-                        }
+                        ModelState.AddModelError(string.Empty, error.Description);
                     }
                 }
+            }
 
             return View(model);
-
         }
-
-
 
         public async Task<IActionResult> Update(string id)
         {
@@ -110,11 +102,6 @@ namespace Evento.Web.Controllers
                 else
                     ModelState.AddModelError("", "Password cannot be empty");
 
-
-
-              
-
-
                 if (validEmail != null && validPass != null && validEmail.Succeeded && validPass.Succeeded && !string.IsNullOrEmpty(salary))
                 {
                     IdentityResult result = await userManager.UpdateAsync(user);
@@ -129,7 +116,6 @@ namespace Evento.Web.Controllers
 
             return View(user);
         }
-
 
         void Errors(IdentityResult result)
         {
@@ -177,6 +163,7 @@ namespace Evento.Web.Controllers
             return View();
 
         }
+
         public ActionResult OtherAction()
         {
             return View(GetData("OtherAction"));
@@ -194,6 +181,5 @@ namespace Evento.Web.Controllers
 
             return dict;
         }
-
     }
 }

@@ -19,12 +19,11 @@ using Microsoft.AspNetCore.Authorization;
 namespace Evento.Web.Controllers
 {
     
-    public class CategoriesController : BaseController
+    public class CategoriesController : Controller
     {
         private ICategoryService<Category> caregoryService;
         private readonly IMapper mapper;
-        private static readonly IStringLocalizer<BaseController> _localizer;
-        public CategoriesController(ICategoryService<Category> caregoryService, IMapper mapper) : base(_localizer)
+        public CategoriesController(ICategoryService<Category> caregoryService, IMapper mapper)
         {
 
             this.caregoryService = caregoryService;
@@ -50,7 +49,7 @@ namespace Evento.Web.Controllers
        
         public async Task<IActionResult> Details(int id)
         {
-            if (id == null)
+            if (id == 0)
             {
                 return NotFound();
             }
@@ -108,7 +107,7 @@ namespace Evento.Web.Controllers
         // GET: Categories/Edit/5
         public async Task<IActionResult> Edit(int id)
         {
-            if (id == null)
+            if (id == 0)
             {
                 return NotFound();
             }
@@ -180,7 +179,7 @@ namespace Evento.Web.Controllers
         // GET: Categories/Delete/5
         public async Task<IActionResult> Delete(int id)
         {
-            if (id == null)
+            if (id == 0)
             {
                 return NotFound();
             }

@@ -10,11 +10,11 @@ using Microsoft.Extensions.Localization;
 
 namespace Evento.Web.Controllers
 {
-    public class UsersController : BaseController
+    public class UsersController : Controller
     {
         UserManager<User> userManager;
-        private static readonly IStringLocalizer<BaseController> _localizer;
-        public UsersController(UserManager<User> userManager) : base(_localizer)
+
+        public UsersController(UserManager<User> userManager)
         {
             this.userManager = userManager;
         }
