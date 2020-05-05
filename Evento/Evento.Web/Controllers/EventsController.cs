@@ -16,18 +16,17 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Evento.Web.Controllers
 {
-    public class EventsController : BaseController
+    public class EventsController : Controller
     {
 
         private readonly ISubscriptionService<Subscription> subscriptionService;
         private readonly IEventService<Event> eventService;
-        private static readonly IStringLocalizer<BaseController> _localizer;
         private readonly ITagService<Tag> tagService;
         private readonly IMapper mapper;
         private ICategoryService<Category> caregoryService;
       
         public EventsController(ISubscriptionService<Subscription>subscriptionService ,IEventService<Event> eventService, 
-        ICategoryService<Category> caregoryService, ITagService<Tag> tagService,IMapper mapper) : base(_localizer)
+        ICategoryService<Category> caregoryService, ITagService<Tag> tagService,IMapper mapper)
 
         {
              this.subscriptionService= subscriptionService;
@@ -169,7 +168,7 @@ namespace Evento.Web.Controllers
 
         public async Task<IActionResult> Edit(int id)
         {
-            if (id == null)
+            if (id == 0)
             {
                 return NotFound();
             }
