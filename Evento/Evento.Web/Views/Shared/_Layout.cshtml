@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title> Evento</title>
+    <title>  @Localizer["Evento"]</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.2/css/all.min.css" rel='stylesheet' type='text/css' />
@@ -17,91 +17,54 @@
 
 </head>
 <body>
-    @*<header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Evento.Web</a>
+    @using Microsoft.AspNetCore.Mvc.Localization
+
+    @inject IViewLocalizer Localizer
+
+   
+    <div class="mainWindow">
+     
+
+        <div class="topbar">
+
+            <div class="topbar-right">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Evento</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="topbar-right">
-                    <div class="notificationBell">
-                        <img class="notificationBell__icon" src="http://stark-schwarz.de/wp-content/uploads/2019/12/bell-solid.svg">
-                        <div class="notificationBell__value"></div>
-                    </div>
-                    <button class="darkModeBtn">
-                        <img src="http://stark-schwarz.de/wp-content/uploads/2019/12/moon-solid.svg">
 
+
+                <a href="/Events/CreateNewEvent">
+                    <button class="iconBtn" id="createProjectBtn">
+                        <div class="iconBtn__content">
+
+                            @Localizer["NewEvent"]
+                        </div>
                     </button>
-
+                </a>
+                <div>
+                    @await Html.PartialAsync("_SelectLanguagePartial")
+                </div>
+                <div class="notificationBell">
+                    <img class="notificationBell__icon" src="http://stark-schwarz.de/wp-content/uploads/2019/12/bell-solid.svg">
+                    <div class="notificationBell__value"></div>
+                </div>
+                <div class="profile">
+                    <partial name="_LoginPartial" />
                 </div>
             </div>
-        </nav>
-    </header>*@
-
-    <div class="mainWindow">
-       
-
-            <div class="topbar">
-             
-                <div class="topbar-right">
-                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Evento</a>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                            aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-
-
-                    <a href="/Events/CreateNewEvent">
-                        <button class="iconBtn" id="createProjectBtn">
-                            <div class="iconBtn__content">
-
-                                New Event
-                            </div>
-                        </button>
-                    </a> 
-                  
-
-                    <div>
-                        @await Html.PartialAsync("_SelectLanguagePartial")
-                    </div>
-                    <div class="notificationBell">
-                        <img class="notificationBell__icon" src="http://stark-schwarz.de/wp-content/uploads/2019/12/bell-solid.svg">
-                        <div class="notificationBell__value"></div>
-                    </div>
-                    <div class="profile">
-                       
-                            <partial name="_LoginPartial" />
-
-                      
-                    </div>
-
-                </div>
-            </div>
-            <div class="content" style="margin-top:7em">
-               
-                @RenderBody()
-
-            </div>
-</div>
-
+        </div>
+        <div class="content" style="margin-top:7em">
+            @RenderBody()
+        </div>
+    </div>
     <div class="modalWindow modalWindow--inactive">
         <div class="closeModal"></div>
 
         <div class="notificationBar notificationBar--inactive">
             <h2 class="blackFont">
-                Notifications
+                @Localizer["Notification"]
             </h2>
             <div class="notificationBox newNotification">
 
@@ -109,16 +72,16 @@
 
                     <div class="content__row madeInBamberg">
                         <div id="loginBlock">
-                            Ввойти в чат:<br />
-                            <input  class="chat" id="userName" type="text" />
-                            <input class="chat" id="loginBtn" type="button" value="Войти" />
+                            @Localizer["ToChat"]<br />
+                            <input class="chat" id="userName" type="text" />
+                            <input class="chat" id="loginBtn" type="button" value=@Localizer["Enter"] />
                         </div><br />
 
                         <div id="header"></div><br />
 
                         <div id="inputForm">
                             <input class="chat" type="text" id="message" />
-                            <input class="chat" type="button" id="sendBtn" value="Отправить" />
+                            <input class="chat" type="button" id="sendBtn" value=@Localizer["Send"] />
                         </div>
                         <div id="chatroom"></div>
 
@@ -127,170 +90,24 @@
 
                 </div>
 
-                <div class="notificationBox__noResults notificationBox__noResults--inactive">
-                    <img style="width:140px; height:140px; border-radius:100%; object-fit:cover;" src="https://media.giphy.com/media/5LONmJBzkVSOQ/200.gif" />
-                    <p><strong><span class="blackFont">Nix los hier!</span></strong><br>Keine Benachrichtigungen in Deinem Postfach.</p>
-                </div>
+
             </div>
         </div>
 
+    </div>
+    <script src="js/signalr/dist/browser/signalr.min.js"></script>
+    <script src="~/js/others/signal.js"></script>
+    <script src="~/js/others/notification.js"></script>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; @Localizer["Footer"] - <a asp-area="" asp-controller="Home" asp-action="Privacy">@Localizer["Privacy"]</a>
         </div>
-        <script src="js/signalr/dist/browser/signalr.min.js"></script>
-        <script>
-            const hubConnection = new signalR.HubConnectionBuilder()
-                .withUrl("/chat")
-                .build();
-            let userName = "";
-            // получение сообщения от сервера
-            hubConnection.on("Receive", function (message, userName) {
+    </footer>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @RenderSection("Scripts", required: false)
 
-                // создаем элемент <b> для имени пользователя
-                let userNameElem = document.createElement("b");
-                userNameElem.appendChild(document.createTextNode(userName + ": "));
-
-                // создает элемент <p> для сообщения пользователя
-                let elem = document.createElement("p");
-                elem.appendChild(userNameElem);
-                elem.appendChild(document.createTextNode(message));
-
-                var firstElem = document.getElementById("chatroom").firstChild;
-                document.getElementById("chatroom").insertBefore(elem, firstElem);
-
-            });
-            // диагностическое сообщение
-            hubConnection.on("Notify", function (message) {
-
-                let elem = document.createElement("p");
-                elem.appendChild(document.createTextNode(message));
-
-                var firstElem = document.getElementById("chatroom").firstChild;
-                document.getElementById("chatroom").insertBefore(elem, firstElem);
-            });
-
-            // установка имени пользователя
-            document.getElementById("loginBtn").addEventListener("click", function (e) {
-                userName = document.getElementById("userName").value;
-                hubConnection.invoke("Enter", userName);
-            });
-            // отправка сообщения на сервер
-            document.getElementById("sendBtn").addEventListener("click", function (e) {
-                let message = document.getElementById("message").value;
-                hubConnection.invoke("Send", message, userName);
-            });
-
-            hubConnection.start();
-        </script>
-
-
-
-
-
-
-
-        <script>
-            // Modal Function
-
-            let siteBody = document.querySelector("body");
-            let mainWindow = document.querySelector(".mainWindow");
-            let popUpBtn = document.querySelectorAll(".popUpBtn");
-            let popUp = document.querySelectorAll(".popUp");
-            let modalWindow = document.querySelector(".modalWindow");
-            let closeModal = document.querySelectorAll(".closeModal");
-            let notificationBell = document.querySelector(".notificationBell");
-            let notificationBar = document.querySelector(".notificationBar");
-
-
-
-            function openLayer() {
-                mainWindow.classList.toggle("mainWindow--inactive");
-                siteBody.classList.toggle("disableScrolling");
-                modalWindow.classList.toggle("modalWindow--inactive");
-            }
-
-            function closeLayer() {
-                mainWindow.classList.toggle("mainWindow--inactive");
-                siteBody.classList.toggle("disableScrolling");
-                modalWindow.classList.add("modalWindow--inactive");
-            }
-
-            popUpBtn.forEach(e => {
-                e.addEventListener("click", () => {
-                    openLayer();
-                    let targetPopUp = document.getElementById(e.dataset.targetPopup);
-                    targetPopUp.classList.remove("popUp--inactive");
-                });
-            });
-
-            notificationBell.addEventListener("click", () => {
-                openLayer();
-                notificationBar.classList.remove("notificationBar--inactive");
-            });
-
-            closeModal.forEach(e => {
-                e.addEventListener("click", () => {
-                    closeLayer();
-                    popUp.forEach(popUp => {
-                        popUp.classList.add("popUp--inactive");
-                    });
-                    notificationBar.classList.add("notificationBar--inactive");
-
-
-                });
-            });
-
-            // Single Page Functionality
-            let darkModeSet = "false";
-            let singlePageLinks = document.querySelectorAll(".singlePageLink");
-            let contentSinglePage = document.querySelectorAll(".content--singlePage");
-            singlePageLinks.forEach(e => {
-                e.addEventListener("click", () => {
-                    contentSinglePage.forEach(page => {
-                        page.classList.remove("content--singlePage--active");
-                    });
-                    let targetPageId = "content--" + e.dataset.targetRef;
-                    let targetPage = document.getElementById(targetPageId);
-                    targetPage.classList.add("content--singlePage--active");
-                    sizeProjectTable();
-                    if (darkModeSet == "true") {
-                        singlePageLinks.forEach(s => {
-                            s.classList.remove('navigation__item--active--dark');
-                        });
-                        e.classList.toggle('navigation__item--active--dark');
-                    } else {
-                        singlePageLinks.forEach(s => {
-                            s.classList.remove('navigation__item--active--dark');
-                        });
-                    }
-                });
-            });
-
-            singlePageLinks[0].click();
-
-         
-
-
-
-
-
-
-
-        </script>
-
-
-
-
-
-
-
-        <footer class="border-top footer text-muted">
-            <div class="container">
-                &copy; 2020 - Evento.Web - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-            </div>
-        </footer>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-        <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-        <script src="~/js/site.js" asp-append-version="true"></script>
-        @RenderSection("Scripts", required: false)
-
-        </body>
+</body>
 </html>

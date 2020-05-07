@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 
 namespace Evento.BLL.Accounts
 {
+
+
     public interface IAccountsService
     {
         Task<IdentityResult> Register(RegisterDTO model);
