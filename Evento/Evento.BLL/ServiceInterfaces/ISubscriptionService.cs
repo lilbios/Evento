@@ -9,8 +9,8 @@ namespace Evento.BLL.Interfaces
     public interface ISubscriptionService<T> where T : class
     {
         public Task<ICollection<T>> GetSubscriptionsCurrentUser(string id);
-        public Task Subscribe(T subscription);
-        public Task Unsubscribe(int id);
+        public Task Subscribe(int eventId, string userId);
+        public Task Unsubscribe(int eventId, string userId);
 
 
     }

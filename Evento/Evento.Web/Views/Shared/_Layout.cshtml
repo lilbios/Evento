@@ -8,9 +8,9 @@
     <link rel="stylesheet" href="~/css/site.css" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.2/css/all.min.css" rel='stylesheet' type='text/css' />
     <script src=@Url.Content("~/js/Login.js")></script>
-   
- 
-    
+
+
+
     <script src="../Scripts/jquery.signalR-2.0.1.min.js" type="text/javascript"></script>
     <script src="../signalr/hubs" type="text/javascript"></script>
     <script src="../Scripts/jquery-2.0.3.min.js"></script>
@@ -21,9 +21,9 @@
 
     @inject IViewLocalizer Localizer
 
-   
+
     <div class="mainWindow">
-     
+
 
         <div class="topbar">
 
@@ -35,13 +35,11 @@
                 </button>
 
 
-                <a href="/Events/CreateNewEvent">
-                    <button class="iconBtn" id="createProjectBtn">
-                        <div class="iconBtn__content">
+                <a href="/Events/CreateNewEvent" class="iconBtn" id="createProjectBtn">
+                    <div class="iconBtn__content">
 
-                            @Localizer["NewEvent"]
-                        </div>
-                    </button>
+                        @Localizer["NewEvent"]
+                    </div>
                 </a>
                 <div>
                     @await Html.PartialAsync("_SelectLanguagePartial")

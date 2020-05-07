@@ -16,9 +16,10 @@ namespace Evento.BLL.Services
             mapper = _mapper;
         }
 
-        public async Task AddTag(Tag tag)
+        public async Task<Tag> AddTag(Tag tag)
         {
-            await unitOfWork.Tags.Create(tag);
+            var createdTag = await unitOfWork.Tags.CreateItem(tag);
+            return createdTag;
         }
 
         public async Task RemoveTag(int tagId)
@@ -38,10 +39,10 @@ namespace Evento.BLL.Services
             await unitOfWork.TagEvents.Create(tagEvent);
         }
 
-        public async Task<Tag> GetTagByName(string name)
+        public async Task<Tag> FindTagByName(string tagName)
         {
-            var tag = await unitOfWork.Tags.GetByCondition(t => t.TagName == name);
-            return tag.FirstOrDefault();
+            var tag = await unitOfWork.Tags.GetObjectLazyLoad(t=> t.TagName == tagName, t=> t.TagEvents);
+            return tag;
         }
 
         public async Task<bool> HasTag(string name)

@@ -25,7 +25,7 @@ namespace Evento.BLL.Services
         }
         public async Task<Event> GetById(int id)
         {
-           var _event =  await _unitOfWork.Events.GetByID(id);
+            var _event = await _unitOfWork.Events.GetObjectLazyLoad(e => e.Id == id, e => e.Category, e => e.TagEvents);
             return _event;
         }
 
@@ -39,7 +39,7 @@ namespace Evento.BLL.Services
 
         public async Task<ICollection<Event>> GetEventByTitle(string search)
         {
-            var eventList = await _unitOfWork.Events.GetByCondition(s => s.Title.Contains(search));
+            var eventList = await _unitOfWork.Events.GetByCondition(s => s.Title.StartsWith(search));
             return eventList.OrderBy(s => s.Title).ToList();
         }
 
@@ -100,63 +100,30 @@ namespace Evento.BLL.Services
 
         public async Task EditEvent(int id, Event e)
         {
-
-            var edited = await _unitOfWork.Events.GetByID(id);
-            e = _mapper.Map<Event>(e);
-            edited.Title = e.Title  ;
-            
-          
-          
-            edited.Photo = e.Photo;
-            edited.Longtitute = e.Longtitute;
-            edited.Latitute = e.Latitute;
-            edited.DateFinish = e.DateFinish;
-            edited.Category = e.Category;
-            edited.DateStart = e.DateStart;
-          
-           
-            await _unitOfWork.Events.Update(edited);
+  
+            await _unitOfWork.Events.Update(e);
 
         }
 
         public async Task<ICollection<Event>> GetUserCreatedEvents(string userId)
         {
-            var user = await _unitOfWork.Users.GetByID(userId);
-            var events = await _unitOfWork.Events.GetAll();
-            var subscriptions = await Task.Run(()=> user.Subscriptions.Where(s=> s.UserId == userId && s.IsOwner == true ));
-            var usersEvents = (from subs in subscriptions
-                               join e in events
-                               on subs.EventId equals e.Id
-                               select new Event()
-                               {
-                                   Id = e.Id,
-                                   Title = e.Title,
-                                   DateStart = e.DateStart,
-                                   DateFinish = e.DateFinish,
-                                   CategoryId = e.CategoryId,
-                                   Category = e.Category,
-                                   TagEvents = e.TagEvents,
-                                   Place = e.Place
-
-                               }).ToList();
-            return usersEvents;
-            
-
+            /*var user = await _unitOfWork.Users.GetObjectLazyLoad(u => u.Id == userId, u => u.Subscriptions);
+               If below code doesn't work you must use in this method JOIN for tables Events and Users 
+             */
+            var envents = await _unitOfWork.Events.GetAllLazyLoad(e => e.Subscriptions.Any(s=> s.UserId == userId && s.IsOwner == true) ,e=> e.Category);
+            return envents.ToList();
         }
 
         public async Task<bool> IsExsistsEvent(string titleEvent)
         {
-            var events = await _unitOfWork.Events.GetAll();
-            var e = events.Where(e => e.Title == titleEvent);
+            var e = await _unitOfWork.Events.GetObjectLazyLoad(e=> e.Title == titleEvent);
             return e is null;
         }
 
-        public async Task<Event> GetCurrentEventByTitle(string search)
+        public async Task<Event> CreateNew(Event item)
         {
-            var events = await _unitOfWork.Events.GetAll();
-            var e = events.FirstOrDefault();
-            return e;
-
+            var _event = await _unitOfWork.Events.CreateItem(item);
+            return _event;
         }
     }
 }

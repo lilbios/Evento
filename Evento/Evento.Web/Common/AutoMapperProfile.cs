@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Evento.BLL.Accounts.DTO;
 using Evento.Models.Entities;
 using Evento.Web.Models.Accounts;
 using Evento.Web.Models.Categories;
@@ -16,6 +17,7 @@ namespace Evento.Web.Common
             CreateMap<Event,EventViewModel>();
             CreateMap<CreateViewModel, Category>();
             CreateMap<Category, CreateViewModel>();
+            CreateMap<RegisterDTO, User>();
         }
     }
 }

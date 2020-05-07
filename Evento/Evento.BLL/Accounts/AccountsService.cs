@@ -1,13 +1,8 @@
-﻿using Evento.BLL.Accounts.DTO;
+﻿using AutoMapper;
+using Evento.BLL.Accounts.DTO;
 using Evento.Models.Entities;
 using Microsoft.AspNetCore.Identity;
-using MimeKit;
 using System;
-using System.Collections.Generic;
-using System.Net;
-using System.Net.Mail;
-using System.Security.Policy;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Evento.BLL.Accounts
@@ -16,12 +11,15 @@ namespace Evento.BLL.Accounts
     {
         private readonly UserManager<User> userManager;
         private readonly SignInManager<User> signInManager;
+        public string UserId { get; private set; }
+        private readonly IMapper mapper;
 
         public AccountsService(UserManager<User> userManager,
-            SignInManager<User> signInManager)
+            SignInManager<User> signInManager, IMapper mapper)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
+            this.mapper = mapper;
         }
 
         public async Task<IdentityResult> Register(RegisterDTO model)
@@ -40,7 +38,9 @@ namespace Evento.BLL.Accounts
                 DataOfBirth = model.DataOfBirth
             };
 
+
             var result = await userManager.CreateAsync(user, model.Password);
+            
 
             return result;
         }
@@ -53,6 +53,7 @@ namespace Evento.BLL.Accounts
             }
 
             var user = await userManager.FindByEmailAsync(model.Email);
+
 
             var result = await
                     signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);

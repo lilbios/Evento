@@ -8,11 +8,11 @@ namespace Evento.BLL.Interfaces
 {
     public interface ITagService<T> where T : class
     {
-        public Task AddTag(Tag tag);
+        public Task<T> AddTag(Tag tag);
         public Task RemoveTag(int tagId);
         public Task AttachTagToEvent(Tag tag, Event _event);
 
-        public Task<T> GetTagByName(string name);
+        public Task<T> FindTagByName(string name);
         public Task<bool> HasTag(string name);
 
 

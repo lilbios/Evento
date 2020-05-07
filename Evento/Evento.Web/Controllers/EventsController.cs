@@ -5,14 +5,13 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Evento.Models.Entities;
 using Evento.BLL.Interfaces;
 using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Localization;
 using Evento.Web.Models.Events;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Evento.BLL.Third_part;
 using System.Linq;
-using System.IO;
-using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
+using System.Security.Claims;
 
 namespace Evento.Web.Controllers
 {
@@ -23,21 +22,23 @@ namespace Evento.Web.Controllers
         private readonly IEventService<Event> eventService;
         private readonly ITagService<Tag> tagService;
         private readonly IMapper mapper;
-        private ICategoryService<Category> caregoryService;
-      
-        public EventsController(ISubscriptionService<Subscription>subscriptionService ,IEventService<Event> eventService, 
-        ICategoryService<Category> caregoryService, ITagService<Tag> tagService,IMapper mapper)
+        private readonly ICategoryService<Category> caregoryService;
+
+
+        public EventsController(ISubscriptionService<Subscription> subscriptionService, IEventService<Event> eventService,
+        ICategoryService<Category> caregoryService, ITagService<Tag> tagService, IMapper mapper)
 
         {
-             this.subscriptionService= subscriptionService;
+            this.subscriptionService = subscriptionService;
             this.caregoryService = caregoryService;
             this.eventService = eventService;
             this.mapper = mapper;
             this.tagService = tagService;
+            this.userManager = userManager;
         }
 
         // GET: Events
-        public async Task<IActionResult> Index( string searchString)
+        public async Task<IActionResult> Index(string searchString)
         {
 
 
@@ -50,6 +51,17 @@ namespace Evento.Web.Controllers
             }
             var events = await eventService.GetAllEvents();
             return View(events);
+        }
+
+
+        public async Task<IActionResult> Subscribe(int eventId)
+        {
+          
+        }
+        public async Task<IActionResult> Unsubscribe(int eventId)
+        {
+
+         
         }
 
 
@@ -99,7 +111,7 @@ namespace Evento.Web.Controllers
                 currentEvent.Longtitute = Convert.ToDouble(placeViewModel.Longtitude);
                 currentEvent.Latitute = Convert.ToDouble(placeViewModel.Latitude);
 
-                await eventService.EditEvent(3,currentEvent);
+                await eventService.EditEvent(3, currentEvent);
                 return RedirectToAction(nameof(Details), new { Id = placeViewModel.EventId });
             }
             return View(placeViewModel);
@@ -121,13 +133,14 @@ namespace Evento.Web.Controllers
         {
 
             var result = await eventService.IsExsistsEvent(viewModel.Title);
-            if (result)
+            if (!result)
             {
                 ModelState.AddModelError("Title", "Event with this title already exsists");
             }
             if (DateTime.Compare(viewModel.DateFinish, viewModel.DateFinish) > 0)
             {
             }
+
             if (ModelState.IsValid)
             {
 
@@ -140,26 +153,19 @@ namespace Evento.Web.Controllers
                     newEvent.Photo = ImageConvertor.ConvertImageToBytes(image);
 
                 }
-                await eventService.AddEvent(newEvent);
-                var createdEvent = await eventService.GetCurrentEventByTitle(viewModel.Title);
+                var createdEvent = await eventService.CreateNew(newEvent);
 
-                var tags = viewModel.Tags.Split(',').ToList().Select(t=> new Tag {TagName = t });
-
+                var tags = viewModel.Tags.Split(',').ToList().Select(t => new Tag { TagName = t });
                 foreach (var item in tags)
                 {
-                    var tag = await tagService.GetTagByName(item.TagName);
-                    if (tag is null)
-                    {
-                        await tagService.AddTag(item);
-                        tag = await tagService.GetTagByName(item.TagName);
-
+                    var tag = await tagService.FindTagByName(item.TagName);
+                    if (tag is null) {
+                        tag = await tagService.AddTag(item);
                     }
-
-                    await tagService.AttachTagToEvent(tag, createdEvent);
-
+                    await tagService.AttachTagToEvent(tag,createdEvent);
                 }
-
             }
+
             var categories = await caregoryService.GetAllCategories();
             ViewData["CategoryId"] = new SelectList(categories, "Id", "Title");
 
@@ -188,42 +194,23 @@ namespace Evento.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, EventViewModel e, IFormFile Image)
+        public async Task<IActionResult> Edit(int id, EventViewModel e, IFormFile image)
         {
 
             if (ModelState.IsValid)
             {
 
                 var editEvent = mapper.Map<Event>(e);
-                try
+
+
+                if (image != null && image.Length > 0)
+
                 {
-
-                    if (Image != null)
-
-                    {
-                        if (Image.Length > 0)
-                        {
-
-                            byte[] p1 = null;
-                            using (var fs1 = Image.OpenReadStream())
-                            using (var ms1 = new MemoryStream())
-                            {
-                                fs1.CopyTo(ms1);
-                                p1 = ms1.ToArray();
-                            }
-                            editEvent.Photo = p1;
-
-                        }
-                    }
-                    await eventService.EditEvent(id, editEvent);
-
+                    editEvent.Photo = ImageConvertor.ConvertImageToBytes(image);
                 }
-                catch (DbUpdateConcurrencyException)
-                {
+                await eventService.EditEvent(id, editEvent);
 
-                    throw;
 
-                }
                 return RedirectToAction(nameof(Index));
 
             }

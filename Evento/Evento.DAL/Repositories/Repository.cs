@@ -71,6 +71,13 @@ namespace Evento.DAL.Repositories
             return result;
         }
 
+        public async Task<TEntity> GetObjectLazyLoad(Expression<Func<TEntity, bool>> filter,
+            params Expression<Func<TEntity, object>>[] children)
+        {
+            await Task.Run(() => children.ToList().ForEach(x => eventoDbSet.Include(x).Load()));
+            return eventoDbSet.AsTracking().FirstOrDefault();
+        }
+
         public async Task<IQueryable<TEntity>> GetAllLazyLoad(Expression<Func<TEntity, bool>> filter,
             params Expression<Func<TEntity, object>>[] children)
         {
@@ -78,5 +85,12 @@ namespace Evento.DAL.Repositories
             return eventoDbSet;
         }
 
+        public async  Task<TEntity> CreateItem(TEntity entity)
+        {
+            await eventoDbSet.AddAsync(entity);
+            await repositoryContext.SaveChangesAsync();
+            return entity;
+           
+        }
     }
 }

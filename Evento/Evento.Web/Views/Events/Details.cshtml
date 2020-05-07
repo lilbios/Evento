@@ -4,18 +4,19 @@
 
 
 
-    <article class="wrapper">
-        @ViewBag.Ok
-        <header>
-            <h1 class="pageTitle">Title</h1>
+<article class="wrapper">
+    @ViewBag.Ok
 
-            <div class="col-md-12">
-                @Html.DisplayFor(model => model.Title, new{htmlAttributes = new{ @class = "form-control"}})
-            </div>
+    <header>
+        <h1 class="pageTitle">Title</h1>
+
+        <div class="col-sm-12">
+            @Html.DisplayFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
+        </div>
 
 
-        </header>
-
+    </header>
+    <div class="col-sm-10">
         <section>
             <h2 class="pageSubTitle"> Category </h2>
             <div class="col-md-12">
@@ -47,7 +48,7 @@
             </div>
 
 
-          
+
 
 
         </section>
@@ -75,24 +76,37 @@
                 @Html.DisplayFor(model => model.Description, new { htmlAttributes = new { @class = "form-control", @placeholder = "Country" } })
 
             </div>
-        </section>
+            
 
-        @{
-            if (@Model.Photo != null)
+        </section>
+    </div>
+    <div class="col-sm-2">
+        @if (!Model.IsOwner)
+        {
+            if (Model.IsSubscribed)
             {
-                var picture = ImageConvertor.ConvertBytesToImage(Model.Photo);
-                <img src="@picture" alt="" height="330em" />
+                <form asp-controller="Events" asp-action="Subscribe" method="post"  asp-route-id="@Model.Id">
+                    <input type="submit" name="subscribe" value="Subscribe" class="btn-success btn-lg"  />
+                </form>
             }
             else
             {
-
-
-                <img src="~/Resource/thuan-pham-1Kj0OZiwLN8-unsplash.jpg" alt="" height="330em" />
-
+                <form asp-controller="Events" asp-action="Unsubscribe" method="post" asp-route-id="@Model.Id" >
+                    <input type="submit" name="subscribe" value="Unubscribe" class="btn-danger btn-lg"  />
+                </form>
             }
         }
+        else
+        {
+            //Button for statistics
+        }
 
-    </article>
+    </div>
+
+    }
+
+
+</article>
 
 
 

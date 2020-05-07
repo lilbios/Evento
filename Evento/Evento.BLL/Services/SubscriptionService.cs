@@ -24,18 +24,22 @@ namespace Evento.BLL.Services
             return subscriptions.ToList();
         }
 
-        public async Task Subscribe(Subscription Subscription)
+        public async Task Subscribe(int eventId, string userId)
         {
 
-            var subscription = mapper.Map<Subscription>(Subscription);
+            var subscription = new Subscription()
+            {
+                EventId = eventId,
+                UserId = userId
+            };
             await unitOfWork.Subscriptions.Create(subscription);
         }
 
 
 
-        public async Task Unsubscribe(int id)
+        public async Task Unsubscribe(int eventId, string userId)
         {
-            var subscription = unitOfWork.Subscriptions.GetByID(id);
+            var subscription = unitOfWork.Subscriptions.GetByCondition(s=> s.UserId == userId && s.EventId == eventId);
             await unitOfWork.Subscriptions.Delete(subscription);
         }
     }

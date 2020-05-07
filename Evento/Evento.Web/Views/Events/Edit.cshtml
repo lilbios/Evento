@@ -38,14 +38,26 @@
                     </div>
 
                 </section>
-                @*<section>
-            <h2 class="pageSubTitle"> Tags </h2>
-            <div class="form-group">
+                <section>
+                    <h2 class="pageSubTitle"> Tags </h2>
+                    <div class="col-md-12">
+                        <div class="errors"></div>
+                        <input id="tag-input" class="form-control" />
+                        <div id="tag-container">
+                            @if (Model?.Tags.Split(',').Length > 0)
+                            {
+                                foreach (var item in Model.Tags.Split(','))
+                                {
+                                    <small class="badge badge-warning" style="margin-left: 5px">@item</small>
+                                }
+                            }
+                        </div>
 
-                <select asp-for="TagId" class="form-control" asp-items="ViewBag.TagId"></select>
-            </div>
+                        @Html.EditorFor(model => model.Tags, new{ htmlAttributes = new { @class = "form-control", @placeholder = "Description", @id = "tags", @type = "hidden"}})
+                        @Html.ValidationMessageFor(model => model.Description, "", new { @class ="text-danger"})
 
-        </section>*@
+                    </div>
+                </section>s
                 <section>
                     <h2 class="pageSubTitle"> Dates </h2>
 
