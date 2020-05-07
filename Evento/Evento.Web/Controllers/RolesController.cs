@@ -10,12 +10,13 @@ using Microsoft.Extensions.Localization;
 
 namespace Evento.Web.Controllers
 {
-    public class RolesController : BaseController
+    public class RolesController : Controller
     {
         RoleManager<IdentityRole> roleManager;
         UserManager<User> userManager;
-        private static readonly IStringLocalizer<BaseController> _localizer;
-        public RolesController(RoleManager<IdentityRole> roleManager, UserManager<User> userManager) : base(_localizer)
+
+        public RolesController(RoleManager<IdentityRole> roleManager,
+            UserManager<User> userManager)
         {
             this.roleManager = roleManager;
             this.userManager = userManager;

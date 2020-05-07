@@ -16,14 +16,14 @@ using Evento.Web.LanguageResources;
 namespace Evento.Web.Controllers
 {
     
-    public class HomeController : BaseController
+    public class HomeController : Controller
     {
         
         private readonly ILogger<HomeController> _logger;
         private readonly IEventService<Event> _eventService;
-        private static readonly IStringLocalizer<BaseController> _localizer;
        
-        public HomeController(ILogger<HomeController> logger, IEventService<Event> eventService) : base(_localizer)
+        public HomeController(ILogger<HomeController> logger, 
+            IEventService<Event> eventService)
         {
             _logger = logger;
             _eventService = eventService;
