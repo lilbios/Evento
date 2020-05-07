@@ -50,19 +50,18 @@ namespace Evento.Web.Controllers
         public async Task<IActionResult> Register(RegisterDTO model)
         {
             if (ModelState.IsValid)
-            {
+            { 
                 var registerResult = await _accountsService.Register(model);
 
-                if (registerResult == "Ok")
+                if (registerResult.Succeeded)
                 {
-
                     return RedirectToAction("Index", "Home");
                 }
                 else
                 {
-                    foreach (var error in registerResult)
+                    foreach (var error in registerResult.Errors)
                     {
-                        ModelState.AddModelError(string.Empty, error.ToString());
+                        ModelState.AddModelError(string.Empty, error.Description);
                     }
                 }
             }

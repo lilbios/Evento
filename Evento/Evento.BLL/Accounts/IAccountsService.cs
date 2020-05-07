@@ -1,4 +1,5 @@
 ﻿using Evento.BLL.Accounts.DTO;
+using Evento.Models.Entities;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
@@ -11,7 +12,7 @@ namespace Evento.BLL.Accounts
 
     public interface IAccountsService
     {
-        Task<string> Register(RegisterDTO model);
+        Task<IdentityResult> Register(RegisterDTO model);
 
         Task<SignInResult> Login(LoginDTO model);
 
