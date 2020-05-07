@@ -5,6 +5,17 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <Compile Remove="Resources\**" />
+      <Compile Remove="Resource\**" />
+      <Content Remove="Resources\**" />
+      <Content Remove="Resource\**" />
+      <EmbeddedResource Remove="Resources\**" />
+      <EmbeddedResource Remove="Resource\**" />
+      <None Remove="Resources\**" />
+      <None Remove="Resource\**" />
+    </ItemGroup>
+
+    <ItemGroup>
         <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
         <PackageReference Include="Microsoft.AspNetCore.Authentication.Facebook" Version="3.1.3" />
         <PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="3.1.3" />
@@ -27,24 +38,25 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Resources\" />
-      <Folder Include="Resource\" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Compile Update="LanguageResources\SharedResource.en.Designer.cs">
+      <Compile Update="LanguageResources\Models\Events\EventViewModel - Copy.en.Designer.cs">
+        <DependentUpon>EventViewModel.en.resx</DependentUpon>
         <DesignTime>True</DesignTime>
         <AutoGen>True</AutoGen>
-        <DependentUpon>SharedResource.en.resx</DependentUpon>
+      </Compile>
+      <Compile Update="LanguageResources\Models\Events\EventViewModel.en.Designer.cs">
+        <DependentUpon>EventViewModel.en.resx</DependentUpon>
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
       </Compile>
     </ItemGroup>
 
     <ItemGroup>
-      <EmbeddedResource Update="LanguageResources\SharedResource.en.resx">
+      <EmbeddedResource Update="LanguageResources\Models\Events\EventViewModel.uk.resx">
+        <LastGenOutput>EventViewModel.en.Designer.cs</LastGenOutput>
         <Generator>PublicResXFileCodeGenerator</Generator>
-        <LastGenOutput>SharedResource.en.Designer.cs</LastGenOutput>
       </EmbeddedResource>
-      <EmbeddedResource Update="LanguageResources\SharedResource.ru.resx">
+      <EmbeddedResource Update="LanguageResources\Models\Events\EventViewModel.en.resx">
+        <LastGenOutput>EventViewModel.en.Designer.cs</LastGenOutput>
         <Generator>PublicResXFileCodeGenerator</Generator>
       </EmbeddedResource>
       <EmbeddedResource Update="LanguageResources\SharedResource.uk.resx">
@@ -54,6 +66,18 @@
         <Generator>PublicResXFileCodeGenerator</Generator>
       </EmbeddedResource>
       <EmbeddedResource Update="LanguageResources\Views\Home\Index.uk.resx">
+        <Generator>PublicResXFileCodeGenerator</Generator>
+      </EmbeddedResource>
+      <EmbeddedResource Update="LanguageResources\Views\Shared\_LoginPartial.en.resx">
+        <Generator>PublicResXFileCodeGenerator</Generator>
+      </EmbeddedResource>
+      <EmbeddedResource Update="LanguageResources\Views\Shared\_LoginPartial.uk.resx">
+        <Generator>PublicResXFileCodeGenerator</Generator>
+      </EmbeddedResource>
+      <EmbeddedResource Update="LanguageResources\Views\Shared\_Layout.en.resx">
+        <Generator>PublicResXFileCodeGenerator</Generator>
+      </EmbeddedResource>
+      <EmbeddedResource Update="LanguageResources\Views\Shared\_Layout.uk.resx">
         <Generator>PublicResXFileCodeGenerator</Generator>
       </EmbeddedResource>
     </ItemGroup>

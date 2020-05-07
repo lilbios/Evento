@@ -27,8 +27,6 @@ namespace Evento.Web.Controllers
 
         private readonly IAccountsService accountsService;
       
-
-      
         public AdminController(IAccountsService accountsServ,UserManager<User> usrMgr, IPasswordHasher<User> passwordHash, IPasswordValidator<User> passwordVal, IUserValidator<User> userValid) : base(_localizer)
         {
              accountsService=  accountsServ;

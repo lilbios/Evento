@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 
 namespace Evento.BLL.Accounts
 {
+
+
     public interface IAccountsService
     {
         Task<string> Register(RegisterDTO model);

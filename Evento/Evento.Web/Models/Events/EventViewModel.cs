@@ -1,6 +1,7 @@
 ﻿using Evento.Models.Entities;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -11,12 +12,20 @@ namespace Evento.Web.Models.Events
 
         public int Id { get; set; }
 
+        [Required(ErrorMessage = "TitleRequired")]
+        [StringLength(40, ErrorMessage = "TitleLength", MinimumLength = 6)]
+        [Display(Name = "Title")]
         public string Title { get; set; }
-
+        [Required(ErrorMessage = "DateStartRequired")]
+       
+        [Display(Name = "DateStart")]
         public DateTime DateStart { get; set; }
-
+        [Required(ErrorMessage = "DateFinishRequired")]
+        [Display(Name = "DateFinish")]
         public DateTime DateFinish { get; set; }
-
+        [Required(ErrorMessage = "DescriptionRequired")]
+        [StringLength(4000, ErrorMessage = "DescriptionLength", MinimumLength = 6)]
+        [Display(Name = "Description")]
         public string Description { get; set; }
 
         public int CategoryId { get; set; }

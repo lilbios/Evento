@@ -2,33 +2,34 @@
 @using Evento.Models.Entities;
 @inject SignInManager<User> SignInManager
 @inject UserManager<User> UserManager
-
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
 
 @if (SignInManager.IsSignedIn(User))
 {
-         <a href="/Categories/Index">
-            <button class="iconBtn" id="createProjectBtn">
-                <div class="iconBtn__content">
+    <a href="/Categories/Index">
+        <button class="iconBtn" id="createProjectBtn">
+            <div class="iconBtn__content">
 
-                    Categories
-                </div>
-            </button>
-        </a>
-        <a href="/Admin/Index">
-            <button class="iconBtn" id="createProjectBtn">
-                <div class="iconBtn__content">
+                @Localizer["Category"]
+            </div>
+        </button>
+    </a>
+    <a href="/Admin/Index">
+        <button class="iconBtn" id="createProjectBtn">
+            <div class="iconBtn__content">
 
-                    Admin
-                </div>
-            </button>
-        </a>
+                @Localizer["Admin"]
+            </div>
+        </button>
+    </a>
 
-    
+
     <a href="/Account/Profile">
         <button class="iconBtn" id="createProjectBtn">
             <div class="iconBtn__content">
 
-                My Account
+                @Localizer["MyAccount"]
             </div>
         </button>
     </a>
@@ -39,7 +40,7 @@
             </li>
             <li class="nav-item">
                 <form class="form-inline" asp-controller="Account" asp-action="Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-                    <button type="submit" class="nav-link btn btn-link text-dark">Logout</button>
+                    <button type="submit" class="nav-link btn btn-link text-dark"> @Localizer["Logout"]</button>
                 </form>
             </li>
         </ul>
@@ -50,10 +51,10 @@ else
     <div class="profile__information">
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a class="accoubtn text-dark" asp-controller="Account" asp-action="Register">Register</a>
+                <a class="accoubtn text-dark" asp-controller="Account" asp-action="Register"> @Localizer["Register"]</a>
             </li>
             <li class="nav-item">
-                <a class="accoubtn text-dark" asp-controller="Account" asp-action="Login">Login</a>
+                <a class="accoubtn text-dark" asp-controller="Account" asp-action="Login"> @Localizer["Login"]</a>
             </li>
 
         </ul>

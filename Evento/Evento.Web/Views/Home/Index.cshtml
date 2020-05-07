@@ -1,6 +1,5 @@
 ﻿@model ICollection<Evento.Models.Entities.Event>
 @using Microsoft.AspNetCore.Mvc.Localization
-
 @inject IViewLocalizer Localizer
 
 
@@ -214,13 +213,7 @@
     <main class="main">
         <section class="recipe">
             <h2 class="recipe__title">@Localizer["Actual"]</h2>
-            <div class="palette-container">
-                @*@foreach (var item in Model)
-                    {
-                        <div class="palette-item"> <span class="palette-item__bg" style="background-color:#eaeaea"> </span><span class="palette-item__name">@item.Category.Title</span></div>
-                    }*@
-
-            </div>
+          
             <div class="recipe-list">
                 <div class="recipe-scroll">
                     @foreach (var item in Model.Take(3))
@@ -259,13 +252,15 @@
 
             <div class="newsletter__form">
                 <img class="newsletter__icon icon-n" src="https://www.freepnglogos.com/uploads/email-logo-png-27.png" />
-                <input class="newsletter__input" type="text" placeholder="Put your email to contact us">
-                <button class="newsletter__button" type="submit">@Localizer["Connect"]</button>
+                <input class="newsletter__input" type="text" placeholder=@Localizer["Email"]>
+                <form action="~/Events/Index"> <button class="newsletter__button" type="submit">@Localizer["Connect"]</button></form>
             </div>
             <div class="newsletter__item">
                 <img class="newsletter__icon icon-n" src="https://pngimage.net/wp-content/uploads/2018/05/event-icon-png-9.png" />
                 <p class="newsletter__description">@Localizer["Quoute"]</p>
-                <button class="newsletter__button" type="submit">@Localizer["Search"]</button>
+                <form action="~/Events/Index">
+                    <button class="newsletter__button" type="submit">@Localizer["Search"]</button>
+                    </form>
             </div>
 
         </section>

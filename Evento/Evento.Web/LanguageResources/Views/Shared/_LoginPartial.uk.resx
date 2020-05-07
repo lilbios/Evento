@@ -117,10 +117,77 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Name" xml:space="preserve">
-    <value>name</value>
+  <data name="Actual" xml:space="preserve">
+    <value>Актуальні події</value>
+  </data>
+  <data name="Admin" xml:space="preserve">
+    <value>Адміністратор</value>
+  </data>
+  <data name="AllEvents" xml:space="preserve">
+    <value>Усі події</value>
+  </data>
+  <data name="Category" xml:space="preserve">
+    <value>Категорії</value>
+  </data>
+  <data name="Connect" xml:space="preserve">
+    <value>Зв'яжіться з нами</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>Залиште нам свою електронну пошту</value>
+  </data>
+  <data name="Enter" xml:space="preserve">
+    <value>Вхід</value>
+  </data>
+  <data name="Evento" xml:space="preserve">
+    <value>Evento</value>
+  </data>
+  <data name="Footer" xml:space="preserve">
+    <value>2020 - Evento</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>Вхід</value>
+  </data>
+  <data name="Logout" xml:space="preserve">
+    <value>Вихід</value>
+  </data>
+  <data name="MainQuote" xml:space="preserve">
+    <value>Хочу залишитися вдома
+</value>
+  </data>
+  <data name="NewEvent" xml:space="preserve">
+    <value>НОВА ПОДІЯ</value>
+  </data>
+  <data name="Notification" xml:space="preserve">
+    <value>Повідомлення</value>
+  </data>
+  <data name="Online" xml:space="preserve">
+    <value>Онлайн події</value>
+  </data>
+  <data name="Party" xml:space="preserve">
+    <value>Відпочивай правильно</value>
+  </data>
+  <data name="Privacy" xml:space="preserve">
+    <value>Права</value>
+  </data>
+  <data name="Quoute" xml:space="preserve">
+    <value>"Там багато пригод, які чекають, коли ми їх проживемо!"</value>
+  </data>
+  <data name="QuouteFooter" xml:space="preserve">
+    <value>"Зробіть своє життя найкращою пригодою!"</value>
+  </data>
+  <data name="Register" xml:space="preserve">
+    <value>Реєстрація</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Знайти</value>
+  </data>
+  <data name="Send" xml:space="preserve">
+    <value>Надіслати</value>
   </data>
   <data name="Stay" xml:space="preserve">
-    <value>Stay home</value>
+    <value>Залишайтесь вдома</value>
+  </data>
+  <data name="ToChat" xml:space="preserve">
+    <value>Увійти в чат</value>
   </data>
 </root>

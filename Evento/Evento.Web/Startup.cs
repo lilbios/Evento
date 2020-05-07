@@ -1,33 +1,21 @@
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Threading.Tasks;
-using AutoMapper;
-using Evento.BLL;
-using Evento.DAL;
 
+using System.Globalization;
+using AutoMapper;
+using Evento.DAL;
 using Evento.Models.Entities;
 using Evento.Web.Common;
-using Evento.Web.LanguageResources;
-
 using Evento.Web.SignalR;
-
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
-
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc.Authorization;
 using System.IO;
+using Evento.Web.LanguageResources;
 
 namespace Evento.Web
 {
@@ -46,8 +34,7 @@ namespace Evento.Web
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
+            public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
             services.AddDbContext<EventoDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"), x => x.MigrationsAssembly("Evento.DAL")));
@@ -85,11 +72,8 @@ namespace Evento.Web
 
             services.AddLocalization(options => options.ResourcesPath = "LanguageResources");
             services.AddControllersWithViews()
-                .AddDataAnnotationsLocalization(options => {
-                    options.DataAnnotationLocalizerProvider = (type, factory) =>
-                        factory.Create(typeof(SharedResource));
-                })
-                .AddViewLocalization();
+                  .AddDataAnnotationsLocalization()
+                 .AddViewLocalization();
 
             services.Configure<RequestLocalizationOptions>(options =>
             {
@@ -107,8 +91,7 @@ namespace Evento.Web
 
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+          public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -117,8 +100,7 @@ namespace Evento.Web
             else
             {
                 app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                app.UseHsts();
+                   app.UseHsts();
             }
 
             app.UseRequestLocalization();
