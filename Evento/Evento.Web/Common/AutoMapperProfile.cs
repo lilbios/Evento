@@ -13,10 +13,8 @@ namespace Evento.Web.Common
         {
             //View models mapping
             CreateMap<RegisterViewModel, User>();
-            CreateMap<EventViewModel, Event>();
-            CreateMap<Event,EventViewModel>();
-            CreateMap<CreateViewModel, Category>();
-            CreateMap<Category, CreateViewModel>();
+            CreateMap<EventViewModel, Event>().ReverseMap();
+            CreateMap<CreateViewModel, Category>().ReverseMap();
             CreateMap<RegisterDTO, User>();
         }
     }
