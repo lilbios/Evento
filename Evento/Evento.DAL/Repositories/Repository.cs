@@ -101,5 +101,12 @@ namespace Evento.DAL.Repositories
         {
             return await eventoDbSet.CountAsync();
         }
+
+        
+
+        public  async Task<TEntity> GetObjectByCondition(Expression<Func<TEntity, bool>> expression)
+        {
+            return await eventoDbSet.FirstOrDefaultAsync(expression);
+        }
     }
 }

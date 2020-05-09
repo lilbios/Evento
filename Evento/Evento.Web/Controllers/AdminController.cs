@@ -19,10 +19,12 @@ namespace Evento.Web.Controllers
     public class AdminController : Controller
     {
         private UserManager<User> userManager;
-        private IPasswordHasher<User> passwordHasher;
-        private IPasswordValidator<User> passwordValidator;
         private IUserValidator<User> userValidator;
+        private IPasswordHasher<User> passwordHasher;
         private readonly IAccountsService accountsService;
+        private IPasswordValidator<User> passwordValidator;
+       
+        
 
         public AdminController(IAccountsService accountsServ,
             UserManager<User> usrMgr, IPasswordHasher<User> passwordHash,

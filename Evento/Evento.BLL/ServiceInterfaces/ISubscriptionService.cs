@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Evento.BLL.Interfaces
 {
-    public interface ISubscriptionService<T> where T : class
+    public interface ISubscriptionService
     {
-        public Task<ICollection<T>> GetSubscriptionsCurrentUser(string id);
+        public Task<ICollection<Subscription>> GetSubscriptionsCurrentUser(string id);
         public Task Subscribe(int eventId, string userId);
         public Task Unsubscribe(int eventId, string userId);
 

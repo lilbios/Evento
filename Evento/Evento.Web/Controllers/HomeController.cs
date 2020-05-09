@@ -9,15 +9,15 @@ using Evento.Web.Models.Events;
 
 namespace Evento.Web.Controllers
 {
-    
+
     public class HomeController : Controller
     {
-        
+
+        private readonly IEventService _eventService;
         private readonly ILogger<HomeController> _logger;
-        private readonly IEventService<Event> _eventService;
        
-        public HomeController(ILogger<HomeController> logger, 
-            IEventService<Event> eventService)
+
+        public HomeController(ILogger<HomeController> logger, IEventService eventService)
         {
             _logger = logger;
             _eventService = eventService;
@@ -26,17 +26,16 @@ namespace Evento.Web.Controllers
         {
             return View();
         }
-        
-      
+
+
         [HttpGet]
-        public async Task<ActionResult> Index(int page=1)
+        public async Task<ActionResult> Index(int page = 1)
         {
 
-            var events = await _eventService.GetAllEvents(page,3);
+            var events = await _eventService.GetAllEvents(page, 3);
             var count = await _eventService.Count;
 
-
-            var pageViewModel = new PageViewModel(count,page,3);
+            var pageViewModel = new PageViewModel(count, page, 3);
             var eventsViewModel = new EventsViewModel()
             {
                 Items = events,

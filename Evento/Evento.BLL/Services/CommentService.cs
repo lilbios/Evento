@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Evento.BLL.Services
 {
-    public class CommentService : ICommentService<Comment>
+    public class CommentService : ICommentService
     {
         private readonly IUnitOfWork unitOfWork;
         private readonly IMapper mapper;

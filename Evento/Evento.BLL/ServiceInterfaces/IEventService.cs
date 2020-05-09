@@ -6,38 +6,38 @@ using System.Threading.Tasks;
 
 namespace Evento.BLL.Interfaces
 {
-    public interface IEventService<T> where T : class
+    public interface IEventService
     {
 
-        public Task<int> Count { get;}
-        public Task<ICollection<T>> GetAllEvents(int numberToSkip, int numberToTake);
-        public Task AddEvent(T e);
+        public Task<int> Count { get; }
+        public Task<ICollection<Event>> GetAllEvents(int numberToSkip, int numberToTake);
+        public Task AddEvent(Event e);
 
-        public Task EditEvent(int id, T e);
+        public Task EditEvent(int id, Event e);
 
         public Task RemoveEvent(object id);
 
-        public Task<T> GetById(int id);
+        public Task<Event> GetById(int id);
 
-        public Task<ICollection<T>> GetEventByTitle(string search);
+        public Task<ICollection<Event>> GetEventByTitle(string search);
 
-        public Task<ICollection<T>> GetEventByDateStart(string date);
+        public Task<ICollection<Event>> GetEventByDateStart(string date);
 
-        public Task<ICollection<T>> GetEventByDateStartAndLater(string date);
+        public Task<ICollection<Event>> GetEventByDateStartAndLater(string date);
 
-        public Task<ICollection<T>> GetStartedEvent();
+        public Task<ICollection<Event>> GetStartedEvent();
 
-        public Task<ICollection<T>> GetNotStartedEvent();
+        public Task<ICollection<Event>> GetNotStartedEvent();
 
-        public Task<ICollection<T>> GetStartedandNotFinishedEvent();
+        public Task<ICollection<Event>> GetStartedandNotFinishedEvent();
 
-        public Task<ICollection<T>> GetNotFinishedEvent();
+        public Task<ICollection<Event>> GetNotFinishedEvent();
 
-        public Task<ICollection<T>> GetFinishedEvent();
-        public Task<ICollection<T>> GetUserCreatedEvents(string userId);
+        public Task<ICollection<Event>> GetFinishedEvent();
+        public Task<ICollection<Event>> GetUserCreatedEvents(string userId);
         public Task<bool> IsExsistsEvent(string titleEvent);
 
-        public Task<T> CreateNew(T item);
+        public Task<Event> CreateNew(Event item);
 
     }
 }

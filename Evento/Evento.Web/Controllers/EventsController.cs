@@ -12,28 +12,31 @@ using Evento.BLL.Third_part;
 using System.Linq;
 using Microsoft.AspNetCore.Identity;
 using System.Security.Claims;
+using Evento.BLL.Accounts;
 
 namespace Evento.Web.Controllers
 {
     public class EventsController : Controller
     {
-
-        private readonly ISubscriptionService<Subscription> subscriptionService;
-        private readonly IEventService<Event> eventService;
-        private readonly ITagService<Tag> tagService;
         private readonly IMapper mapper;
-        private readonly ICategoryService<Category> caregoryService;
+        private readonly ITagService tagService;
+        private readonly IEventService eventService;
+        private readonly UserManager<User> userManager;
+        private readonly ICategoryService caregoryService;
+        private readonly IAccountsService accountsService;
+        private readonly ISubscriptionService subscriptionService;
 
 
-        public EventsController(ISubscriptionService<Subscription> subscriptionService, IEventService<Event> eventService,
-        ICategoryService<Category> caregoryService, ITagService<Tag> tagService, IMapper mapper)
+        public EventsController(ISubscriptionService subscriptionService, IEventService eventService,
+        ICategoryService caregoryService, ITagService tagService,IMapper mapper,UserManager<User> userManager)
 
         {
             this.subscriptionService = subscriptionService;
             this.caregoryService = caregoryService;
             this.eventService = eventService;
-            this.mapper = mapper;
+            this.userManager = userManager;
             this.tagService = tagService;
+            this.mapper = mapper;
         }
 
         // GET: Events
@@ -48,20 +51,22 @@ namespace Evento.Web.Controllers
 
                 return View(eventsSearch);
             }
-          // var events = await eventService.GetAllEvents();
+            // var events = await eventService.GetAllEvents();
             return View(null);
         }
 
 
         public async Task<IActionResult> Subscribe(int eventId)
         {
-           
-            return RedirectToAction(nameof(Details), new { id =eventId });
+            var userId = userManager.GetUserId(User);
+            await subscriptionService.Subscribe(eventId, userId);
+            return RedirectToAction(nameof(Details), new { id = eventId });
         }
 
         public async Task<IActionResult> Unsubscribe(int eventId)
         {
-            
+            var userId = userManager.GetUserId(User);
+            await subscriptionService.Unsubscribe(eventId, userId);
             return RedirectToAction(nameof(Details), new { id = eventId });
 
         }
@@ -127,37 +132,39 @@ namespace Evento.Web.Controllers
         public async Task<IActionResult> CreateNewEvent(EventViewModel viewModel, IFormFile image)
         {
 
-            var result = await eventService.IsExsistsEvent(viewModel.Title);
-            if (!result)
+            var foundResult = await eventService.IsExsistsEvent(viewModel.Title);
+
+            if (!foundResult)
             {
                 ModelState.AddModelError("Title", "Event with this title already exsists");
             }
+
             if (DateTime.Compare(viewModel.DateFinish, viewModel.DateFinish) > 0)
             {
+                ModelState.AddModelError("DateFinish", "Finish date cannot be earlier than start");
             }
 
             if (ModelState.IsValid)
             {
-
                 var newEvent = mapper.Map<Event>(viewModel);
 
                 if (image != null && image.Length > 0)
-
                 {
-
                     newEvent.Photo = ImageConvertor.ConvertImageToBytes(image);
-
                 }
-                var createdEvent = await eventService.CreateNew(newEvent);
 
+                var createdEvent = await eventService.CreateNew(newEvent);
                 var tags = viewModel.Tags.Split(',').ToList().Select(t => new Tag { TagName = t });
+
                 foreach (var item in tags)
                 {
                     var tag = await tagService.FindTagByName(item.TagName);
-                    if (tag is null) {
+
+                    if (tag is null)
+                    {
                         tag = await tagService.AddTag(item);
                     }
-                    await tagService.AttachTagToEvent(tag,createdEvent);
+                    await tagService.AttachTagToEvent(tag, createdEvent);
                 }
             }
 

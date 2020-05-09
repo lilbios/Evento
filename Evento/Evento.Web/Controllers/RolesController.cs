@@ -12,8 +12,9 @@ namespace Evento.Web.Controllers
 {
     public class RolesController : Controller
     {
-        RoleManager<IdentityRole> roleManager;
         UserManager<User> userManager;
+        RoleManager<IdentityRole> roleManager;
+        
 
         public RolesController(RoleManager<IdentityRole> roleManager,
             UserManager<User> userManager)

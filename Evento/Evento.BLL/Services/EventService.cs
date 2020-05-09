@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Evento.BLL.Services
 {
-    public class EventService : IEventService<Event>
+    public class EventService : IEventService
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
@@ -106,19 +106,20 @@ namespace Evento.BLL.Services
             await _unitOfWork.Events.Update(e);
         }
 
+       
+            
         public async Task<ICollection<Event>> GetUserCreatedEvents(string userId)
         {
-            /*var user = await _unitOfWork.Users.GetObjectLazyLoad(u => u.Id == userId, u => u.Subscriptions);
-               If below code doesn't work you must use in this method JOIN for tables Events and Users 
-             */
+            //var user = await _unitOfWork.Users.GetObjectLazyLoad(u => u.Id == userId, u => u.Subscriptions);
+            //If below code doesn't work you must use in this method JOIN for tables Events and Users 
             var envents = await _unitOfWork.Events.GetAllLazyLoad(e => e.Subscriptions.Any(s=> s.UserId == userId && s.IsOwner == true) ,e=> e.Category);
             return envents.ToList();
         }
 
         public async Task<bool> IsExsistsEvent(string titleEvent)
         {
-            var e = await _unitOfWork.Events.GetObjectLazyLoad(e=> e.Title == titleEvent);
-            return e is null;
+            var item =  await _unitOfWork.Events.GetObjectByCondition(e=> e.Title == titleEvent);
+           return  item is null;
         }
 
         public async Task<Event> CreateNew(Event item)

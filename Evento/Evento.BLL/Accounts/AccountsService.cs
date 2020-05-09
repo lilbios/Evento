@@ -3,6 +3,7 @@ using Evento.BLL.Accounts.DTO;
 using Evento.Models.Entities;
 using Microsoft.AspNetCore.Identity;
 using System;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace Evento.BLL.Accounts
@@ -11,7 +12,6 @@ namespace Evento.BLL.Accounts
     {
         private readonly UserManager<User> userManager;
         private readonly SignInManager<User> signInManager;
-        public string UserId { get; private set; }
         private readonly IMapper mapper;
 
         public AccountsService(UserManager<User> userManager,
@@ -29,19 +29,8 @@ namespace Evento.BLL.Accounts
                 throw new ArgumentNullException();
             }
 
-            User user = new User
-            {
-                FirstName = model.FirstName,
-                LastName = model.LastName,
-                Email = model.Email,
-                UserName = model.Email,
-                DataOfBirth = model.DataOfBirth
-            };
-
-
+            var user = mapper.Map<User>(model);
             var result = await userManager.CreateAsync(user, model.Password);
-            
-
             return result;
         }
 
@@ -64,6 +53,11 @@ namespace Evento.BLL.Accounts
         public async Task Logout()
         {
             await signInManager.SignOutAsync();
+        }
+
+        public Task<string> GetUserId()
+        {
+            return null;
         }
     }
 }

@@ -14,9 +14,10 @@ namespace Evento.Web.Controllers
     
     public class CategoriesController : Controller
     {
-        private ICategoryService<Category> caregoryService;
         private readonly IMapper mapper;
-        public CategoriesController(ICategoryService<Category> caregoryService, IMapper mapper)
+        private ICategoryService caregoryService;
+        
+        public CategoriesController(ICategoryService caregoryService, IMapper mapper)
         {
             this.caregoryService = caregoryService;
             this.mapper = mapper;

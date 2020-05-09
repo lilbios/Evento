@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 
 namespace Evento.BLL.Interfaces
 {
-    public interface ICategoryService<T> where T : class
+    public interface ICategoryService
     {
-         Task AddCategory(T category);
-         Task DeleteCategory(int id);
-         Task EditCategory(int id, T category);
-        Task<Category> GetCategory(int id);
-        Task<ICollection<T>> GetAllCategories();
-        Task<ICollection<T>> GetCategoryByTitle(string search);
+        public Task AddCategory(Category category);
+        public Task DeleteCategory(int id);
+        public Task EditCategory(int id, Category category);
+        public Task<Category> GetCategory(int id);
+        public Task<ICollection<Category>> GetAllCategories();
+        public Task<ICollection<Category>> GetCategoryByTitle(string search);
 
 
     }

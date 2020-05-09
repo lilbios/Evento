@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Evento.BLL.Services
 {
-    public class SubscriptionService : ISubscriptionService<Subscription>
+    public class SubscriptionService : ISubscriptionService
     {
         private readonly IUnitOfWork unitOfWork;
         private readonly IMapper mapper;

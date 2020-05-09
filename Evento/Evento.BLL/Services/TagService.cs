@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Evento.BLL.Services
 {
-    public class TagService : ITagService<Tag>
+    public class TagService : ITagService
     {
         private readonly IUnitOfWork unitOfWork;
         private readonly IMapper mapper;
@@ -47,7 +47,7 @@ namespace Evento.BLL.Services
 
         public async Task<bool> HasTag(string name)
         {
-            var tag = await unitOfWork.Tags.GetByCondition(t => t.TagName == name);
+            var tag = await unitOfWork.Tags.GetObjectByCondition(t=> t.TagName == name);
             return tag is null;
         }
     }

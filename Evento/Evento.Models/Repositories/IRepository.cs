@@ -13,6 +13,7 @@ namespace Evento.Models.Entities
         Task<IEnumerable<TEntity>> GetAll();
 
         Task<IEnumerable<TEntity>> GetByCondition(Expression<Func<TEntity, bool>> expression);
+        Task <TEntity> GetObjectByCondition(Expression<Func<TEntity, bool>> expression);
 
         Task Create(TEntity entity);
         Task<TEntity> CreateItem(TEntity entity); 
@@ -26,5 +27,6 @@ namespace Evento.Models.Entities
         Task<TEntity> GetByID(object id);
         Task<TEntity> GetObjectLazyLoad(Expression<Func<TEntity, bool>> filter, params Expression<Func<TEntity, object>>[] children);
         Task<IQueryable<TEntity>> GetAllLazyLoad(Expression<Func<TEntity, bool>> filter, params Expression<Func<TEntity, object>>[] children);
+
     }
 }

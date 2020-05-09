@@ -17,9 +17,10 @@ namespace Evento.Web.Controllers
 {
     public class AccountController : Controller
     {
+        private readonly UserManager<User> _userManager;
         private readonly IAccountsService _accountsService;
         private readonly SignInManager<User> _signInManager;
-        private readonly UserManager<User> _userManager;
+       
 
         public AccountController(IAccountsService accountsService,
             SignInManager<User> signInManager,

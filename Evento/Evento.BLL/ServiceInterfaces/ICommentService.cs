@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace Evento.BLL.Interfaces
 {
-    public interface ICommentService<T> where T : class
+    public interface ICommentService
     {
-        public Task<ICollection<T>> GetEventComments(int eventId);
-        public Task AddNewComment(T comment);
+        public Task<ICollection<Comment>> GetEventComments(int eventId);
+        public Task AddNewComment(Comment comment);
         public Task DeleteComment(object id);
-        public Task EditComment(object id,T comment);
+        public Task EditComment(object id, comment);
 
     }
 }

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Evento.BLL.Services
 {
-    public class MemorizeService : IMemorizeService<Memorize>
+    public class MemorizeService : IMemorizeService
     {
 
         private readonly IUnitOfWork unitOfWork;
