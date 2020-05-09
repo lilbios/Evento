@@ -1,17 +1,11 @@
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Evento.Web.Models;
 using Evento.BLL.Interfaces;
-
 using Evento.Models.Entities;
-using Microsoft.Extensions.Localization;
-
-using Evento.Web.LanguageResources;
+using Evento.Web.Models.Events;
 
 namespace Evento.Web.Controllers
 {
@@ -34,12 +28,24 @@ namespace Evento.Web.Controllers
         }
         
       
-        public async Task<ActionResult> Index()
+        [HttpGet]
+        public async Task<ActionResult> Index(int page=1)
         {
-            
-            var events =await _eventService.GetAllEvents();
-            return View(events);
+
+            var events = await _eventService.GetAllEvents(page,3);
+            var count = await _eventService.Count;
+
+
+            var pageViewModel = new PageViewModel(count,page,3);
+            var eventsViewModel = new EventsViewModel()
+            {
+                Items = events,
+                PageViewModel = pageViewModel
+            };
+
+            return View(eventsViewModel);
         }
+
 
         public IActionResult Privacy()
         {

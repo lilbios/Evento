@@ -1,20 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using Evento.DAL;
 using Evento.Models.Entities;
 using Evento.BLL.Interfaces;
 using AutoMapper;
-using Microsoft.Extensions.Localization;
-using Evento.BLL.Services;
 using Evento.Web.Models.Categories;
-using System.IO;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Authorization;
+using Evento.BLL.Third_part;
 
 namespace Evento.Web.Controllers
 {
@@ -25,7 +18,6 @@ namespace Evento.Web.Controllers
         private readonly IMapper mapper;
         public CategoriesController(ICategoryService<Category> caregoryService, IMapper mapper)
         {
-
             this.caregoryService = caregoryService;
             this.mapper = mapper;
         }
@@ -73,29 +65,17 @@ namespace Evento.Web.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
 
-        public async Task<IActionResult> Create(CreateViewModel viewModel, IFormFile Image)
+        public async Task<IActionResult> Create(CreateViewModel viewModel, IFormFile image)
         {
             if (ModelState.IsValid)
             {
 
                 var newCat = mapper.Map<Category>(viewModel);
 
-                if (Image != null)
+                if (image != null && image.Length > 0 )
 
                 {
-                    if (Image.Length > 0)
-                    {
-
-                        byte[] p1 = null;
-                        using (var fs1 = Image.OpenReadStream())
-                        using (var ms1 = new MemoryStream())
-                        {
-                            fs1.CopyTo(ms1);
-                            p1 = ms1.ToArray();
-                        }
-                        newCat.CategoryPhoto = p1;
-
-                    }
+                    newCat.CategoryPhoto = ImageConvertor.ConvertImageToBytes(image);  
                 }
 
                 await caregoryService.AddCategory(newCat);
@@ -125,7 +105,7 @@ namespace Evento.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, CreateViewModel category, IFormFile Image)
+        public async Task<IActionResult> Edit(int id, CreateViewModel category, IFormFile image)
         {
 
             if (ModelState.IsValid)
@@ -135,24 +115,10 @@ namespace Evento.Web.Controllers
                 try
                 {
 
-
-
-                    if (Image != null)
+                    if (image != null && image.Length > 0)
 
                     {
-                        if (Image.Length > 0)
-                        {
-
-                            byte[] p1 = null;
-                            using (var fs1 = Image.OpenReadStream())
-                            using (var ms1 = new MemoryStream())
-                            {
-                                fs1.CopyTo(ms1);
-                                p1 = ms1.ToArray();
-                            }
-                            newCat.CategoryPhoto = p1;
-
-                        }
+                        newCat.CategoryPhoto = ImageConvertor.ConvertImageToBytes(image);
                     }
                     await caregoryService.EditCategory(id, newCat);
 
@@ -203,9 +169,5 @@ namespace Evento.Web.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        //private bool CategoryExists(int id)
-        //{
-        //    return _context.Categories.Any(e => e.Id == id);
-        //}
     }
 }

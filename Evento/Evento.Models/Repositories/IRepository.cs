@@ -22,7 +22,7 @@ namespace Evento.Models.Entities
         Task Delete(TEntity entity);
 
         Task Delete(object id);
-
+        Task<int> Count();
         Task<TEntity> GetByID(object id);
         Task<TEntity> GetObjectLazyLoad(Expression<Func<TEntity, bool>> filter, params Expression<Func<TEntity, object>>[] children);
         Task<IQueryable<TEntity>> GetAllLazyLoad(Expression<Func<TEntity, bool>> filter, params Expression<Func<TEntity, object>>[] children);

@@ -157,6 +157,9 @@
   <data name="NewEvent" xml:space="preserve">
     <value>NEW EVENT</value>
   </data>
+  <data name="Next" xml:space="preserve">
+    <value>Next</value>
+  </data>
   <data name="Notification" xml:space="preserve">
     <value>Notification</value>
   </data>
@@ -165,6 +168,9 @@
   </data>
   <data name="Party" xml:space="preserve">
     <value>Be a good party-goer</value>
+  </data>
+  <data name="Previous" xml:space="preserve">
+    <value>Previous</value>
   </data>
   <data name="Privacy" xml:space="preserve">
     <value>Privacy</value>

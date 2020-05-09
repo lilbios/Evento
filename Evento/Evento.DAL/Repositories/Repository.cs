@@ -29,6 +29,10 @@ namespace Evento.DAL.Repositories
             return result;
         }
 
+        public async Task<IEnumerable<TEntity>> GetChunckedCollection(int numberToSkip,int numberToTake) {
+
+            return await Task.Run(()=> eventoDbSet.Skip(numberToSkip).Take(numberToTake));
+        }
         public async Task<IEnumerable<TEntity>> GetByCondition(Expression<Func<TEntity, bool>> expression)
         {
             return await Task.Run(() => eventoDbSet.Where(expression));
@@ -67,7 +71,6 @@ namespace Evento.DAL.Repositories
         public async Task<TEntity> GetByID(object id)
         {
             var result = await eventoDbSet.FindAsync(id);
-
             return result;
         }
 
@@ -77,6 +80,7 @@ namespace Evento.DAL.Repositories
             await Task.Run(() => children.ToList().ForEach(x => eventoDbSet.Include(x).Load()));
             return eventoDbSet.AsTracking().FirstOrDefault();
         }
+
 
         public async Task<IQueryable<TEntity>> GetAllLazyLoad(Expression<Func<TEntity, bool>> filter,
             params Expression<Func<TEntity, object>>[] children)
@@ -91,6 +95,11 @@ namespace Evento.DAL.Repositories
             await repositoryContext.SaveChangesAsync();
             return entity;
            
+        }
+
+        public async Task<int> Count()
+        {
+            return await eventoDbSet.CountAsync();
         }
     }
 }

@@ -34,7 +34,6 @@ namespace Evento.Web.Controllers
             this.eventService = eventService;
             this.mapper = mapper;
             this.tagService = tagService;
-            this.userManager = userManager;
         }
 
         // GET: Events
@@ -49,28 +48,24 @@ namespace Evento.Web.Controllers
 
                 return View(eventsSearch);
             }
-            var events = await eventService.GetAllEvents();
-            return View(events);
+          // var events = await eventService.GetAllEvents();
+            return View(null);
         }
 
 
         public async Task<IActionResult> Subscribe(int eventId)
         {
-          
+           
+            return RedirectToAction(nameof(Details), new { id =eventId });
         }
+
         public async Task<IActionResult> Unsubscribe(int eventId)
         {
+            
+            return RedirectToAction(nameof(Details), new { id = eventId });
 
-         
         }
 
-
-
-
-
-
-
-        // GET: Events/Details/5
         [HttpGet]
         public async Task<IActionResult> Details(int id)
         {

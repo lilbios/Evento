@@ -13,6 +13,9 @@ namespace Evento.BLL.Services
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
+
+        public Task<int> Count => _unitOfWork.Events.Count();
+
         public EventService(IUnitOfWork unitOfWork,  IMapper mapper)
         {
          _mapper= mapper;
@@ -91,18 +94,16 @@ namespace Evento.BLL.Services
             return eventList.OrderBy(s => s.DateStart).ToList();
         }
 
-        public async Task<ICollection<Event>> GetAllEvents()
+        public async Task<ICollection<Event>> GetAllEvents(int numberToSkip, int numberToTake)
         {
             var eventList = await _unitOfWork.Events.GetAll();
-            return eventList.ToList();
+            return eventList.Skip((numberToSkip - 1) * numberToTake).Take(numberToTake).ToList();
         }
       
 
         public async Task EditEvent(int id, Event e)
         {
-  
             await _unitOfWork.Events.Update(e);
-
         }
 
         public async Task<ICollection<Event>> GetUserCreatedEvents(string userId)
@@ -125,5 +126,7 @@ namespace Evento.BLL.Services
             var _event = await _unitOfWork.Events.CreateItem(item);
             return _event;
         }
+
+       
     }
 }

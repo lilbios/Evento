@@ -1,4 +1,4 @@
-﻿@model ICollection<Evento.Models.Entities.Event>
+﻿@model Evento.Web.Models.Events.EventsViewModel
 @using Microsoft.AspNetCore.Mvc.Localization
 @inject IViewLocalizer Localizer
 
@@ -216,7 +216,7 @@
           
             <div class="recipe-list">
                 <div class="recipe-scroll">
-                    @foreach (var item in Model.Take(3))
+                    @foreach (var item in Model.Items)
                     {
                         <article class="recipe-item">
                             <div class="recipe-item__bg">
@@ -264,6 +264,14 @@
             </div>
 
         </section>
+        <div>
+            @if (Model.PageViewModel.HasPrevious) { 
+            <button asp-action="Index" asp-controller="Events" asp-route-page="@Model.PageViewModel.CurrentPageNumber - 1"> @Localizer["Previous"]</button>
+            }
+             @if (Model.PageViewModel.HasNext) { 
+                 <button asp-action="Index" asp-controller="Events" asp-route-page="@Model.PageViewModel.CurrentPageNumber + 1">@Localizer["Next"]</button>
+             }
+        </div>
     </main>
 
 

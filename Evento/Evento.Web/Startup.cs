@@ -16,6 +16,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System.IO;
 using Evento.Web.LanguageResources;
+using ReflectionIT.Mvc.Paging;
 
 namespace Evento.Web
 {
@@ -34,7 +35,7 @@ namespace Evento.Web
 
         public IConfiguration Configuration { get; }
 
-            public void ConfigureServices(IServiceCollection services)
+        public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
             services.AddDbContext<EventoDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"), x => x.MigrationsAssembly("Evento.DAL")));
@@ -54,6 +55,7 @@ namespace Evento.Web
                 });
 
             services.RegisterEventoServices(Configuration);
+            services.AddPaging();
 
             services.Configure<IdentityOptions>(options =>
             {
