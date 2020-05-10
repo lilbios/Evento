@@ -13,6 +13,6 @@ namespace Evento.Models.Entities
         [Required]
         public byte[] CategoryPhoto { get; set; }
 
-        public virtual ICollection<Event> Events { get; set; }
+        public  ICollection<Event> Events { get; set; }
     }
 }

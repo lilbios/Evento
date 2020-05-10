@@ -10,6 +10,6 @@ namespace Evento.Models.Entities
         [Required]
         public string TagName { get; set; }
 
-        public virtual ICollection<TagEvent> TagEvents { get; set; }
+        public  ICollection<TagEvent> TagEvents { get; set; }
     }
 }

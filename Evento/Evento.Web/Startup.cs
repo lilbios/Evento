@@ -55,7 +55,6 @@ namespace Evento.Web
                 });
 
             services.RegisterEventoServices(Configuration);
-            services.AddPaging();
 
             services.Configure<IdentityOptions>(options =>
             {

@@ -31,12 +31,12 @@ namespace Evento.Web
             services.AddTransient<IRepository<Subscription>, Repository<Subscription>>();
 
 
-            services.AddTransient<ITagService<Tag>, TagService>();
-            services.AddTransient<IEventService<Event>, EventService>();
-            services.AddTransient<ISubscriptionService<Subscription>, SubscriptionService>();
-            services.AddTransient<ICategoryService<Category>, CategoryService>();
-            services.AddTransient<ICommentService<Comment>, CommentService>();
-            services.AddTransient<IMemorizeService<Memorize>, MemorizeService>();
+            services.AddTransient<ITagService, TagService>();
+            services.AddTransient<IEventService, EventService>();
+            services.AddTransient<ISubscriptionService, SubscriptionService>();
+            services.AddTransient<ICategoryService, CategoryService>();
+            services.AddTransient<ICommentService, CommentService>();
+            services.AddTransient<IMemorizeService, MemorizeService>();
 
 
 

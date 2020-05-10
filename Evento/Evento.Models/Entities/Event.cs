@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Evento.Models.Entities
 {
-    public class Event : Entity
+    public class Event:Entity
     {
         [Required]
         public string Title { get; set; }
@@ -18,7 +18,7 @@ namespace Evento.Models.Entities
 
         [Required]
         public string Description { get; set; }
-        
+
 
         public string Place { get; set; }
 
@@ -26,12 +26,12 @@ namespace Evento.Models.Entities
 
         public double Longtitute { get; set; }
 
-        public virtual Category Category { get; set; }
+        public Category Category { get; set; }
         public byte[] Photo { get; set; }
         public int CategoryId { get; set; }
 
-        public virtual ICollection<Subscription> Subscriptions { get; set; }
+        public ICollection<Subscription> Subscriptions { get; set; }
 
-        public virtual ICollection<TagEvent> TagEvents { get; set; }
+        public ICollection<TagEvent> TagEvents { get; set; }
     }
 }

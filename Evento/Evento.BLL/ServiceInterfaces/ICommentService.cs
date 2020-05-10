@@ -12,7 +12,7 @@ namespace Evento.BLL.Interfaces
         public Task<ICollection<Comment>> GetEventComments(int eventId);
         public Task AddNewComment(Comment comment);
         public Task DeleteComment(object id);
-        public Task EditComment(object id, comment);
+        public Task EditComment(object id, Comment comment);
 
     }
 }

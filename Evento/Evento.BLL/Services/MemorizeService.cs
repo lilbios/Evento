@@ -15,9 +15,8 @@ namespace Evento.BLL.Services
             unitOfWork = _unitOfWork;
             mapper = _mapper;
         }
-        public async Task AttachMemorizeToVisitedEvent(Memorize _memorize, int subscriptionId)
+        public async Task AttachMemorizeToVisitedEvent(Memorize memorize)
         {
-            var memorize = mapper.Map<Memorize>(_memorize);
             await unitOfWork.Memorizes.Create(memorize);
         }
 

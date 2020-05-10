@@ -8,7 +8,7 @@ namespace Evento.BLL.Interfaces
 {
     public interface IMemorizeService
     {
-        public Task AttachMemorizeToVisitedEvent(Memorize memorize,int subscriptionId);
+        public Task AttachMemorizeToVisitedEvent(Memorize memorize);
         public Task Edit(int id, Memorize memorieze);
         public Task DeleteMemorize(int id);
     }

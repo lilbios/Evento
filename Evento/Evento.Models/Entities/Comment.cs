@@ -13,7 +13,7 @@ namespace Evento.Models.Entities
 
         public bool IsModified { get; set; }
 
-        public virtual Subscription Subscription { get; set; }
+        public  Subscription Subscription { get; set; }
 
         public int SubscriptionId { get; set; }
     }

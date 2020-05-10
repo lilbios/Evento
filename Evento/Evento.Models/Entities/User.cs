@@ -15,6 +15,6 @@ namespace Evento.Models.Entities
         public DateTime DataOfBirth { get; set; }
         public byte[] Photo { get; set; }
 
-        public virtual ICollection<Subscription> Subscriptions { get; set; }
+        public  ICollection<Subscription> Subscriptions { get; set; }
     }
 }

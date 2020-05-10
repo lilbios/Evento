@@ -23,7 +23,7 @@ namespace Evento.Web.Controllers
         private readonly IEventService eventService;
         private readonly UserManager<User> userManager;
         private readonly ICategoryService caregoryService;
-        private readonly IAccountsService accountsService;
+
         private readonly ISubscriptionService subscriptionService;
 
 

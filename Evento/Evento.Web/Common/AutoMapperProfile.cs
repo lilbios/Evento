@@ -4,6 +4,7 @@ using Evento.Models.Entities;
 using Evento.Web.Models.Accounts;
 using Evento.Web.Models.Categories;
 using Evento.Web.Models.Events;
+using Evento.Web.Models.Memorizes;
 
 namespace Evento.Web.Common
 {
@@ -12,10 +13,12 @@ namespace Evento.Web.Common
         public AutoMapperProfile()
         {
             //View models mapping
+            CreateMap<RegisterDTO, User>();
             CreateMap<RegisterViewModel, User>();
             CreateMap<EventViewModel, Event>().ReverseMap();
             CreateMap<CreateViewModel, Category>().ReverseMap();
-            CreateMap<RegisterDTO, User>();
+            CreateMap<MemorizeViewModel, Memorize>().ReverseMap();
+           
         }
     }
 }
