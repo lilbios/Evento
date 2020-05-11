@@ -5,17 +5,18 @@ using System.Threading.Tasks;
 using Evento.BLL.Interfaces;
 using Evento.Models.Entities;
 using Evento.Web.Models.Memorizes;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Evento.Web.Controllers
 {
-    public class MemoraizesController : Controller
+    public class MemorizesController : Controller
     {
         private readonly UserManager<User> userManager;
         private readonly IMemorizeService memorizeService;
         private readonly ISubscriptionService subscriptionService;
-        public MemoraizesController(UserManager<User> userManager,
+        public MemorizesController(UserManager<User> userManager,
             IMemorizeService memorizeService, ISubscriptionService subscriptionService)
         {
             this.userManager = userManager;
@@ -37,16 +38,18 @@ namespace Evento.Web.Controllers
         }
 
 
-        //[HttpPost]
-        //public async Task<IActionResult> CreateNewMemorize(MemorizeViewModel memorizeViewModel)
-        //{
+        [HttpPost]
+        public IActionResult CreateNewMemorize([FromForm]MemorizeViewModel memorizeViewModel)
+        {
 
-        //    if (ModelState.IsValid)
-        //    {
+            var files = Request.Form.Files;
 
-        //    }
-        //    return View(memorizeViewModel);
-        //}
+            if (ModelState.IsValid)
+            {
+
+            }
+            return View(memorizeViewModel);
+        }
 
     }
 }

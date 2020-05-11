@@ -17,8 +17,7 @@ namespace Evento.Web.Models.Memorizes
 
         public string MemorizeComment { get; set; }
 
-        [NoneEmpty]
-        public ICollection<Snapshoot> Snapshoots { get; set; }
+        public List<IFormFile> Snapshoots { get; set; }
 
     }
 }
