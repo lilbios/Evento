@@ -2,6 +2,8 @@
 Evento is web based application itended for online organazing  various meetings, festivals etc.
 Discover popular local events, get event recommendations just for you, and see which events your friends are going to!
 
+<a href="#"><img src="https://drive.google.com/file/d/1unA3isKIo5JqMJvhhH-nuPOw96eacDaK/view?usp=sharing" title="Evento" alt="EventoLogo"></a>
+
 
 ### Project structure
 
