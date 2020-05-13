@@ -7,12 +7,16 @@
     <ItemGroup>
       <Compile Remove="Resources\**" />
       <Compile Remove="Resource\**" />
+      <Compile Remove="wwwroot\icons\**" />
       <Content Remove="Resources\**" />
       <Content Remove="Resource\**" />
+      <Content Remove="wwwroot\icons\**" />
       <EmbeddedResource Remove="Resources\**" />
       <EmbeddedResource Remove="Resource\**" />
+      <EmbeddedResource Remove="wwwroot\icons\**" />
       <None Remove="Resources\**" />
       <None Remove="Resource\**" />
+      <None Remove="wwwroot\icons\**" />
     </ItemGroup>
 
     <ItemGroup>
@@ -99,10 +103,6 @@
       <Content Update="appsettings.Production.json">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </Content>
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="wwwroot\icons\" />
     </ItemGroup>
 
 </Project>
