@@ -22,7 +22,7 @@ namespace Evento.DAL.Repositories
             this.eventoDbSet = repositoryContext.Set<TEntity>();
         }
 
-        public async Task<IEnumerable<TEntity>> GetAll()
+        public async Task<ICollection<TEntity>> GetAll()
         {
             var result = await eventoDbSet.ToListAsync();
 
@@ -107,6 +107,11 @@ namespace Evento.DAL.Repositories
         public  async Task<TEntity> GetObjectByCondition(Expression<Func<TEntity, bool>> expression)
         {
             return await eventoDbSet.FirstOrDefaultAsync(expression);
+        }
+
+        Task<ICollection<TEntity>> IRepository<TEntity>.GetByCondition(Expression<Func<TEntity, bool>> expression)
+        {
+            throw new NotImplementedException();
         }
     }
 }

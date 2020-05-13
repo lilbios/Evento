@@ -11,6 +11,7 @@ namespace Evento.BLL.Interfaces
 
         public Task<int> Count { get; }
         public Task<ICollection<Event>> GetAllEvents(int numberToSkip, int numberToTake);
+        public Task<ICollection<Event>> GetAllEvents();
         public Task AddEvent(Event e);
 
         public Task EditEvent(int id, Event e);
@@ -36,6 +37,7 @@ namespace Evento.BLL.Interfaces
         public Task<ICollection<Event>> GetFinishedEvent();
         public Task<ICollection<Event>> GetUserCreatedEvents(string userId);
         public Task<bool> IsExsistsEvent(string titleEvent);
+
 
         public Task<Event> CreateNew(Event item);
 

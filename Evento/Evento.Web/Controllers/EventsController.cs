@@ -51,8 +51,8 @@ namespace Evento.Web.Controllers
 
                 return View(eventsSearch);
             }
-            // var events = await eventService.GetAllEvents();
-            return View(null);
+             var events = await eventService.GetAllEvents();
+            return View(events);
         }
 
 

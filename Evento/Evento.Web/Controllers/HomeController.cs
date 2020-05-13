@@ -36,6 +36,7 @@ namespace Evento.Web.Controllers
             var count = await _eventService.Count;
 
             var pageViewModel = new PageViewModel(count, page, 3);
+
             var eventsViewModel = new EventsViewModel()
             {
                 Items = events,

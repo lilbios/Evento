@@ -124,10 +124,13 @@ namespace Evento.BLL.Services
 
         public async Task<Event> CreateNew(Event item)
         {
-            var _event = await _unitOfWork.Events.CreateItem(item);
-            return _event;
+           return await _unitOfWork.Events.CreateItem(item);
+           
         }
 
-       
+        public async Task<ICollection<Event>> GetAllEvents()
+        {
+            return await _unitOfWork.Events.GetAll();
+        }
     }
 }
