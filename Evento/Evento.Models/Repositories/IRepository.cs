@@ -10,9 +10,9 @@ namespace Evento.Models.Entities
     public interface IRepository<TEntity>
       where TEntity : class
     {
-        Task<IEnumerable<TEntity>> GetAll();
+        Task<ICollection<TEntity>> GetAll();
 
-        Task<IEnumerable<TEntity>> GetByCondition(Expression<Func<TEntity, bool>> expression);
+        Task<ICollection<TEntity>> GetByCondition(Expression<Func<TEntity, bool>> expression);
         Task <TEntity> GetObjectByCondition(Expression<Func<TEntity, bool>> expression);
 
         Task Create(TEntity entity);
