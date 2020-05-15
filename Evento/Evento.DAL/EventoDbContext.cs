@@ -30,12 +30,6 @@ namespace Evento.DAL
 
         public DbSet<TagEvent> TagEvents { get; set; }
 
-        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        //{
-
-        //    optionsBuilder
-        //        .UseLazyLoadingProxies()
-        //        .UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Initial Catalog=eventodb;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
-        //}
+       
     }
 }

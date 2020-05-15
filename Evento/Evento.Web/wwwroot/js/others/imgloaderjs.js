@@ -15,11 +15,5 @@
 
 function snapshoot(input) {
     if (input.files.length > 0) {
-        var fileReader = new FileReader();
-        var currentImageType = input.files[input.files.length - 1].type;
-        if (imgType == "image/png" || imgType == "image/jpeg" || imgType == "image/bmp") {
-
-        }
-
     }
 }

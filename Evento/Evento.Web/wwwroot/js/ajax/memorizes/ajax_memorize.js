@@ -19,7 +19,4 @@
         contentType: false,
         processData:false
         });
-
-
-
 }

@@ -2102,3 +2102,12 @@ body {
 #msg {
     color:red;
 }
+
+@import url('https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&display=swap');
+.title {
+    font-family: 'Gloria Hallelujah', cursive;
+    font-size:20px;
+}
+a:hover, a:visited, a:link, a:active {
+    text-decoration: none;
+}

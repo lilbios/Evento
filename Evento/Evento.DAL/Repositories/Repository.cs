@@ -57,7 +57,7 @@ namespace Evento.DAL.Repositories
             {
                 eventoDbSet.Attach(entity);
             }
-            eventoDbSet.Remove(entity);
+            await Task.Run(()=>eventoDbSet.Remove(entity));
             await repositoryContext.SaveChangesAsync();
         }
 

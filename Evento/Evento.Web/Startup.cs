@@ -111,6 +111,7 @@ namespace Evento.Web
 
             app.UseRouting();
 
+            app.UseCookiePolicy();
             app.UseAuthentication();
             app.UseAuthorization();
 
