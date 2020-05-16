@@ -1,11 +1,12 @@
 ﻿@model IEnumerable<Evento.Models.Entities.Category>
-
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
 <link rel="stylesheet" href="~/css/Index.css" />
 <div class="container">
 
     <main class="main">
         <section class="recipe">
-            <h2 class="recipe__title">All categories</h2>
+            <h2 class="recipe__title">@Localizer["AllCategories"]</h2>
             <form asp-action="Index" method="get" defaultbutton="SubmitButton" runat="server">
                 <div id="container">
                     <div class="mockup">
@@ -13,57 +14,67 @@
                         <div class="outer-search">
                             <div class="search-filter">
                                 <div class="search-container">
-                                    <i class="material-icons search-icon">search</i>
+                                    <i class="material-icons search-icon">@Localizer["search"]</i>
                                     <input type="text" id="search" name="SearchString" placeholder="Search" value="@ViewData["currentFilter"]" />
 
                                 </div>
+                                <a href="/Categories/Index?SearchString">
+                                    <button class="iconBtn" id="createProjectBtn">
+                                        <div class="iconBtn__content">
 
+                                            @Localizer["AllCategories"]
+                                        </div>
+                                    </button>
+                                </a>
                             </div>
-                         
+
                         </div>
+                      
                     </div>
 
                 </div>
             </form>
-          
+
 
 
             <div class="recipe-list">
                 <div class="recipe-scroll">
                     @foreach (var item in Model)
                     {
-                        <article class="recipe-item">
+                    <article class="recipe-item">
+                        <a href="@Url.Action("Details", "Categories", new { id = item.Id }, null)">
                             <div class="recipe-item__bg">
-                                <a href="@Url.Action("Details", "Categories", new { id = item.Id }, null)">
-
-                                    @{ if (@item.CategoryPhoto != null)
-                                        {
-                                            var base64 = Convert.ToBase64String(@item.CategoryPhoto);
-                                            var imagesrc = string.Format("data:image/jpeg;base64,{0}", base64);
-
-                                            <img src="@imagesrc" alt="" class="recipe-item__img" />
-                                        }
-                                        else
-                                        {
 
 
-                                            <img src="https://images.unsplash.com/photo-1572627614289-96a849461dd3?ixlib=rb-1.2.1&auto=format&fit=crop&w=675&q=80" alt="" class="recipe-item__img" />
+                                @{ if (@item.CategoryPhoto != null)
+                                    {
+                                        var base64 = Convert.ToBase64String(@item.CategoryPhoto);
+                                        var imagesrc = string.Format("data:image/jpeg;base64,{0}", base64);
 
-                                        }
+                                        <img src="@imagesrc" alt="" class="recipe-item__img" />
                                     }
+                                    else
+                                    {
 
 
-                                </a>
+                                        <img src="https://images.unsplash.com/photo-1572627614289-96a849461dd3?ixlib=rb-1.2.1&auto=format&fit=crop&w=675&q=80" alt="" class="recipe-item__img" />
+
+                                    }
+                                }
+
+
+
                             </div><span class="recipe-item__name">@item.Title</span>
-                            <div class="palette"><span class="palette__color" style="background-color:#aed9b7"></span><span class="palette__color" style="background-color:#f98667"></span><span class="palette__color" style="background-color:#97d1ec"></span></div>
-                        </article>
+                        </a>
+                        <div class="palette"><span class="palette__color" style="background-color:#aed9b7"></span><span class="palette__color" style="background-color:#f98667"></span><span class="palette__color" style="background-color:#97d1ec"></span></div>
+                    </article>
                     }
 
                 </div>
-                </div>
-           
+            </div>
+
         </section>
 
-       
+
     </main>
 </div>

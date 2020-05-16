@@ -24,7 +24,7 @@ namespace Evento.Web.Controllers
         }
 
         // GET: Categories
-        public async Task<IActionResult> Index( string searchString)
+        public async Task<IActionResult> Index(string searchString)
         {
 
 
@@ -137,12 +137,6 @@ namespace Evento.Web.Controllers
         }
 
 
-
-           
-              
-              
-     
-
         // GET: Categories/Delete/5
         public async Task<IActionResult> Delete(int id)
         {
@@ -156,8 +150,9 @@ namespace Evento.Web.Controllers
             {
                 return NotFound();
             }
-            var edited = mapper.Map<CreateViewModel>(category);
-            return View(edited);
+           // var edited = mapper.Map<CreateViewModel>(category);
+            await caregoryService.DeleteCategory(id);
+            return View(nameof(Index));
         }
 
         // POST: Categories/Delete/5

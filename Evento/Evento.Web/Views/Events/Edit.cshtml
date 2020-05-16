@@ -1,5 +1,6 @@
 ﻿@model Evento.Web.Models.Events.EventViewModel
-
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
 @{
     ViewData["Title"] = "CreateNewEvent";
 }
@@ -9,97 +10,99 @@
 {
 
 
-<article class="wrapper">
+    <article class="wrapper">
 
-                @ViewBag.Ok
-                <header>
-                    <h1 class="pageTitle">Title</h1>
+        @ViewBag.Ok
+        <header>
+            <h1 class="pageTitle">@Localizer["Title"]</h1>
 
-                    <div class="col-md-12">
-                        <h1 class="pageTitle"> @Html.TextBoxFor(x => x.Title, new { @class = "form-control" })</h1>
+            <div class="col-md-12">
+                <h1 class="pageTitle"> @Html.TextBoxFor(x => x.Title, new { @class = "form-control" })</h1>
 
-                    </div>
-
-
-                </header>
-                <section>
-                    <h2 class="pageSubTitle"> Description </h2>
-                    <div class="form-group">
-
-                        <h1 class="pageTitle"> @Html.TextBoxFor(x => x.Description, new { @class = "form-control" })</h1>
-                    </div>
-
-                </section>
-                <section>
-                    <h2 class="pageSubTitle"> Category </h2>
-                    <div class="form-group">
-
-                        <select asp-for="CategoryId" class="form-control" asp-items="ViewBag.CategoryId"></select>
-                    </div>
-
-                </section>
-                <section>
-                    <h2 class="pageSubTitle"> Tags </h2>
-                    <div class="col-md-12">
-                        <div class="errors"></div>
-                        <input id="tag-input" class="form-control" />
-                        <div id="tag-container">
-                            @if (Model?.Tags.Split(',').Length > 0)
-                            {
-                                foreach (var item in Model.Tags.Split(','))
-                                {
-                                    <small class="badge badge-warning" style="margin-left: 5px">@item</small>
-                                }
-                            }
-                        </div>
-
-                        @Html.EditorFor(model => model.Tags, new{ htmlAttributes = new { @class = "form-control", @placeholder = "Description", @id = "tags", @type = "hidden"}})
-                        @Html.ValidationMessageFor(model => model.Description, "", new { @class ="text-danger"})
-
-                    </div>
-                </section>s
-                <section>
-                    <h2 class="pageSubTitle"> Dates </h2>
-
-                    <div class="col-md-12">
-                        <h1 class="pageTitle"> @Html.TextBoxFor(x => x.DateStart, new { @class = "form-control" })</h1>
-                        <h1 class="pageTitle"> @Html.TextBoxFor(x => x.DateFinish, new { @class = "form-control" })</h1>
-                       
-
-                    </div>
+            </div>
 
 
-                </section>
-                <section>
-                    <h2 class="pageSubTitle"> Location </h2>
+        </header>
+        <section>
+            <h2 class="pageSubTitle">@Localizer["Description"]   </h2>
+            <div class="form-group">
 
-                    <div class="col-md-12">
-                        <h1 class="pageTitle"> @Html.TextBoxFor(x => x.Place, new { @class = "form-control" })</h1>
-                        
+                <h1 class="pageTitle"> @Html.TextBoxFor(x => x.Description, new { @class = "form-control" })</h1>
+            </div>
 
-                    </div>
+        </section>
+        <section>
+            <h2 class="pageSubTitle">@Localizer["Category"]  </h2>
+            <div class="form-group">
 
+                <select asp-for="CategoryId" class="form-control" asp-items="ViewBag.CategoryId"></select>
+            </div>
 
-                </section>
-                <div align="center" class="mt-1">
-                    <img src="~/images/users_icons/Путь_к_картинке" class="img" width="100%">
+        </section>
+        <section>
+            <h2 class="pageSubTitle"> @Localizer["Tags"] </h2>
+            <div class="col-md-12">
+                <div class="errors"></div>
+                <input id="tag-input" class="form-control" />
+                <div id="tag-container">
+                    @if (Model?.Tags.Split(',').Length > 0)
+                    {
+                        foreach (var item in Model.Tags.Split(','))
+                        {
+                            <small class="badge badge-warning" style="margin-left: 5px">@item</small>
+                        }
+                    }
                 </div>
-                <div align="center">
-                    <label id="profile-image">
-                        <small>Upload</small>
-                        <small>
-                            <input type="file" name="Image" id="Imageinput" hidden onchange="imgprev(this)">
 
-                            <i class="fa fa-camera" aria-hidden="true"></i>
-                        </small>
-                    </label>
+                @Html.EditorFor(model => model.Tags, new { htmlAttributes = new { @class = "form-control", @placeholder = "Description", @id = "tags", @type = "hidden" } })
+                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+
+            </div>
+        </section>s
+        <section>
+            <h2 class="pageSubTitle"> @Localizer["Dates"] </h2>
+
+            <div class="col-md-12">
+                <h1 class="pageTitle"> @Html.TextBoxFor(x => x.DateStart, new { @class = "form-control" })</h1>
+                <h1 class="pageTitle"> @Html.TextBoxFor(x => x.DateFinish, new { @class = "form-control" })</h1>
+
+
+            </div>
+
+
+        </section>
+        <section>
+            <h2 class="pageSubTitle">@Localizer["Location"]</h2>
+
+            <div class="col-md-12">
+                <h1 class="pageTitle"> @Html.TextBoxFor(x => x.Place, new { @class = "form-control" })</h1>
+
+
+            </div>
+
+
+        </section>
+        <div align="center" class="mt-1">
+            <img src="~/images/users_icons/Путь_к_картинке" class="img" width="100%">
+        </div>
+        <div align="center">
+            <label id="profile-image">
+                <small>@Localizer["Upload"]</small>
+                <small>
+                    <input type="file" name="Image" id="Imageinput" hidden onchange="imgprev(this)">
+
+                    <i class="fa fa-camera" aria-hidden="true"></i>
+                </small>
+            </label>
+        </div>
+        <a href="/Events/Edit">
+            <button class="iconBtn" id="createProjectBtn">
+                <div class="iconBtn__content">
+                    @Localizer["Edit"]
                 </div>
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Edit" class="btn btn-default" />
-                    </div>
-                </div>
-            </article>
+            </button>
+        </a>
+    </article>
 
 
 }

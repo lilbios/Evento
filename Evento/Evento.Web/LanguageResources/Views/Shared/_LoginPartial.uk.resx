@@ -154,6 +154,9 @@
     <value>Хочу залишитися вдома
 </value>
   </data>
+  <data name="MyAccount" xml:space="preserve">
+    <value>Мій профіль</value>
+  </data>
   <data name="NewEvent" xml:space="preserve">
     <value>НОВА ПОДІЯ</value>
   </data>

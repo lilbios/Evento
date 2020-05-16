@@ -123,7 +123,10 @@
   <data name="Admin" xml:space="preserve">
     <value>Admin</value>
   </data>
-  <data name="AllEvents" xml:space="preserve">
+  <data name="Allevents" xml:space="preserve">
+    <value>All events</value>
+  </data>
+  <data name="AllEvents1" xml:space="preserve">
     <value>All events</value>
   </data>
   <data name="Category" xml:space="preserve">
@@ -154,11 +157,14 @@
     <value>I wanna stay home today
                 Don't wanna go out</value>
   </data>
-  <data name="MyAccount" xml:space="preserve">
-    <value>My account</value>
+  <data name="MyEvents" xml:space="preserve">
+    <value>My Events</value>
   </data>
   <data name="NewEvent" xml:space="preserve">
     <value>NEW EVENT</value>
+  </data>
+  <data name="Next" xml:space="preserve">
+    <value>Next</value>
   </data>
   <data name="Notification" xml:space="preserve">
     <value>Notification</value>
@@ -168,6 +174,9 @@
   </data>
   <data name="Party" xml:space="preserve">
     <value>Be a good party-goer</value>
+  </data>
+  <data name="Previous" xml:space="preserve">
+    <value>Previous</value>
   </data>
   <data name="Privacy" xml:space="preserve">
     <value>Privacy</value>

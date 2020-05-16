@@ -118,25 +118,25 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Actual" xml:space="preserve">
-    <value>Actual Events</value>
+    <value>Актуальні події</value>
   </data>
   <data name="Admin" xml:space="preserve">
-    <value>Admin</value>
+    <value>Адміністратор</value>
   </data>
   <data name="AllEvents" xml:space="preserve">
-    <value>All events</value>
+    <value>Усі події</value>
   </data>
   <data name="Category" xml:space="preserve">
-    <value>Category</value>
+    <value>Категорії</value>
   </data>
   <data name="Connect" xml:space="preserve">
-    <value>Connect with us</value>
+    <value>Зв'яжіться з нами</value>
   </data>
   <data name="Email" xml:space="preserve">
-    <value>Put your email to contact us</value>
+    <value>Залиште нам свою електронну пошту</value>
   </data>
   <data name="Enter" xml:space="preserve">
-    <value>Enter</value>
+    <value>Вхід</value>
   </data>
   <data name="Evento" xml:space="preserve">
     <value>Evento</value>
@@ -145,52 +145,58 @@
     <value>2020 - Evento</value>
   </data>
   <data name="Login" xml:space="preserve">
-    <value>Login</value>
+    <value>Вхід</value>
   </data>
   <data name="Logout" xml:space="preserve">
-    <value>Logout</value>
+    <value>Вихід</value>
   </data>
   <data name="MainQuote" xml:space="preserve">
-    <value>I wanna stay home today
-                Don't wanna go out</value>
+    <value>Хочу залишитися вдома
+</value>
   </data>
-  <data name="MyAccount" xml:space="preserve">
-    <value>My account</value>
+  <data name="MyEvents" xml:space="preserve">
+    <value>Мої події</value>
   </data>
   <data name="NewEvent" xml:space="preserve">
-    <value>NEW EVENT</value>
+    <value>НОВА ПОДІЯ</value>
+  </data>
+  <data name="Next" xml:space="preserve">
+    <value>Наступна</value>
   </data>
   <data name="Notification" xml:space="preserve">
-    <value>Notification</value>
+    <value>Повідомлення</value>
   </data>
   <data name="Online" xml:space="preserve">
-    <value>Online Events</value>
+    <value>Онлайн події</value>
   </data>
   <data name="Party" xml:space="preserve">
-    <value>Be a good party-goer</value>
+    <value>Відпочивай правильно</value>
+  </data>
+  <data name="Previous" xml:space="preserve">
+    <value>Попередня</value>
   </data>
   <data name="Privacy" xml:space="preserve">
-    <value>Privacy</value>
+    <value>Права</value>
   </data>
   <data name="Quoute" xml:space="preserve">
-    <value>“There is a lot of adventures out there, waiting for us to live them!”</value>
+    <value>"Там багато пригод, які чекають, коли ми їх проживемо!"</value>
   </data>
   <data name="QuouteFooter" xml:space="preserve">
-    <value>“Make your life the best adventure!”</value>
+    <value>"Зробіть своє життя найкращою пригодою!"</value>
   </data>
   <data name="Register" xml:space="preserve">
-    <value>Register</value>
+    <value>Реєстрація</value>
   </data>
   <data name="Search" xml:space="preserve">
-    <value>Find event</value>
+    <value>Знайти</value>
   </data>
   <data name="Send" xml:space="preserve">
-    <value>Send</value>
+    <value>Надіслати</value>
   </data>
   <data name="Stay" xml:space="preserve">
-    <value>Stay home</value>
+    <value>Залишайтесь вдома</value>
   </data>
   <data name="ToChat" xml:space="preserve">
-    <value>ToChat</value>
+    <value>Увійти в чат</value>
   </data>
 </root>

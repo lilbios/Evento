@@ -6,7 +6,7 @@
 
     <main class="main">
         <section class="recipe">
-            <h2 class="recipe__title">Actual Events</h2>
+            <h2 class="recipe__title">@Localizer["ActualEvents"]</h2>
             <form asp-action="Index" method="get" defaultbutton="SubmitButton" runat="server">
                 <div id="container">
                     <div class="mockup">
@@ -14,12 +14,20 @@
                         <div class="outer-search">
                             <div class="search-filter">
                                 <div class="search-container">
-                                    <i class="material-icons search-icon">search</i>
+                                    <i class="material-icons search-icon">@Localizer["search"]</i>
                                     <input type="text" id="search" name="SearchString" placeholder="Search" value="@ViewData["currentFilter"]" />
 
                                 </div>
+                                <a href="/Events/Index?SearchString">
+                                    <button class="iconBtn" id="createProjectBtn">
+                                        <div class="iconBtn__content">
 
+                                            @Localizer["AllEvents"]
+                                        </div>
+                                    </button>
+                                </a>
                             </div>
+
                         </div>
                     </div>
 
@@ -27,16 +35,7 @@
             </form>
 
 
-            @*<div class="palette-container">
-                    @foreach (var item in Model)
-                    {
-                        @foreach (var category in item.Category.Title)
-                        {
-                            <div class="palette-item"> <span class="palette-item__bg" style="background-color:#eaeaea"> </span><span class="palette-item__name">@category</span></div>
-                        }
-                    }
-
-                </div>*@
+        
             <div class="recipe-list">
                 <div class="recipe-scroll">
                     @foreach (var item in Model)

@@ -1,9 +1,10 @@
 ﻿@model Evento.Web.Models.Events.EventViewModel
-
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
 <link rel="stylesheet" href="~/css/Events.css" />
 
 <div class="container">
-    <div class="col-sm-8">
+    <div class="col-sm-12">
         @using (Html.BeginForm("CreateNewEvent", "Events", FormMethod.Post, new { enctype = "multipart/form-data" }))
         {
 
@@ -11,7 +12,7 @@
             <article class="wrapper">
                 @ViewBag.Ok
                 <header>
-                    <h1 class="pageTitle">Title</h1>
+                    <h1 class="pageTitle">@Localizer["Title"]</h1>
 
                     <div class="col-md-12">
                         @Html.EditorFor(model => model.Title, new
@@ -33,7 +34,7 @@
                 </header>
 
                 <section>
-                    <h2 class="pageSubTitle"> Category </h2>
+                    <h2 class="pageSubTitle"> @Localizer["Category"] </h2>
 
                     <select asp-for="CategoryId" class="form-control" asp-items="ViewBag.CategoryId"></select>
 
@@ -43,7 +44,7 @@
                 </section>
 
                 <section>
-                    <h2 class="pageSubTitle"> Dates </h2>
+                    <h2 class="pageSubTitle">@Localizer["Dates"]  </h2>
 
                     <div class="col-md-12">
                         <p>
@@ -88,7 +89,7 @@
                     </div>
                 </section>
                 <section>
-                    <h2 class="pageSubTitle"> Description </h2>
+                    <h2 class="pageSubTitle">@Localizer["Description"]  </h2>
 
                     <div class="col-md-12">
                         @Html.EditorFor(model => model.Description, new
@@ -110,7 +111,7 @@
                     </div>
                 </section>
                 <section>
-                    <h2 class="pageSubTitle"> Tags </h2>
+                    <h2 class="pageSubTitle">@Localizer["Tags"]  </h2>
                     <div class="col-md-12">
                         <div class="errors"></div>
                         <input id="tag-input" class="form-control" />
@@ -150,7 +151,7 @@
                 </div>
                 <div align="center">
                     <label id="profile-image">
-                        <small>Upload</small>
+                        <small>@Localizer["Upload"]</small>
                         <small>
                             <input type="file" name="Image" id="Imageinput" hidden onchange="imgprev(this)">
 
@@ -159,8 +160,8 @@
                     </label>
                 </div>
                 <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Create" class="btn btn-default" />
+                    <div class="col-md-offset-2 col-md-8">
+                        <input type="submit" value=@Localizer["Create"] class="btn btn-default" />
                     </div>
                 </div>
                 <div id="map" style="position:inherit"></div>

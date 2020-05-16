@@ -8,7 +8,7 @@
 <div class="background-texture"></div>
 <header class="header">
     <div class="left-content">
-        <p class="stay-home">  @Localizer["Stay"]</p>
+        <p class="stay-home">@Localizer["Stay"]</p>
         
        
         <h1>@Localizer["Party"]</h1>
@@ -218,29 +218,32 @@
                 <div class="recipe-scroll">
                     @foreach (var item in Model.Items)
                     {
-                        <article class="recipe-item">
+                    <article class="recipe-item">
+                        <a href="@Url.Action("Details", "Events", new { id = item.Id }, null)">
                             <div class="recipe-item__bg">
-                                <a href="@Url.Action("Details", "Events", new { id = item.Id }, null)">
-                                    @{ if (@item.Photo != null)
-                                        {
-                                            var base64 = Convert.ToBase64String(@item.Photo);
-                                            var imagesrc = string.Format("data:image/jpeg;base64,{0}", base64);
 
-                                            <img src="@imagesrc" alt="" class="recipe-item__img" />
-                                        }
-                                        else
-                                        {
+                                @{ if (@item.Photo != null)
+                                    {
+                                        var base64 = Convert.ToBase64String(@item.Photo);
+                                        var imagesrc = string.Format("data:image/jpeg;base64,{0}", base64);
 
-
-                                            <img src="https://images.unsplash.com/photo-1572627614289-96a849461dd3?ixlib=rb-1.2.1&auto=format&fit=crop&w=675&q=80" alt="" class="recipe-item__img" />
-
-                                        }
+                                        <img src="@imagesrc" alt="" class="recipe-item__img" />
                                     }
+                                    else
+                                    {
 
-                                </a>
-                            </div><span class="recipe-item__name">@item.Title</span>
-                            <div class="palette"><span class="palette__color" style="background-color:#aed9b7"></span><span class="palette__color" style="background-color:#f98667"></span><span class="palette__color" style="background-color:#97d1ec"></span></div>
-                        </article>
+
+                                        <img src="https://images.unsplash.com/photo-1572627614289-96a849461dd3?ixlib=rb-1.2.1&auto=format&fit=crop&w=675&q=80" alt="" class="recipe-item__img" />
+
+                                    }
+                                }
+
+
+                            </div>
+                            <span class="recipe-item__name">@item.Title</span>
+                        </a>
+                        <div class="palette"><span class="palette__color" style="background-color:#aed9b7"></span><span class="palette__color" style="background-color:#f98667"></span><span class="palette__color" style="background-color:#97d1ec"></span></div>
+                    </article>
                     }
 
                 </div>
