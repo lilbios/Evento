@@ -1,15 +1,12 @@
 ﻿@model Evento.BLL.Accounts.DTO.LoginDTO
 
-
-
-
-
 <div class="containerLog" id="container">
 
     <div class="form-container sign-in-container">
         <h1>Sign in</h1>
         <div class="social-container">
             @*<a href="#" class="social"><i class="fab fa-facebook-f"></i></a>*@
+            @*<h1>External login</h1>*@
             @{
                 if (Model.ExternalLogins.Count == 0)
                 {
@@ -17,23 +14,22 @@
                 }
                 else
                 {
-                    @using (Html.BeginForm("ExternalLogin", "Account", new { @class = "social", returnUrl = "@Model.ReturnUrl" }))
-                    {
-
-        <div>
-            @foreach (var provider in Model.ExternalLogins)
-            {
-                <button type="submit" class="social" name="provider" value="Google" title="Login using your Google account" google="">
-                    <i class="fab fa-google-plus-g"></i>
-                </button>
-
-            }
-            
-        </div>
-                    }
+                    <form method="post" asp-action="ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl">
+                        <div>
+                            @foreach (var provider in Model.ExternalLogins)
+                            {
+                            <button type="submit"
+                                    class="btn btn-primary"
+                                    name="provider"
+                                    value="@provider.Name"
+                                    title="Login using your @provider.DisplayName account">
+                                @provider.DisplayName
+                            </button>
+                            }
+                        </div>
+                    </form>
                 }
             }
-
             @*<a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>*@
         </div>
         <form method="post" asp-controller="Account" asp-action="Login"
@@ -62,30 +58,3 @@
         </div>
     </div>
 </div>
-@*<div>
-    <h1>External login</h1>
-    @{
-        if (Model.ExternalLogins.Count == 0)
-        {
-            <div> No external logins configured</div>
-        }
-        else
-        {
-            <form method="post" asp-action="ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl">
-                <div>
-                    @foreach (var provider in Model.ExternalLogins)
-                    {
-                        <button type="submit"
-                                class="btn btn-primary"
-                                name="provider"
-                                value="@provider.Name"
-                                title="Login using your @provider.DisplayName account"
-                                @provider.DisplayName>Google</button>
-                    }
-                </div>
-            </form>
-        }
-    }
-</div>*@
-
-
