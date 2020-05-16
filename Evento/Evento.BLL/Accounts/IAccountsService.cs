@@ -17,6 +17,5 @@ namespace Evento.BLL.Accounts
         Task<SignInResult> Login(LoginDTO model);
 
         Task Logout();
-        Task<string> GetUserId();
     }
 }

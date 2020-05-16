@@ -42,10 +42,9 @@ namespace Evento.Web.Controllers
         {
             var id = _userManager.GetUserId(User);
             var user = await _userManager.FindByIdAsync(id);
+
             return View(user);
         }
-
-
 
         [HttpPost]
         public async Task<IActionResult> Register(RegisterDTO model)
@@ -128,6 +127,7 @@ namespace Evento.Web.Controllers
                 "Account",
                 new { ReturnUrl = returnUrl });
             var properties = _signInManager.ConfigureExternalAuthenticationProperties(provider, redirectUrl);
+
             return new ChallengeResult(provider, properties);
         }
 
