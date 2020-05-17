@@ -9,6 +9,9 @@ namespace Evento.Web.Models.Categories
     public class CreateViewModel
     {
         public int Id { get; set; }
+        [Required(ErrorMessage = "Title is required")]
+        [StringLength(40, ErrorMessage = "TitleLength")]
+        [Display(Name = "Title")]
         public string Title { get; set; }
 
         

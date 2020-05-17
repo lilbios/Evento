@@ -4,7 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using Evento.BLL.Accounts;
 using Evento.BLL.Accounts.DTO;
+using Evento.BLL.ServiceInterfaces;
+using Evento.BLL.Services;
 using Evento.Models.Entities;
+using Evento.Models.Message;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -23,18 +26,19 @@ namespace Evento.Web.Controllers
         private IPasswordHasher<User> passwordHasher;
         private readonly IAccountsService accountsService;
         private IPasswordValidator<User> passwordValidator;
-       
-        
+        private readonly IEmailSender _emailSender;
+
 
         public AdminController(IAccountsService accountsServ,
             UserManager<User> usrMgr, IPasswordHasher<User> passwordHash,
-            IPasswordValidator<User> passwordVal, IUserValidator<User> userValid)
+            IPasswordValidator<User> passwordVal, IUserValidator<User> userValid, IEmailSender emailSender)
         {
             accountsService = accountsServ;
             userManager = usrMgr;
             passwordHasher = passwordHash;
             passwordValidator = passwordVal;
             userValidator = userValid;
+            _emailSender = emailSender;
         }
 
         public IActionResult Index()
@@ -182,6 +186,18 @@ namespace Evento.Web.Controllers
             dict.Add("В роли Users?", HttpContext.User.IsInRole("Users"));
 
             return dict;
+        }
+        public async Task<ActionResult> Email(string Content)
+        {
+            if (!String.IsNullOrEmpty(Content))
+            {
+                var id = userManager.GetUserId(User);
+                var user = await userManager.FindByIdAsync(id);
+                string[] send = userManager.Users.Select(x => x.Email).ToArray();
+                var message = new Message( send, "Message from Evento", Content);
+                _emailSender.SendEmail(message);
+            }
+            return View();
         }
     }
 }

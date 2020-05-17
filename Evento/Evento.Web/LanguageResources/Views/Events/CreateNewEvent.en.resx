@@ -125,6 +125,10 @@
     <value>Category</value>
     <comment>Category</comment>
   </data>
+  <data name="String10" xml:space="preserve">
+    <value>Tags</value>
+    <comment>Tags</comment>
+  </data>
   <data name="String2" xml:space="preserve">
     <value>Location</value>
     <comment>Location</comment>

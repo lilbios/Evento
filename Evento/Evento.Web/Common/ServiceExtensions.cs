@@ -1,10 +1,12 @@
 ﻿using Evento.BLL.Accounts;
 using Evento.BLL.Interfaces;
+using Evento.BLL.ServiceInterfaces;
 using Evento.BLL.Services;
 using Evento.DAL.Repositories;
 using Evento.Models.Entities;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+
 using System;
 
 
@@ -29,7 +31,7 @@ namespace Evento.Web
             services.AddTransient<IRepository<Memorize>, Repository<Memorize>>();
             services.AddTransient<IRepository<Category>, Repository<Category>>();
             services.AddTransient<IRepository<Subscription>, Repository<Subscription>>();
-
+            services.AddScoped<IEmailSender, EmailSender>();
 
             services.AddTransient<ITagService, TagService>();
             services.AddTransient<IEventService, EventService>();

@@ -1,12 +1,18 @@
 ﻿
 @model ICollection<Evento.Models.Entities.User>
 
-
+<link rel="stylesheet" href="~/css/Events.css" />
 <h1 class="bg-info text-white">All Users</h1>
 <a asp-action="Create" class="btn btn-secondary">Create a User</a>
 
 <table class="table table-sm table-bordered">
-    <tr><th>ID</th><th>Name</th><th>Email</th><th>Update</th><th>Delete</th></tr>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Update</th>
+        <th>Delete</th>
+    </tr>
     @foreach (var user in Model)
     {
         <tr>
@@ -35,6 +41,21 @@
 @Html.ActionLink("RoleManager", "Index", "Roles", null, new { @class = "btn btn-primary" })
 @Html.ActionLink("UserInfo", "OtherAction", "Admin", new { @class = "btn btn-primary" })
 <div class="panel-heading">
-    Database
+    Work with database
 </div>
-<a class="btn btn-success" href="@Url.Action("Back","Admin")">"Start"</a>
+
+<a href="/Admin/Back" class="iconBtn" id="createProjectBtn">
+    <div class="iconBtn__content">
+
+        Create backup
+    </div>
+</a>
+<div class="panel-heading">
+    Work with database
+</div>
+
+<a href="/Admin/Email" class="iconBtn" id="createProjectBtn">
+    <div class="iconBtn__content">
+Create distribution
+    </div>
+</a>

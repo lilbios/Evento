@@ -164,6 +164,7 @@ namespace Evento.Web.Controllers
                     }
                     await tagService.AttachTagToEvent(tag, createdEvent);
                 }
+                ViewData["Created"] = "Event successfully created";
             }
 
             var categories = await caregoryService.GetAllCategories();
@@ -211,7 +212,7 @@ namespace Evento.Web.Controllers
                 await eventService.EditEvent(id, editEvent);
 
 
-                return RedirectToAction(nameof(Index));
+                ViewData["Edited"] = "Event successfully edited";
 
             }
             var categories = await caregoryService.GetAllCategories();

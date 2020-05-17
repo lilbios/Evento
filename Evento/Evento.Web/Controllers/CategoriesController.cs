@@ -27,7 +27,6 @@ namespace Evento.Web.Controllers
         public async Task<IActionResult> Index(string searchString)
         {
 
-
             ViewData["CurrentFilter"] = searchString;
             if (!String.IsNullOrEmpty(searchString))
             {
@@ -80,6 +79,8 @@ namespace Evento.Web.Controllers
                 }
 
                 await caregoryService.AddCategory(newCat);
+                ViewData["Created"] = "Category successfully created";
+                return View(viewModel);
             }
            
             return View(viewModel);
@@ -122,7 +123,7 @@ namespace Evento.Web.Controllers
                         newCat.CategoryPhoto = ImageConvertor.ConvertImageToBytes(image);
                     }
                     await caregoryService.EditCategory(id, newCat);
-
+                    ViewData["Edited"] = "Category successfully edited";
                 }
                 catch (DbUpdateConcurrencyException)
                 {
