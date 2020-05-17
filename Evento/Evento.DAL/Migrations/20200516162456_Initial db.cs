@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Evento.DAL.Migrations
 {
-    public partial class InitialMigration : Migration
+    public partial class Initialdb : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

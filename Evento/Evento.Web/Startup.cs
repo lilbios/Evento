@@ -52,6 +52,11 @@ namespace Evento.Web
                 {
                     options.ClientId = Configuration["ClientId"];
                     options.ClientSecret = Configuration["ClientSecret"];
+                })
+                .AddFacebook(options =>
+                {
+                    options.AppId = Configuration["AppId"];
+                    options.AppSecret = Configuration["AppSecret"];
                 });
 
             services.RegisterEventoServices(Configuration);
