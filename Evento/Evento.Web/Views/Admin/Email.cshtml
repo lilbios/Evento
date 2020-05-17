@@ -1,0 +1,15 @@
+﻿<link rel="stylesheet" href="~/css/Events.css" />
+<link rel="stylesheet" href="~/css/Index.css" />
+<section class="newsletter">
+   
+    <div class="newsletter__form col-sm-12 ">
+        <img class="newsletter__icon icon-n" src="https://www.freepnglogos.com/uploads/email-logo-png-27.png" />
+
+        <form asp-action="Email" method="get" defaultbutton="SubmitButton" runat="server">
+            <input class="newsletter__input" name="Content" type="text" placeholder=Message>
+            <button class="newsletter__button" type="submit">Send message</button>
+        </form>
+    </div>
+   
+
+</section>

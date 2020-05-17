@@ -560,6 +560,17 @@ body {
 }
 
 .iconBtn {
+    text-transform: uppercase;
+    display: inline-block;
+    padding: 10px 30px;
+    border-radius: 25px;
+    text-decoration: none;
+    outline: none;
+    border: none;
+    cursor: pointer;
+}
+.FormBtn {
+    text-transform: uppercase;
     display: inline-block;
     padding: 10px 30px;
     border-radius: 25px;
@@ -574,6 +585,7 @@ body {
 }
 
 .iconBtn__content {
+    text-transform: uppercase;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -611,6 +623,16 @@ body {
         background: #3C7DD7;
         color: #fff;
     }
+
+
+#FormProjectBtn {
+    margin-top: 20px;
+    background: #D5E3F7;
+    color: #3C7DD7;
+    height: min-content;
+    width: max-content;
+    position: relative;
+}
 
 .profile {
    

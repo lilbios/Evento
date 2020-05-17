@@ -117,11 +117,26 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Actual" xml:space="preserve">
+    <value>Актуальні події</value>
+  </data>
+  <data name="Admin" xml:space="preserve">
+    <value>Адміністратор</value>
+  </data>
   <data name="AllCategories" xml:space="preserve">
     <value>Усі категорії</value>
   </data>
+  <data name="AllEvents" xml:space="preserve">
+    <value>Усі події</value>
+  </data>
   <data name="Category" xml:space="preserve">
     <value>Категорія</value>
+  </data>
+  <data name="Category1" xml:space="preserve">
+    <value>Категорії</value>
+  </data>
+  <data name="Connect" xml:space="preserve">
+    <value>Надіслати повідомлення</value>
   </data>
   <data name="Create" xml:space="preserve">
     <value>Створити</value>
@@ -138,17 +153,81 @@
   <data name="Edit" xml:space="preserve">
     <value>Редагувати</value>
   </data>
+  <data name="Email" xml:space="preserve">
+    <value>Залиште повідомлення</value>
+  </data>
+  <data name="Enter" xml:space="preserve">
+    <value>Вхід</value>
+  </data>
+  <data name="Evento" xml:space="preserve">
+    <value>Evento</value>
+  </data>
+  <data name="Footer" xml:space="preserve">
+    <value>2020 - Evento</value>
+  </data>
   <data name="Location" xml:space="preserve">
     <value>Локація</value>
   </data>
+  <data name="Login" xml:space="preserve">
+    <value>Вхід</value>
+  </data>
+  <data name="Logout" xml:space="preserve">
+    <value>Вихід</value>
+  </data>
+  <data name="MainQuote" xml:space="preserve">
+    <value>Хочу залишитися вдома
+</value>
+  </data>
+  <data name="NewEvent" xml:space="preserve">
+    <value>НОВА ПОДІЯ</value>
+  </data>
+  <data name="Next" xml:space="preserve">
+    <value>Наступна</value>
+  </data>
+  <data name="Notification" xml:space="preserve">
+    <value>Повідомлення</value>
+  </data>
+  <data name="Online" xml:space="preserve">
+    <value>Онлайн події</value>
+  </data>
+  <data name="Party" xml:space="preserve">
+    <value>Відпочивай правильно</value>
+  </data>
+  <data name="Previous" xml:space="preserve">
+    <value>Попередня</value>
+  </data>
+  <data name="Privacy" xml:space="preserve">
+    <value>Права</value>
+  </data>
+  <data name="Quoute" xml:space="preserve">
+    <value>"Там багато пригод, які чекають, коли ми їх проживемо!"</value>
+  </data>
+  <data name="QuouteFooter" xml:space="preserve">
+    <value>"Зробіть своє життя найкращою пригодою!"</value>
+  </data>
+  <data name="Register" xml:space="preserve">
+    <value>Реєстрація</value>
+  </data>
   <data name="search" xml:space="preserve">
     <value>пошук</value>
+  </data>
+  <data name="Search1" xml:space="preserve">
+    <value>Знайти</value>
+  </data>
+  <data name="Send" xml:space="preserve">
+    <value>Надіслати</value>
+  </data>
+  <data name="Stay" xml:space="preserve">
+    <value>Залишайтесь вдома</value>
   </data>
   <data name="Subscribe" xml:space="preserve">
     <value>Підписатися</value>
   </data>
   <data name="Title" xml:space="preserve">
     <value>Назва</value>
+  </data>
+  <data name="ToChat" xml:space="preserve">
+    <value>Увійти в чат</value>
   </data>
   <data name="Unsubscribe" xml:space="preserve">
     <value>Відписатися</value>

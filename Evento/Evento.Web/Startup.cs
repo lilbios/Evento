@@ -17,6 +17,9 @@ using Microsoft.Extensions.Hosting;
 using System.IO;
 using Evento.Web.LanguageResources;
 using ReflectionIT.Mvc.Paging;
+using Evento.BLL.Services;
+using Evento.Web.Controllers;
+using Evento.Models.Message;
 
 namespace Evento.Web
 {
@@ -40,6 +43,10 @@ namespace Evento.Web
             services.AddControllersWithViews();
             services.AddDbContext<EventoDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"), x => x.MigrationsAssembly("Evento.DAL")));
 
+            var emailConfig = Configuration
+       .GetSection("EmailConfiguration")
+       .Get<EmailConfiguration>();
+            services.AddSingleton(emailConfig);
             services.AddAutoMapper(typeof(AutoMapperProfile));
             services.AddIdentity<User, IdentityRole>(opts =>
             {
@@ -76,10 +83,10 @@ namespace Evento.Web
             services.AddSignalR();
             services.AddSingleton<IUserIdProvider, CustomUserIdProvider>();
 
-            services.AddLocalization(options => options.ResourcesPath = "LanguageResources");
+            services.AddLocalization(options => options.ResourcesPath = "LanguageResources" );
             services.AddControllersWithViews()
                   .AddDataAnnotationsLocalization()
-                 .AddViewLocalization();
+                 .AddViewLocalization().ToString().ToUpper();
 
             services.Configure<RequestLocalizationOptions>(options =>
             {

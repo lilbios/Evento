@@ -15,21 +15,26 @@
                             <div class="search-filter">
                                 <div class="search-container">
                                     <i class="material-icons search-icon">@Localizer["search"]</i>
-                                    <input type="text" id="search" name="SearchString" placeholder="Search" value="@ViewData["currentFilter"]" />
+                                    <input type="text" id="search" name="SearchString" placeholder=@Localizer["search"] value="@ViewData["currentFilter"]" />
 
                                 </div>
-                                <a href="/Categories/Index?SearchString">
-                                    <button class="iconBtn" id="createProjectBtn">
-                                        <div class="iconBtn__content">
+                                <a href="/Categories/Index?SearchString" class="iconBtn" id="createProjectBtn">
+                                    <div class="iconBtn__content">
 
-                                            @Localizer["AllCategories"]
-                                        </div>
-                                    </button>
+                                        @Localizer["AllCategories"]
+                                    </div>
                                 </a>
+                                <a href="/Categories/Create" class="iconBtn" id="createProjectBtn">
+                                    <div class="iconBtn__content">
+
+                                        @Localizer["Create"]
+                                    </div>
+                                </a>
+
                             </div>
 
                         </div>
-                      
+
                     </div>
 
                 </div>
@@ -41,33 +46,33 @@
                 <div class="recipe-scroll">
                     @foreach (var item in Model)
                     {
-                    <article class="recipe-item">
-                        <a href="@Url.Action("Details", "Categories", new { id = item.Id }, null)">
-                            <div class="recipe-item__bg">
+                        <article class="recipe-item">
+                            <a href="@Url.Action("Details", "Categories", new { id = item.Id }, null)">
+                                <div class="recipe-item__bg">
 
 
-                                @{ if (@item.CategoryPhoto != null)
-                                    {
-                                        var base64 = Convert.ToBase64String(@item.CategoryPhoto);
-                                        var imagesrc = string.Format("data:image/jpeg;base64,{0}", base64);
+                                    @{ if (@item.CategoryPhoto != null)
+                                        {
+                                            var base64 = Convert.ToBase64String(@item.CategoryPhoto);
+                                            var imagesrc = string.Format("data:image/jpeg;base64,{0}", base64);
 
-                                        <img src="@imagesrc" alt="" class="recipe-item__img" />
+                                            <img src="@imagesrc" alt="" class="recipe-item__img" />
+                                        }
+                                        else
+                                        {
+
+
+                                            <img src="https://images.unsplash.com/photo-1572627614289-96a849461dd3?ixlib=rb-1.2.1&auto=format&fit=crop&w=675&q=80" alt="" class="recipe-item__img" />
+
+                                        }
                                     }
-                                    else
-                                    {
-
-
-                                        <img src="https://images.unsplash.com/photo-1572627614289-96a849461dd3?ixlib=rb-1.2.1&auto=format&fit=crop&w=675&q=80" alt="" class="recipe-item__img" />
-
-                                    }
-                                }
 
 
 
-                            </div><span class="recipe-item__name">@item.Title</span>
-                        </a>
-                        <div class="palette"><span class="palette__color" style="background-color:#aed9b7"></span><span class="palette__color" style="background-color:#f98667"></span><span class="palette__color" style="background-color:#97d1ec"></span></div>
-                    </article>
+                                </div><span class="recipe-item__name">@item.Title</span>
+                            </a>
+                            <div class="palette"><span class="palette__color" style="background-color:#aed9b7"></span><span class="palette__color" style="background-color:#f98667"></span><span class="palette__color" style="background-color:#97d1ec"></span></div>
+                        </article>
                     }
 
                 </div>
@@ -75,6 +80,25 @@
 
         </section>
 
+        <section class="newsletter">
+            <div class="newsletter__item newsletter__item--100"><img class="newsletter__icon icon-n" src="https://github.com/ricardoolivaalonso/Feinkoch/blob/master/public/img/newsletter-1.png?raw=true" alt="icono de newsletter"><a class="newsletter__link" href="#">@Localizer["QuouteFooter"]</a></div>
 
+            <div class="newsletter__form">
+                <img class="newsletter__icon icon-n" src="https://www.freepnglogos.com/uploads/email-logo-png-27.png" />
+
+                <form asp-action="Email" asp-controller="Home" method="get" defaultbutton="SubmitButton" runat="server">
+                    <input class="newsletter__input" name="Content" type="text" placeholder=@Localizer["Email"]>
+                    <button class="newsletter__button" type="submit">@Localizer["Connect"]</button>
+                </form>
+            </div>
+            <div class="newsletter__item">
+                <img class="newsletter__icon icon-n" src="https://pngimage.net/wp-content/uploads/2018/05/event-icon-png-9.png" />
+                <p class="newsletter__description">@Localizer["Quoute"]</p>
+                <form action="~/Events/Index">
+                    <button class="newsletter__button" type="submit">@Localizer["Search"]</button>
+                </form>
+            </div>
+
+        </section>
     </main>
 </div>
