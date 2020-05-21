@@ -38,7 +38,6 @@ namespace Evento.BLL.Interfaces
         public Task<ICollection<Event>> GetUserCreatedEvents(string userId);
         public Task<bool> IsExsistsEvent(string titleEvent);
 
-
         public Task<Event> CreateNew(Event item);
 
     }

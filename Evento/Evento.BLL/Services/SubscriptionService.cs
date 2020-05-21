@@ -17,6 +17,11 @@ namespace Evento.BLL.Services
             mapper = _mapper;
         }
 
+        public async Task<Subscription> GetCurrentSubscription(int eventId, string userId)
+        {
+            return await unitOfWork.Subscriptions.GetObjectByCondition(s=> s.EventId == eventId && s.UserId == userId);
+        }
+
         public async Task<ICollection<Subscription>> GetSubscriptionsCurrentUser(string id)
         {
             //add user manager
@@ -39,7 +44,7 @@ namespace Evento.BLL.Services
 
         public async Task Unsubscribe(int eventId, string userId)
         {
-            var subscription = unitOfWork.Subscriptions.GetByCondition(s=> s.UserId == userId && s.EventId == eventId);
+            var subscription = await unitOfWork.Subscriptions.GetObjectByCondition(s=> s.UserId == userId && s.EventId == eventId);
             await unitOfWork.Subscriptions.Delete(subscription);
         }
     }

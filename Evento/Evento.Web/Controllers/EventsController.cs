@@ -77,6 +77,7 @@ namespace Evento.Web.Controllers
             if (selectedEvent != null)
             {
                 var detEvent = mapper.Map<EventViewModel>(selectedEvent);
+                detEvent.Subscription = await subscriptionService.GetCurrentSubscription(id, userManager.GetUserId(User));
                 return View(detEvent);
             }
             return RedirectToAction(nameof(Index));

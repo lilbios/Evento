@@ -37,7 +37,7 @@ namespace Evento.Web.Models.Events
         public string Longtitude { get; set; }
         public string Tags { get; set; }
         public bool IsOwner { get; set; }
-        public bool IsSubscribed { get; set; }
+        public Subscription Subscription { get; set; }
         public byte[] Photo { get; set; }
         public virtual Category Category { get; set; }
 

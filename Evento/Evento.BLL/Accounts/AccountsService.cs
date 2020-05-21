@@ -11,13 +11,16 @@ namespace Evento.BLL.Accounts
     public class AccountsService : IAccountsService
     {
         private readonly UserManager<User> userManager;
+        private readonly IUnitOfWork unitOfWork;
         private readonly SignInManager<User> signInManager;
 
+
         public AccountsService(UserManager<User> userManager,
-            SignInManager<User> signInManager, IMapper mapper)
+            SignInManager<User> signInManager, IMapper mapper,IUnitOfWork unitOfWork)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
+            this.unitOfWork = unitOfWork;
         }
 
         public async Task<IdentityResult> Register(RegisterDTO model)
@@ -62,9 +65,9 @@ namespace Evento.BLL.Accounts
             await signInManager.SignOutAsync();
         }
 
-        public Task<string> GetUserId()
+        public async Task<User> GetUser(string id)
         {
-            return null;
+            return await unitOfWork.Users.GetObjectLazyLoad(u=> u.Id == id, u=>u.Subscriptions);
         }
     }
 }

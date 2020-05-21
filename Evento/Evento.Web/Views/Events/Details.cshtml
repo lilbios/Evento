@@ -33,9 +33,7 @@
 
            })
 
-
             </div>
-
         </section>
         <section>
             <h2 class="pageSubTitle">@Localizer["Location"] </h2>
@@ -48,11 +46,6 @@
                 </p>
 
             </div>
-
-
-
-
-
         </section>
         <section>
             <h2 class="pageSubTitle"> @Localizer["Dates"] </h2>
@@ -85,27 +78,34 @@
     <div>
         @if (!Model.IsOwner)
         {
-            if (Model.IsSubscribed)
+            if (Model.Subscription is null)
             {
-                <form asp-controller="Events" asp-action="Unsubscribe" method="post" asp-route-id="@Model.Id">
-                    <input type="submit" name="subscribe" value=@Localizer["Unsubscribe"] class="btn-danger btn-lg" />
-                </form>
+
+                @using (Html.BeginForm("Subscribe", "Events", new { eventId = Model.Id }))
+                {
+                    <input type="submit" name="subscribe" value=@Localizer["Subscribe"] class="btn-success btn-lg" />
+                }
             }
             else
             {
-                <form asp-controller="Events" asp-action="Subscribe" method="post" asp-route-id="@Model.Id">
-                    <input type="submit" name="subscribe" value=@Localizer["Subscribe"] class="btn-success btn-lg" />
-                </form>
+                @using (Html.BeginForm("Unsubscribe", "Events", new { eventId = Model.Id }))
+                {
+                    <input type="submit" name="subscribe" value=@Localizer["Unsubscribe"] class="btn-danger btn-lg" />
+                }
             }
         }
         else
         {
-            //Button for statistics
+            @using (Html.BeginForm("Edit", "Events", new { eventId = Model.Id }))
+            {
+                <input type="submit" name="subscribe" value=@Localizer["Edit"] class="btn-primary btn-lg" />
+            }
         }
+        
 
     </div>
 
-    
+
 
 
 </article>

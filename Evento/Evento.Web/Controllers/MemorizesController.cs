@@ -35,8 +35,9 @@ namespace Evento.Web.Controllers
         //}
 
         [HttpGet]
-        public IActionResult CreateNewMemorize()
+        public IActionResult CreateNewMemorize(int subscriptionId)
         {
+            
             return View();
         }
 
@@ -46,10 +47,14 @@ namespace Evento.Web.Controllers
         {
 
             var tempt = Request.Form.Files.ToList();
-         
             if (ModelState.IsValid)
             {
+                int subscriptionId = 0;
+                var mappedMemorize = mapper.Map<Memorize>(memorizeService);
+                var createMemorize = memorizeService.AttachMemorizeToVisitedEvent(mappedMemorize,subscriptionId);
               
+              
+
             }
             return View(memorizeViewModel);
         }

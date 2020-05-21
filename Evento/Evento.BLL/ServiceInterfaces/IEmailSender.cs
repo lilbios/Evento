@@ -2,11 +2,12 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Evento.BLL.ServiceInterfaces
 {
     public interface IEmailSender
     {
-        void SendEmail(Message message);
+        Task SendEmail(Message message);
     }
 }

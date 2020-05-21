@@ -17,7 +17,7 @@
         <div class="social-container">
           
             @{
-                if (Model.ExternalLogins.Count == 0)
+                if (Model.ExternalLogins is null)
                 {
                     <div> No external logins configured</div>
                 }

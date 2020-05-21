@@ -27,7 +27,7 @@ namespace Evento.BLL.Services
             return emailMessage;
         }
 
-        private void Send(MimeMessage mailMessage)
+        private async Task Send(MimeMessage mailMessage)
         {
             using (var client = new SmtpClient())
             {
@@ -37,11 +37,10 @@ namespace Evento.BLL.Services
                     client.AuthenticationMechanisms.Remove("XOAUTH2");
                     client.Authenticate(_emailConfig.UserName, _emailConfig.Password);
 
-                    client.Send(mailMessage);
+                    await client.SendAsync(mailMessage);
                 }
                 catch
                 {
-                    //log an error message or throw an exception or both.
                     throw;
                 }
                 finally
@@ -52,11 +51,11 @@ namespace Evento.BLL.Services
             }
         }
 
-        public void SendEmail(Message message)
+        public async Task SendEmail(Message message)
         {
             var emailMessage = CreateEmailMessage(message);
 
-            Send(emailMessage);
+            await Send(emailMessage);
         }
     }
    
