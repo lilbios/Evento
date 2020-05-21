@@ -35,14 +35,14 @@ namespace Evento.Web.Controllers
         //}
 
         [HttpGet]
-        public IActionResult CreateNewMemorize()
+        public IActionResult Create()
         {
             return View();
         }
 
 
         [HttpPost]
-        public IActionResult CreateNewMemorize(MemorizeViewModel  memorizeViewModel)
+        public IActionResult Create(MemorizeViewModel  memorizeViewModel)
         {
 
             var tempt = Request.Form.Files.ToList();

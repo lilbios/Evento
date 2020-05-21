@@ -8,53 +8,53 @@
     <div class="form-container sign-in-container">
         <form method="post" asp-controller="Account" asp-action="Register">
             <div asp-validation-summary="ModelOnly"></div>
-            <h1>@Localizer["SignIn"]Create Account</h1>
+            <h1>@Localizer["Create"]</h1>
 
 
 
             <div>
-                <label asp-for="FirstName"></label><br />
+                <label>@Localizer["First"]</label><br />
                 <input class="login" asp-for="FirstName" />
                 <span asp-validation-for="FirstName"></span>
             </div>
             <div>
-                <label asp-for="LastName"></label><br />
+                <label>@Localizer["LastName"]</label><br />
                 <input class="login" asp-for="LastName" />
                 <span asp-validation-for="LastName"></span>
             </div>
 
             <div>
-                <label asp-for="DataOfBirth"></label><br />
+                <label>@Localizer["DateOfBirth"]</label><br />
                 <input class="login" asp-for="DataOfBirth" />
                 <span asp-validation-for="DataOfBirth"></span>
             </div>
             <div>
-                <label asp-for="Email"></label><br />
+                <label>@Localizer["Email"]</label><br />
                 <input class="login" asp-for="Email" />
                 <span asp-validation-for="Email"></span>
             </div>
             <div>
-                <label asp-for="Password"></label><br />
+                <label>@Localizer["Password"]</label><br />
                 <input class="login" asp-for="Password" />
                 <span asp-validation-for="Password"></span>
             </div>
             <div>
-                <label asp-for="PasswordConfirm"></label><br />
+                <label>@Localizer["PasswordConfirm"]</label><br />
                 <input class="login" asp-for="PasswordConfirm" />
                 <span asp-validation-for="PasswordConfirm"></span>
             </div>
 
 
-            <button>@Localizer["SignIn"]Sign Up</button>
+            <button>@Localizer["SignUp"]</button>
         </form>
     </div>
 
     <div class="overlay-container">
         <div class="overlay">
             <div class="overlay-panel overlay-right">
-                <h1>@Localizer["SignIn"]Welcome Back!</h1>
-                <p>@Localizer["SignIn"]To keep connected with us please login with your personal info</p>
-                <a href="/Account/Login" class="ghost" id="signIn">Sign In </a>
+                <h1>@Localizer["WelcomeBack"]</h1>
+                <p>@Localizer["Keep"]</p>
+                <a href="/Account/Login" class="ghost" id="signIn">@Localizer["SignIn"] </a>
             </div>
 
         </div>
