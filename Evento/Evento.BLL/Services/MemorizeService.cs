@@ -15,10 +15,11 @@ namespace Evento.BLL.Services
             unitOfWork = _unitOfWork;
             mapper = _mapper;
         }
-        public async Task AttachMemorizeToVisitedEvent(Memorize memorize,int subscriptionId)
+        public async Task<Memorize> AttachMemorizeToVisitedEvent(Memorize memorize,int subscriptionId)
         {
 
             await unitOfWork.Memorizes.Create(memorize);
+            return null;
         }
 
         public async Task DeleteMemorize(int id)

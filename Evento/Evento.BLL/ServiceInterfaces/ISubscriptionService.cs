@@ -11,6 +11,7 @@ namespace Evento.BLL.Interfaces
         public Task<ICollection<Subscription>> GetSubscriptionsCurrentUser(string id);
         public Task Subscribe(int eventId, string userId);
         public Task Unsubscribe(int eventId, string userId);
+        public Task<Subscription> GetCurrentSubscription(int eventId,string userId);
 
 
     }

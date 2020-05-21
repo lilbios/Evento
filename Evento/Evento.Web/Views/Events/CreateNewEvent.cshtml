@@ -7,8 +7,6 @@
     <div class="col-sm-12">
         @using (Html.BeginForm("CreateNewEvent", "Events", FormMethod.Post, new { enctype = "multipart/form-data" }))
         {
-
-
             <article class="wrapper">
                 <a class=" iconBtn ">@ViewBag.Created</a>
                 @ViewBag.Ok
@@ -30,18 +28,12 @@
                    })
 
                     </div>
-
-
                 </header>
 
                 <section>
                     <h2 class="pageSubTitle"> @Localizer["Category"] </h2>
 
                     <select asp-for="CategoryId" class="form-control" asp-items="ViewBag.CategoryId"></select>
-
-
-
-
                 </section>
 
                 <section>

@@ -41,8 +41,12 @@ namespace Evento.Web.Controllers
         public async Task<IActionResult> Profile()
         {
             var id = _userManager.GetUserId(User);
-            var user = await _userManager.FindByIdAsync(id);
-            return View(user);
+            if (!string.IsNullOrEmpty(id)) {
+                var user = await _accountsService.GetUser(id);
+                return View(user);
+            }
+            return NotFound();
+           
         }
 
 
