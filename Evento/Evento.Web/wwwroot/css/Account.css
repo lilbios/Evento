@@ -31,6 +31,7 @@
 }
 
 .profile-card {
+    padding: 2em;
     width: 100%;
     min-height: 460px;
     margin: auto;

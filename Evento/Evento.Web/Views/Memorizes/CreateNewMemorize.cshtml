@@ -1,7 +1,7 @@
 ﻿@model Evento.Web.Models.Memorizes.MemorizeViewModel
 @using Microsoft.AspNetCore.Mvc.Localization
 @inject IViewLocalizer Localizer
-
+<link rel="stylesheet" href="~/css/Memorizes.css" />
 <div class="container">
     <form method="post" enctype="multipart/form-data" onsubmit="validation()">
         <div class="title-post">
@@ -13,8 +13,8 @@
                 <img src="~/css/icons/placeholder.png" id="upload-photo" class="card-img-top img-thumbnail" alt="...">
                 <button class="next" id="button-slider" onclick="next()"><i class="fa fa-chevron-right"></i></button>
             </div>
-                <small class="text-danger error-msg"></small>
-            </div>
+
+        </div>
         <div>
             <label id="profile-image">
                 <input type="file" class="loader" id="photoholder" name="loader" onchange="snapshoot(this)" hidden multiple />
