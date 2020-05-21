@@ -21,8 +21,35 @@
     height:150px;
 }
 .photos {
-    margin-top:50px;
+    margin-top:30px;
+   
+    
 }
 #camera {
-    font-size:50px;
+    font-size:30px;
+}
+
+#slider {
+    width:510px;
+    height:410px;
+}
+#button-slider {
+    padding:20px;
+    border:none;
+    background:#37f;
+    font-size:30px;
+    color:white;
+    position:absolute;
+    top:45%;
+    cursor:pointer;
+}
+.next {
+    border-radius: 0px 10px 10px 0px;
+    margin-left:450px;
+
+}
+
+.prev {
+    border-radius: 10px 0px 0px 10px;
+   
 }

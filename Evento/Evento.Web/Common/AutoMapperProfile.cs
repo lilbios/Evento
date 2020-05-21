@@ -19,6 +19,7 @@ namespace Evento.Web.Common
             CreateMap<CreateViewModel, Category>().ReverseMap();
             CreateMap<MemorizeViewModel, Memorize>().ReverseMap();
            
+           
         }
     }
 }

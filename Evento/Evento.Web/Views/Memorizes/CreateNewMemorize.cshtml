@@ -3,31 +3,21 @@
 @inject IViewLocalizer Localizer
 
 <div class="container">
-    <form  method="post" enctype="multipart/form-data">
+    <form method="post" enctype="multipart/form-data" onsubmit="validation()">
         <div class="title-post">
             <input placeholder="@Localizer["In a few words describe your event"]" asp-for="Title" id="title" class="mem-title" />
         </div>
-        <div class="photos">
-            <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" data-interval="false">
-                <ol class="carousel-indicators">
-                    
-                </ol>
-                <div class="carousel-inner">
-
-                </div>
-                <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Previous</span>
-                </a>
-                <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Next</span>
-                </a>
+        <div class="card photos">
+            <div id="slider" class="row">
+                <button class="prev" id="button-slider" onclick="prev()"><i class="fa fa-chevron-left"></i></button>
+                <img src="~/css/icons/placeholder.png" id="upload-photo" class="card-img-top img-thumbnail" alt="...">
+                <button class="next" id="button-slider" onclick="next()"><i class="fa fa-chevron-right"></i></button>
             </div>
-        </div>
+                
+            </div>
         <div>
             <label id="profile-image">
-                <input type="file" class="loader" name="loader" onchange="snapshoot(this)" hidden multiple/>
+                <input type="file" class="loader" id="photoholder" name="loader" onchange="snapshoot(this)" hidden multiple />
                 <small>
                     <i class="fa fa-camera" id="camera" caria-hidden="true"></i>
                 </small>
@@ -41,7 +31,9 @@
 </div>
 @section Scripts {
     <script src="~/js/others/imgloaderjs.js"></script>
-    <script src="~/js/ajax/memorizes/ajax_memorize.js"></script>
+    <script src="~/js/validation/memorizes/memorize.js"></script>
     <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+    <script src="~/js/others/slider.js"></script>
+
 }

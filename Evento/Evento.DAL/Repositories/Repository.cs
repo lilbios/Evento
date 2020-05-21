@@ -109,9 +109,5 @@ namespace Evento.DAL.Repositories
             return await eventoDbSet.FirstOrDefaultAsync(expression);
         }
 
-        Task<ICollection<TEntity>> IRepository<TEntity>.GetByCondition(Expression<Func<TEntity, bool>> expression)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

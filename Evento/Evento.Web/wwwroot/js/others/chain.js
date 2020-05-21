@@ -14,7 +14,7 @@
 
                     content.push(tagValue);
                     
-                    tagContainer.append('<small class="badge badge-warning" style="margin-left: 5px">' + tagValue + '</small>');
+                    tagContainer.append('<small class="badge badge-primary" style="margin-left: 5px">' + tagValue + '</small>');
 
                     window.localStorage.setItem('cookie', JSON.stringify(content));
 

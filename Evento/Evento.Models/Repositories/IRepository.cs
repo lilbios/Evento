@@ -12,7 +12,7 @@ namespace Evento.Models.Entities
     {
         Task<ICollection<TEntity>> GetAll();
 
-        Task<ICollection<TEntity>> GetByCondition(Expression<Func<TEntity, bool>> expression);
+        Task<IEnumerable<TEntity>> GetByCondition(Expression<Func<TEntity, bool>> expression);
         Task <TEntity> GetObjectByCondition(Expression<Func<TEntity, bool>> expression);
 
         Task Create(TEntity entity);
