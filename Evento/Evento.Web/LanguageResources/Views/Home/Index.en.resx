@@ -130,10 +130,10 @@
     <value>Category</value>
   </data>
   <data name="Connect" xml:space="preserve">
-    <value>Connect with us</value>
+    <value>Send message</value>
   </data>
   <data name="Email" xml:space="preserve">
-    <value>Put your email to contact us</value>
+    <value>Put message</value>
   </data>
   <data name="Enter" xml:space="preserve">
     <value>Enter</value>

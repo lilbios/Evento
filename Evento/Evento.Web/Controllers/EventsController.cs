@@ -43,12 +43,10 @@ namespace Evento.Web.Controllers
         public async Task<IActionResult> Index(string searchString)
         {
 
-
             ViewData["CurrentFilter"] = searchString;
             if (!String.IsNullOrEmpty(searchString))
             {
                 var eventsSearch = await eventService.GetEventByTitle(searchString);
-
                 return View(eventsSearch);
             }
              var events = await eventService.GetAllEvents();
@@ -166,6 +164,7 @@ namespace Evento.Web.Controllers
                     }
                     await tagService.AttachTagToEvent(tag, createdEvent);
                 }
+                ViewData["Created"] = "Event successfully created";
             }
 
             var categories = await caregoryService.GetAllCategories();
@@ -213,7 +212,7 @@ namespace Evento.Web.Controllers
                 await eventService.EditEvent(id, editEvent);
 
 
-                return RedirectToAction(nameof(Index));
+                ViewData["Edited"] = "Event successfully edited";
 
             }
             var categories = await caregoryService.GetAllCategories();

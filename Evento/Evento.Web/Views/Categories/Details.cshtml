@@ -1,5 +1,6 @@
 ﻿@model Evento.Web.Models.Categories.CreateViewModel
-
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
 @{
     ViewData["Title"] = "Details";
 }
@@ -10,9 +11,9 @@
 <article class="wrapper">
     @ViewBag.Ok
     <header>
-        <h1 class="pageTitle">Title</h1>
+        <h1 class="pageTitle">@Localizer["Title"]</h1>
 
-        <div class="col-md-12">
+        <div >
             @Html.DisplayFor(model => model.Title, new
        {
            htmlAttributes = new
@@ -41,31 +42,27 @@
         }
     }
 <div>
-    <a href="/Categories/Edit?id=@Model.Id">
-        <button class="iconBtn" id="createProjectBtn">
-            <div class="iconBtn__content">
+    <a href="/Categories/Edit?id=@Model.Id" class="iconBtn" id="createProjectBtn">
+        <div class="iconBtn__content">
 
-                Edit
-            </div>
-        </button>
+            @Localizer["Edit"]
+        </div>
     </a>
-    <a href="/Categories/Delete?id=@Model.Id">
-        <button class="iconBtn" id="createProjectBtn">
-            <div class="iconBtn__content">
+     <a href="/Categories/Delete?id=@Model.Id" class="iconBtn" id="createProjectBtn">
+         <div class="iconBtn__content">
 
-                Delete
-            </div>
-        </button>
+             @Localizer["Delete"]
+         </div>
     </a>
-    <a href="/Events/Index">
-        <button class="iconBtn" id="createProjectBtn">
-            <div class="iconBtn__content">
+    <a href="/Categories/Index" class="iconBtn" id="createProjectBtn">
+        <div class="iconBtn__content">
 
-                All categories
-            </div>
-        </button>
+            @Localizer["AllCategories"]
+        </div>
     </a>
    
+   
+
 </div>
 </article>
 

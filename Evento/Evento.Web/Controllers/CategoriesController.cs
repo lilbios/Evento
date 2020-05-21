@@ -24,9 +24,8 @@ namespace Evento.Web.Controllers
         }
 
         // GET: Categories
-        public async Task<IActionResult> Index( string searchString)
+        public async Task<IActionResult> Index(string searchString)
         {
-
 
             ViewData["CurrentFilter"] = searchString;
             if (!String.IsNullOrEmpty(searchString))
@@ -80,6 +79,8 @@ namespace Evento.Web.Controllers
                 }
 
                 await caregoryService.AddCategory(newCat);
+                ViewData["Created"] = "Category successfully created";
+                return View(viewModel);
             }
            
             return View(viewModel);
@@ -122,7 +123,7 @@ namespace Evento.Web.Controllers
                         newCat.CategoryPhoto = ImageConvertor.ConvertImageToBytes(image);
                     }
                     await caregoryService.EditCategory(id, newCat);
-
+                    ViewData["Edited"] = "Category successfully edited";
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -137,12 +138,6 @@ namespace Evento.Web.Controllers
         }
 
 
-
-           
-              
-              
-     
-
         // GET: Categories/Delete/5
         public async Task<IActionResult> Delete(int id)
         {
@@ -156,8 +151,9 @@ namespace Evento.Web.Controllers
             {
                 return NotFound();
             }
-            var edited = mapper.Map<CreateViewModel>(category);
-            return View(edited);
+           // var edited = mapper.Map<CreateViewModel>(category);
+            await caregoryService.DeleteCategory(id);
+            return View(nameof(Index));
         }
 
         // POST: Categories/Delete/5

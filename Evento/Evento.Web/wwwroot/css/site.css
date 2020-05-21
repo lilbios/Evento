@@ -186,12 +186,17 @@ button {
     }
 
 .ghost {
+    color:white;
     border: white;
     background-color: transparent;
     border-color: #FFFFFF;
     border: solid white 2px;
     padding: 1.2em;
     border-radius: 30px;
+    color:white;
+}
+.overlay-panel{
+    color:white;
 }
 
 form {
@@ -200,9 +205,9 @@ form {
     align-items: center;
     /* justify-content: center; */
     flex-direction: column;
-     padding: 0 50px; 
+    padding: 0 50px;
     /* height: 100%; */
-     text-align: center;
+    text-align: center;
 }
 
 input.login {
@@ -213,10 +218,11 @@ input.login {
     width: 100%;
 }
 
-    input.chat {
-        background-color: #fff;
-        border: none;
-    }
+input.chat {
+    background-color: #fff;
+    border: none;
+    margin: 1%;
+}
 
 .containerLog {
     background-color: #fff;
@@ -287,7 +293,7 @@ input.login {
     height: 100%;
     overflow: hidden;
     transition: transform 0.6s ease-in-out;
-    z-index: 100;
+
 }
 
 .containerLog.right-panel-active .overlay-container {
@@ -362,9 +368,6 @@ input.login {
     }
 
 
-
-/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-for details on configuring this project to bundle and minify static web assets. */
     a .navbar-brand {
     white-space: normal;
     text-align: center;
@@ -441,11 +444,14 @@ body {
 }
 
 .footer {
+    margin-top: 100%;
     position: absolute;
     bottom: 0;
     width: 100%;
     white-space: nowrap;
-    line-height: 60px; /* Vertically center the text there */
+    line-height: 60px;
+    background-color: white;
+    text-align: center;
 }
 
 .blackFont {
@@ -554,6 +560,17 @@ body {
 }
 
 .iconBtn {
+    text-transform: uppercase;
+    display: inline-block;
+    padding: 10px 30px;
+    border-radius: 25px;
+    text-decoration: none;
+    outline: none;
+    border: none;
+    cursor: pointer;
+}
+.FormBtn {
+    text-transform: uppercase;
     display: inline-block;
     padding: 10px 30px;
     border-radius: 25px;
@@ -568,6 +585,7 @@ body {
 }
 
 .iconBtn__content {
+    text-transform: uppercase;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -605,6 +623,16 @@ body {
         background: #3C7DD7;
         color: #fff;
     }
+
+
+#FormProjectBtn {
+    margin-top: 20px;
+    background: #D5E3F7;
+    color: #3C7DD7;
+    height: min-content;
+    width: max-content;
+    position: relative;
+}
 
 .profile {
    
@@ -2063,9 +2091,12 @@ body {
 }
 
 #map {
+    margin-right: 5em;
     position: fixed !important;
     height: 100% !important;
-    width: 100% !important;
+    width: 67% !important;
+    margin-left: 0;
+    margin-bottom: 5em;
 }
 /* Optional: Makes the sample page fill the window. */
 
@@ -2110,4 +2141,8 @@ body {
 }
 a:hover, a:visited, a:link, a:active {
     text-decoration: none;
+}
+
+.fab {
+    color: white;
 }

@@ -1,4 +1,6 @@
 ﻿@model Evento.BLL.Accounts.DTO.LoginDTO
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
 
 
 
@@ -7,9 +9,13 @@
 <div class="containerLog" id="container">
 
     <div class="form-container sign-in-container">
-        <h1>Sign in</h1>
+        <h1>@Localizer["SignIn"]</h1>
+      
+     
+
+
         <div class="social-container">
-            @*<a href="#" class="social"><i class="fab fa-facebook-f"></i></a>*@
+          
             @{
                 if (Model.ExternalLogins.Count == 0)
                 {
@@ -17,75 +23,47 @@
                 }
                 else
                 {
-                    @using (Html.BeginForm("ExternalLogin", "Account", new { @class = "social", returnUrl = "@Model.ReturnUrl" }))
+                    @using (Html.BeginForm("ExternalLogin", "Account", new { @class = "social", returnUrl = Model.ReturnUrl }))
                     {
 
         <div>
-            @foreach (var provider in Model.ExternalLogins)
-            {
-                <button type="submit" class="social" name="provider" value="Google" title="Login using your Google account" google="">
-                    <i class="fab fa-google-plus-g"></i>
-                </button>
+            <button type="submit" class="social" name="provider" value="Google" title="Login using your Google account" google="">
+                <i class="fab fa-google-plus-g"></i>
+            </button>
+            <button type="submit" class="social" name="provider" value="Facebook" title="Login using your Facebook account" facebook="">
+                <i class="fab fa-facebook-f"></i>
+            </button>
 
-            }
-            
         </div>
                     }
                 }
             }
 
-            @*<a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>*@
+          
         </div>
         <form method="post" asp-controller="Account" asp-action="Login"
               asp-route-returnUrl="@Model.ReturnUrl">
             <div asp-validation-summary="ModelOnly"></div>
 
-            <span>or use your account</span>
+            <span>@Localizer["useAccount"]</span>
             <input class="login" type="email" placeholder="Email" asp-for="Email" />
             <span asp-validation-for="Email"></span>
             <input class="login" type="password" placeholder="Password" asp-for="Password" />
             <span asp-validation-for="Password"></span>
             <label asp-for="RememberMe"></label>
             <input class="login" asp-for="RememberMe" />
-            <a href="#">Forgot your password?</a>
-            <button>Sign In</button>
+            <a href="#">@Localizer["Forgot"]</a>
+            <button>@Localizer["SignIn"]</button>
         </form>
     </div>
     <div class="overlay-container">
         <div class="overlay">
 
             <div class="overlay-panel overlay-right">
-                <h1>Hello, Friend!</h1>
-                <p>Enter your personal details and start journey with us</p>
-                <a href="/Account/Register" class="ghost" id="signUp">Sign Up </a>
+                <h1>@Localizer["HelloFriend"]</h1>
+                <p>@Localizer["Enter"]</p>
+                <a href="/Account/Register" class="ghost" id="signUp">@Localizer["Signup"]</a>
             </div>
         </div>
     </div>
 </div>
-@*<div>
-    <h1>External login</h1>
-    @{
-        if (Model.ExternalLogins.Count == 0)
-        {
-            <div> No external logins configured</div>
-        }
-        else
-        {
-            <form method="post" asp-action="ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl">
-                <div>
-                    @foreach (var provider in Model.ExternalLogins)
-                    {
-                        <button type="submit"
-                                class="btn btn-primary"
-                                name="provider"
-                                value="@provider.Name"
-                                title="Login using your @provider.DisplayName account"
-                                @provider.DisplayName>Google</button>
-                    }
-                </div>
-            </form>
-        }
-    }
-</div>*@
-
-

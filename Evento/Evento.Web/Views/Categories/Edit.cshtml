@@ -1,5 +1,6 @@
 ﻿@model Evento.Web.Models.Categories.CreateViewModel
-
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
 @{
     ViewData["Title"] = "CreateNewEvent";
 }
@@ -17,9 +18,10 @@
 
 
 <article class="wrapper">
+    <a class=" iconBtn ">@ViewBag.Edited</a>
     @ViewBag.Ok
     <header>
-        <h1 class="pageTitle">Title</h1>
+        <h1 class="pageTitle">@Localizer["Title"]</h1>
 
         <div class="col-md-12">
             <h1 class="pageTitle"> @Html.TextBoxFor(x => x.Title, new { @class = "form-control" })</h1>
@@ -34,7 +36,7 @@
     </div>
     <div align="center">
         <label id="profile-image">
-            <small>Upload</small>
+            <small>@Localizer["Upload"]</small>
             <small>
                 <input type="file" name="Image" id="Imageinput" hidden onchange="imgprev(this)">
 
@@ -42,11 +44,14 @@
             </small>
         </label>
     </div>
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Edit" class="btn btn-default" />
-        </div>
-    </div>
+    <a href="/Categories/Edit">
+        <button class="iconBtn" id="createProjectBtn">
+            <div class="iconBtn__content">
+
+                @Localizer["Edit"]
+            </div>
+        </button>
+    </a>
 </article>
 
 

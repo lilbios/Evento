@@ -20,7 +20,7 @@ namespace Evento.Web.Controllers
         private readonly UserManager<User> _userManager;
         private readonly IAccountsService _accountsService;
         private readonly SignInManager<User> _signInManager;
-       
+
 
         public AccountController(IAccountsService accountsService,
             SignInManager<User> signInManager,
@@ -37,7 +37,7 @@ namespace Evento.Web.Controllers
             return View();
         }
 
-        
+
         public async Task<IActionResult> Profile()
         {
             var id = _userManager.GetUserId(User);
@@ -51,7 +51,7 @@ namespace Evento.Web.Controllers
         public async Task<IActionResult> Register(RegisterDTO model)
         {
             if (ModelState.IsValid)
-            { 
+            {
                 var registerResult = await _accountsService.Register(model);
 
                 if (registerResult.Succeeded)
@@ -118,7 +118,7 @@ namespace Evento.Web.Controllers
 
             return RedirectToAction("Index", "Home");
         }
-       
+
 
         [AllowAnonymous]
         [HttpPost]
@@ -132,7 +132,7 @@ namespace Evento.Web.Controllers
         }
 
         [AllowAnonymous]
-        public async Task<IActionResult> ExternalLoginCallback(string returnUrl = null, 
+        public async Task<IActionResult> ExternalLoginCallback(string returnUrl = null,
             string remoteError = null)
         {
             returnUrl = returnUrl ?? Url.Content("~/");
@@ -166,7 +166,8 @@ namespace Evento.Web.Controllers
             {
                 return LocalRedirect(returnUrl);
             }
-            else {
+            else
+            {
                 var email = info.Principal.FindFirstValue(ClaimTypes.Email);
 
                 if (email != null)

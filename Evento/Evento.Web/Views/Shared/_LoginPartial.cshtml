@@ -7,32 +7,26 @@
 
 @if (SignInManager.IsSignedIn(User))
 {
-    <a href="/Categories/Index">
-        <button class="iconBtn" id="createProjectBtn">
-            <div class="iconBtn__content">
+    <a href="/Categories/Index" class="iconBtn" id="createProjectBtn">
+        <div class="iconBtn__content">
 
-                @Localizer["Category"]
-            </div>
-        </button>
+            @Localizer["Category"]
+        </div>
     </a>
-    <a href="/Admin/Index">
-        <button class="iconBtn" id="createProjectBtn">
-            <div class="iconBtn__content">
+    <a href="/Admin/Index" class="iconBtn" id="createProjectBtn">
+        <div class="iconBtn__content">
 
-                @Localizer["Admin"]
-            </div>
-        </button>
+            @Localizer["Admin"]
+        </div>
+    </a>
+   <a href="/Account/Profile" class="iconBtn" id="createProjectBtn">
+       <div class="iconBtn__content">
+
+           @Localizer["MyAccount"]
+       </div>
     </a>
 
 
-    <a href="/Account/Profile">
-        <button class="iconBtn" id="createProjectBtn">
-            <div class="iconBtn__content">
-
-                @Localizer["MyAccount"]
-            </div>
-        </button>
-    </a>
     <div class="profile__information">
         <ul class="navbar-nav">
             <li class="nav-item">

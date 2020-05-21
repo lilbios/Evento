@@ -154,6 +154,9 @@
     <value>I wanna stay home today
                 Don't wanna go out</value>
   </data>
+  <data name="MyAccount" xml:space="preserve">
+    <value>My account</value>
+  </data>
   <data name="NewEvent" xml:space="preserve">
     <value>NEW EVENT</value>
   </data>

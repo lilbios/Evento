@@ -1,5 +1,7 @@
 @using Evento.BLL.Third_part
 @model Evento.Web.Models.Events.EventViewModel
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
 <link rel="stylesheet" href="~/css/Events.css" />
 
 
@@ -8,7 +10,7 @@
     @ViewBag.Ok
 
     <header>
-        <h1 class="pageTitle">Title</h1>
+        <h1 class="pageTitle">@Localizer["Title"]</h1>
 
         <div class="col-sm-12">
             @Html.DisplayFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
@@ -16,9 +18,9 @@
 
 
     </header>
-    <div class="col-sm-10">
+    <div>
         <section>
-            <h2 class="pageSubTitle"> Category </h2>
+            <h2 class="pageSubTitle"> @Localizer["Category"] </h2>
             <div class="col-md-12">
                 @Html.DisplayFor(model => model.Category.Title, new
            {
@@ -36,7 +38,7 @@
 
         </section>
         <section>
-            <h2 class="pageSubTitle"> Location </h2>
+            <h2 class="pageSubTitle">@Localizer["Location"] </h2>
 
             <div class="col-md-12">
                 <p>
@@ -53,7 +55,7 @@
 
         </section>
         <section>
-            <h2 class="pageSubTitle"> Dates </h2>
+            <h2 class="pageSubTitle"> @Localizer["Dates"] </h2>
 
             <div class="col-md-12">
                 <p>
@@ -70,29 +72,29 @@
             </div>
         </section>
         <section>
-            <h2 class="pageSubTitle"> Description </h2>
+            <h2 class="pageSubTitle"> @Localizer["Description"] </h2>
 
             <div class="col-md-12">
                 @Html.DisplayFor(model => model.Description, new { htmlAttributes = new { @class = "form-control", @placeholder = "Country" } })
 
             </div>
-            
+
 
         </section>
     </div>
-    <div class="col-sm-2">
+    <div>
         @if (!Model.IsOwner)
         {
             if (Model.IsSubscribed)
             {
-                <form asp-controller="Events" asp-action="Subscribe" method="post"  asp-route-id="@Model.Id">
-                    <input type="submit" name="subscribe" value="Subscribe" class="btn-success btn-lg"  />
+                <form asp-controller="Events" asp-action="Unsubscribe" method="post" asp-route-id="@Model.Id">
+                    <input type="submit" name="subscribe" value=@Localizer["Unsubscribe"] class="btn-danger btn-lg" />
                 </form>
             }
             else
             {
-                <form asp-controller="Events" asp-action="Unsubscribe" method="post" asp-route-id="@Model.Id" >
-                    <input type="submit" name="subscribe" value="Unubscribe" class="btn-danger btn-lg"  />
+                <form asp-controller="Events" asp-action="Subscribe" method="post" asp-route-id="@Model.Id">
+                    <input type="submit" name="subscribe" value=@Localizer["Subscribe"] class="btn-success btn-lg" />
                 </form>
             }
         }
@@ -103,14 +105,10 @@
 
     </div>
 
-    }
+    
 
 
 </article>
-
-
-
-
 
 
 @section Scripts {
