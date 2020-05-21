@@ -3,7 +3,7 @@
 
         let tagValue = $('#tag-input').val().trim();
         let tagContainer = $("#tag-container");
-        let content = JSON.parse(window.localStorage.getItem('cookie'));
+        let content = $('.tagsholder').val().split(',').filter(value=> value);
 
         if (tagValue) {
             tagValue = "#" + tagValue;
@@ -14,10 +14,8 @@
 
                     content.push(tagValue);
                     
-                    tagContainer.append('<small class="badge badge-primary" style="margin-left: 5px">' + tagValue + '</small>');
-
-                    window.localStorage.setItem('cookie', JSON.stringify(content));
-
+                    tagContainer.append('<small class="badge badge-warning" style="margin-left: 5px">' + tagValue + '</small>');
+                    $('.tagsholder').val(content.join(','));
                     $("#tag-input").val(null);
                 } else {
 
@@ -27,7 +25,7 @@
                 }
             } else {
                 if ($("#msg").length == 0) {
-                    di$('.errors').append('<div id="msg">You cannot add more than 5 tags</div>');
+                    $('.errors').append('<div id="msg">You cannot add more than 5 tags</div>');
                 }
             }
         }
@@ -39,7 +37,7 @@
 $(document).click(function (event) {
 
     if ($(event.target).attr("class") == 'badge badge-warning') {
-        let content = JSON.parse(window.localStorage.getItem('cookie'));
+        let content = $('.tagsholder').val().split(',').filter(value => value);
 
         for (let i = 0; i < content.length; i++) {
 
@@ -47,7 +45,7 @@ $(document).click(function (event) {
                 $("#msg").remove();
 
                 content.splice(i, 1);
-                window.localStorage.setItem('cookie', JSON.stringify(content));
+                $('.tagsholder').val(content.join(','));
                 $(event.target).remove();
             }
         }
@@ -57,7 +55,5 @@ $(document).click(function (event) {
 
 $(document).ready(function () {
     
-    let tags = new Array();
-    window.localStorage.setItem('cookie',JSON.stringify(tags))
-    
+    let cookie = document.cookie;
 });

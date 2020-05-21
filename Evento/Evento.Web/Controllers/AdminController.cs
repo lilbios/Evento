@@ -195,7 +195,7 @@ namespace Evento.Web.Controllers
                 var user = await userManager.FindByIdAsync(id);
                 string[] send = userManager.Users.Select(x => x.Email).ToArray();
                 var message = new Message( send, "Message from Evento", Content);
-                _emailSender.SendEmail(message);
+                await _emailSender.SendEmail(message);
             }
             return View();
         }

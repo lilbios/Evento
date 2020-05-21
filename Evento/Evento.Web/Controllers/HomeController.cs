@@ -40,7 +40,7 @@ namespace Evento.Web.Controllers
             if (!String.IsNullOrEmpty(Content))
             {
                 var message = new Message(new string[] { "nastyah6235@gmail.com" }, "Message from Evento", Content);
-                _emailSender.SendEmail(message);
+                await _emailSender.SendEmail(message);
             }
             return RedirectToAction(nameof(Index));
         }

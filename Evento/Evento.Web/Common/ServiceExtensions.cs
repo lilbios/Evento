@@ -39,6 +39,7 @@ namespace Evento.Web
             services.AddTransient<ICategoryService, CategoryService>();
             services.AddTransient<ICommentService, CommentService>();
             services.AddTransient<IMemorizeService, MemorizeService>();
+            services.AddTransient<ICookieService, СookieService>();
 
 
 

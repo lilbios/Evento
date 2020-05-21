@@ -108,6 +108,7 @@
                     <div class="col-md-12">
                         <div class="errors"></div>
                         <input id="tag-input" class="form-control" />
+                        <input class="tagsholder" hidden asp-for="Tags"/>
                         <div id="tag-container">
                             @if (Model?.Tags.Split(',').Length > 0)
                             {
@@ -171,6 +172,7 @@
     <script src="~/js/others/chain.js"></script>
     <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+   
 }
 
 

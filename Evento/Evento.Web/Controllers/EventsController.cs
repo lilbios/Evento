@@ -13,6 +13,7 @@ using System.Linq;
 using Microsoft.AspNetCore.Identity;
 using System.Security.Claims;
 using Evento.BLL.Accounts;
+using Evento.BLL.ServiceInterfaces;
 
 namespace Evento.Web.Controllers
 {
@@ -21,18 +22,21 @@ namespace Evento.Web.Controllers
         private readonly IMapper mapper;
         private readonly ITagService tagService;
         private readonly IEventService eventService;
+        private readonly ICookieService cookieService;
         private readonly UserManager<User> userManager;
         private readonly ICategoryService caregoryService;
-
+      
         private readonly ISubscriptionService subscriptionService;
 
 
         public EventsController(ISubscriptionService subscriptionService, IEventService eventService,
-        ICategoryService caregoryService, ITagService tagService,IMapper mapper,UserManager<User> userManager)
+        ICategoryService caregoryService, ITagService tagService,IMapper mapper,UserManager<User> userManager,
+        ICookieService cookieService)
 
         {
             this.subscriptionService = subscriptionService;
             this.caregoryService = caregoryService;
+            this.cookieService = cookieService;
             this.eventService = eventService;
             this.userManager = userManager;
             this.tagService = tagService;
@@ -120,6 +124,11 @@ namespace Evento.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> CreateNewEvent()
         {
+
+            cookieService.Key = "tags";
+            cookieService.Value = string.Empty;
+            cookieService.SetExpireTime(7);
+            Response.Cookies.Append(cookieService.Key, cookieService.Value, cookieService.CookieOptions);
             var categories = await caregoryService.GetAllCategories();
             ViewData["CategoryId"] = new SelectList(categories, "Id", "Title");
             return View();
