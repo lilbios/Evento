@@ -18,7 +18,7 @@ namespace Evento.Web.Controllers
         private readonly UserManager<User> userManager;
         private readonly IMemorizeService memorizeService;
         private readonly ISubscriptionService subscriptionService;
-        public MemorizesController(UserManager<User> userManager,IMapper mapper,
+        public MemorizesController(UserManager<User> userManager, IMapper mapper,
             IMemorizeService memorizeService, ISubscriptionService subscriptionService)
         {
             this.mapper = mapper;
@@ -28,11 +28,11 @@ namespace Evento.Web.Controllers
         }
 
 
+        [HttpGet]
+        public IActionResult MyVisitedEvents() {
+            return View();
+        }
 
-        //public Task<IActionResult> VisitedEvents(int page = 1) {
-
-        //    return View();
-        //}
 
         [HttpGet]
         public IActionResult Create()

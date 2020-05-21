@@ -78,7 +78,7 @@ namespace Evento.DAL.Repositories
             params Expression<Func<TEntity, object>>[] children)
         {
             await Task.Run(() => children.ToList().ForEach(x => eventoDbSet.Include(x).Load()));
-            return eventoDbSet.AsTracking().FirstOrDefault();
+            return await eventoDbSet.FirstOrDefaultAsync(filter);
         }
 
 
