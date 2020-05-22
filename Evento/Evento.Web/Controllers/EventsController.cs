@@ -111,8 +111,8 @@ namespace Evento.Web.Controllers
             if (currentEvent != null)
             {
                 currentEvent.Place = placeViewModel.Place;
-                currentEvent.Longtitute = Convert.ToDouble(placeViewModel.Longtitude);
-                currentEvent.Latitute = Convert.ToDouble(placeViewModel.Latitude);
+                currentEvent.Longtitute =placeViewModel.Longtitude.ToString();
+                currentEvent.Latitute = (placeViewModel.Latitude).ToString();
 
                 await eventService.EditEvent(3, currentEvent);
                 return RedirectToAction(nameof(Details), new { Id = placeViewModel.EventId });

@@ -30,22 +30,24 @@
 }
 
 #slider {
-    width:510px;
-    height:410px;
+    margin-right: 50%;
+    width: 510px;
+    height: 410px;
+    margin-left: 7%;
 }
 #button-slider {
-    padding:20px;
-    border:none;
-    background:#37f;
-    font-size:30px;
-    color:white;
-    position:absolute;
-    top:45%;
-    cursor:pointer;
+    padding: 15px;
+    border: none;
+    background: #94abd9;
+    font-size: 30px;
+    color: white;
+    position: absolute;
+    top: 50%;
+    cursor: pointer;
 }
 .next {
     border-radius: 0px 10px 10px 0px;
-    margin-left:450px;
+    margin-left:460px;
 
 }
 

@@ -4,14 +4,16 @@ using Evento.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Evento.DAL.Migrations
 {
     [DbContext(typeof(EventoDbContext))]
-    partial class EventoDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200521202649_str")]
+    partial class str
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -22,9 +22,9 @@ namespace Evento.Models.Entities
 
         public string Place { get; set; }
 
-        public double Latitute { get; set; }
+        public string Latitute { get; set; }
 
-        public double Longtitute { get; set; }
+        public string Longtitute { get; set; }
 
         public Category Category { get; set; }
         public byte[] Photo { get; set; }

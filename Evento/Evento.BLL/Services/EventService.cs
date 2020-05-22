@@ -28,7 +28,7 @@ namespace Evento.BLL.Services
         }
         public async Task<Event> GetById(int id)
         {
-            var _event = await _unitOfWork.Events.GetObjectLazyLoad(e => e.Id == id, e => e.Category, e => e.TagEvents);
+            var _event = await _unitOfWork.Events.GetByID( id);
             return _event;
         }
 

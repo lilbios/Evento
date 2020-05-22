@@ -4,63 +4,6 @@
 <link rel="stylesheet" href="~/css/Memorizes.css" />
 <link rel="stylesheet" href="~/css/Events.css" />
 
-<div class="container">
-    <div class="col-sm-12">
-        @using (Html.BeginForm("Create", "Categories", FormMethod.Post, new { enctype = "multipart/form-data" }))
-        {
-
-
-            <article class="wrapper ">
-                <a class=" iconBtn ">@ViewBag.Created</a>
-
-                @ViewBag.Ok
-                <header>
-                    <h1 class="pageTitle">@Localizer["Title"]</h1>
-
-                    <div class="col-md-12">
-                        @Html.EditorFor(model => model.Title, new
-                   {
-                       htmlAttributes = new
-                       {
-                           @class = "form-control"
-                       }
-                   })
-                        @Html.ValidationMessageFor(model => model.Title, "", new
-                   {
-                       @class =
-             "text-danger"
-                   })
-
-                    </div>
-
-
-                </header>
-
-
-                <div align="center" class="mt-1">
-                    <img src="~/images/users_icons/Путь_к_картинке" class="img" width="100%">
-                </div>
-                <div align="center">
-                    <label id="profile-image">
-                        <small>@Localizer["Upload"]</small>
-                        <small>
-                            <input type="file" name="Image" id="Imageinput" hidden onchange="imgprev(this)">
-
-                            <i class="fa fa-camera" aria-hidden="true"></i>
-                        </small>
-                    </label>
-                </div>
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-8">
-
-                        <input type="submit" value=@Localizer["Create"] id="createProjectBtn" class=" iconBtn " />
-                    </div>
-                </div>
-
-            </article>
-
-        }
-    </div>
 
 
 
@@ -71,32 +14,32 @@
         {
 
 
-            <article class="wrapper ">
-                <a class=" iconBtn ">@ViewBag.Created</a>
+        <article class="wrapper ">
+            <a class=" iconBtn ">@ViewBag.Created</a>
 
-                @ViewBag.Ok
-                <header>
-                    <h1 class="pageTitle">@Localizer["Title"]</h1>
+            @ViewBag.Ok
+            <header>
+                <h1 class="pageTitle">@Localizer["Title"]</h1>
 
-                    <div class="col-md-12">
-                        @Html.EditorFor(model => model.Title, new
+                <div class="col-md-12">
+                    @Html.EditorFor(model => model.Title, new
+               {
+                   htmlAttributes = new
                    {
-                       htmlAttributes = new
-                       {
-                           @class = "form-control"
-                       }
-                   })
-                        @Html.ValidationMessageFor(model => model.Title, "", new
-                   {
-                       @class =
-      "text-danger"
-                   })
+                       @class = "form-control"
+                   }
+               })
+                    @Html.ValidationMessageFor(model => model.Title, "", new
+               {
+                   @class =
+  "text-danger"
+               })
 
-                    </div>
+                </div>
 
 
-                </header>
-            </article>
+            </header>
+
 
             <div class="card photos">
                 <div id="slider" class="row">
@@ -114,13 +57,16 @@
                     </small>
                 </label>
             </div>
-            <div class="comment">
-                <textarea asp-for="MemorizeComment" placeholder="@Localizer["Here you can describe your feelings..."]" class="mem-comment" id="comment"></textarea>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-8">
+
+                    <input type="submit" value=@Localizer["Create"] id="createProjectBtn" class=" iconBtn " />
+                </div>
             </div>
-            <input type="submit" onclick="post()" value="Comfirm" />
+        </article>
         }
-           
-        </div>
+
+    </div>
         @section Scripts {
             <script src="~/js/others/imgloaderjs.js"></script>
             <script src="~/js/validation/memorizes/memorize.js"></script>
