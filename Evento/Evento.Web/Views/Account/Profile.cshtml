@@ -26,6 +26,8 @@
 
         <div class="profile-card__cnt js-profile-cnt">
             <div class="profile-card__name">@Model.UserName</div>
+            <div class="profile-card__txt">@Localizer["PhoneNumber"] <strong>@Model.PhoneNumber</strong></div>
+
             <div class="profile-card__txt">@Localizer["Connect with me by e-mail:"] <strong>@Model.Email</strong></div>
             <div class="profile-card-loc">
                 <span class="profile-card-loc__icon">
@@ -38,25 +40,22 @@
             </div>
 
             <div class="profile-card-inf">
-                <div class="profile-card-inf__item">
-                    @*<div class="profile-card-inf__title"> @Model.Subscriptions.Count</div>*@
-                    <div class="profile-card-inf__txt"> @Localizer["Subscriptions"]</div>
-                </div>
+
 
                 @*<div class="profile-card-inf__item">
-                    <div class="profile-card-inf__title"> @Model.</div>
-                    <div class="profile-card-inf__txt">Following</div>
-                </div>
+                <div class="profile-card-inf__title"> @Model.</div>
+                <div class="profile-card-inf__txt">Following</div>
+            </div>
 
-                <div class="profile-card-inf__item">
-                    <div class="profile-card-inf__title">123</div>
-                    <div class="profile-card-inf__txt">Articles</div>
-                </div>
+            <div class="profile-card-inf__item">
+                <div class="profile-card-inf__title">123</div>
+                <div class="profile-card-inf__txt">Articles</div>
+            </div>
 
-                <div class="profile-card-inf__item">
-                    <div class="profile-card-inf__title">85</div>
-                    <div class="profile-card-inf__txt">Works</div>
-                </div>*@
+            <div class="profile-card-inf__item">
+                <div class="profile-card-inf__title">85</div>
+                <div class="profile-card-inf__txt">Works</div>
+            </div>*@
             </div>
 
             <div class="profile-card-social">
@@ -83,9 +82,9 @@
             </div>
 
             @*<div class="profile-card-ctr">
-                <button class="profile-card__button button--blue js-message-btn">Message</button>
-                <button class="profile-card__button button--orange">Follow</button>
-            </div>*@
+            <button class="profile-card__button button--blue js-message-btn">Message</button>
+            <button class="profile-card__button button--orange">Follow</button>
+        </div>*@
         </div>
 
         @*<div class="profile-card-message js-message">
@@ -107,16 +106,24 @@
 
             <div class="profile-card__overlay js-message-close"></div>
         </div>*@
-        <a href="/Categories/Index" class="iconBtn" id="createProjectBtn">
+        <a href="/Memorizes/Create" class="iconBtn" id="createProjectBtn">
             <div class="iconBtn__content">
 
                 @Localizer["Memorizes"]
             </div>
         </a>
-        <a href="/Categories/Index" class="iconBtn" id="createProjectBtn">
+       
+            <a href="/Events/OrganizedEvents" class="iconBtn" id="createProjectBtn">
             <div class="iconBtn__content">
 
-                @Localizer["OrgEvents"]
+                @Localizer["OrganizedEvents"]
+            </div>
+                </a>
+        
+        <a href="/Account/Index" class="iconBtn" id="createProjectBtn">
+            <div class="iconBtn__content">
+
+                @Localizer["Edit Profile"]
             </div>
         </a>
     </div>

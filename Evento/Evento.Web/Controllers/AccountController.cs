@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -7,11 +8,14 @@ using AutoMapper;
 using Evento.BLL;
 using Evento.BLL.Accounts;
 using Evento.BLL.Accounts.DTO;
+using Evento.BLL.Third_part;
 using Evento.Models.Entities;
 using Evento.Web.Models.Accounts;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+
 
 namespace Evento.Web.Controllers
 {
@@ -41,12 +45,13 @@ namespace Evento.Web.Controllers
         public async Task<IActionResult> Profile()
         {
             var id = _userManager.GetUserId(User);
-            if (!string.IsNullOrEmpty(id)) {
+            if (!string.IsNullOrEmpty(id))
+            {
                 var user = await _accountsService.GetUser(id);
                 return View(user);
             }
             return NotFound();
-           
+
         }
 
 
@@ -200,6 +205,51 @@ namespace Evento.Web.Controllers
 
                 return View("Error");
             }
+        }
+
+       
+
+        [HttpPost]
+        public async Task<IActionResult> Index( User category, IFormFile image)
+        {
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+            }
+
+          
+                var setPhoneResult = await _userManager.SetPhoneNumberAsync(user, category.PhoneNumber);
+            var setEmailResult = await _userManager.SetEmailAsync(user, category.Email);
+            var setNameResult = await _userManager.SetUserNameAsync(user, category.UserName);
+            if (!setPhoneResult.Succeeded)
+                {
+                    var userId = await _userManager.GetUserIdAsync(user);
+                    throw new InvalidOperationException($"Unexpected error occurred setting phone number for user with ID '{userId}'.");
+                }
+           
+            if (image != null && image.Length > 0)
+            {
+                user.Photo = ImageConvertor.ConvertImageToBytes(image);
+               await _userManager.UpdateAsync(user);
+            }
+
+           // await _signInManager.RefreshSignInAsync(user);
+            ViewData["Edited"] = "Your profile has been updated";
+            return View();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Index(string returnUrl = null)
+        {
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+            }
+
+           
+            return View(user);
         }
     }
 }

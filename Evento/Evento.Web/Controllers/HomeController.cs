@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Identity;
 using System;
 using Evento.BLL.ServiceInterfaces;
 using Evento.Models.Message;
+using System.Linq;
 
 namespace Evento.Web.Controllers
 {
@@ -39,7 +40,9 @@ namespace Evento.Web.Controllers
         {
             if (!String.IsNullOrEmpty(Content))
             {
-                var message = new Message(new string[] { "nastyah6235@gmail.com" }, "Message from Evento", Content);
+                var id = _userManager.GetUserId(User); 
+                var user = _userManager.Users.FirstOrDefault(e=>e.Id==id);
+                var message = new Message(new string[] { user.Email }, "Message from Evento", Content);
                 await _emailSender.SendEmail(message);
             }
             return RedirectToAction(nameof(Index));

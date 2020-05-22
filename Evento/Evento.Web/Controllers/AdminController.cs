@@ -150,16 +150,16 @@ namespace Evento.Web.Controllers
             DateTime d = DateTime.Now;
             string dd = d.Day + "-" + d.Month + "-" + d.Hour;
 
-            string aaa = @"Server=DESKTOP-AGJ5FF3\SQLEXPRESS;Initial Catalog=ComeTogetherDB;Persist Security Info=False;User ID=User;Password=User;MultipleActiveResultSets=True;Encrypt=False;TrustServerCertificate=False;";
+            string aaa = @"Server=(localdb)\\MSSQLLocalDB;Database=eventodb22;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
             SqlConnection con = new SqlConnection(aaa);
             //con.ConnectionString = ConfigurationManager.ConnectionStrings["BackupCatalogDBSoft.Properties.Settings."+dbname+"ConnectionString"].ToString();
 
             con.Open();
             string str = "USE " + "BranchDB" + ";";
-            string str1 = "BACKUP DATABASE " + "ComeTogetherDb" +
+            string str1 = "BACKUP DATABASE " + "BranchDB" +
                 " TO DISK = 'E:\\" + "ComeTogetherDB" + "_" + dd +
                 ".Bak' WITH FORMAT,MEDIANAME = 'Z_SQLServerBackups',NAME = 'Full Backup of " + "BranchDB" + "';";
-            ViewBag.Path = "E:\\" + "ComeTogetherDB" + "_" + dd + ".Bak";
+            ViewBag.Path = "E:\\" + "BranchDB" + "_" + dd + ".Bak";
             SqlCommand cmd1 = new SqlCommand(str, con);
             SqlCommand cmd2 = new SqlCommand(str1, con);
             await cmd1.ExecuteNonQueryAsync();
@@ -180,10 +180,10 @@ namespace Evento.Web.Controllers
             Dictionary<string, object> dict = new Dictionary<string, object>();
 
             dict.Add("Action", actionName);
-            dict.Add("Пользователь", HttpContext.User.Identity.Name);
-            dict.Add("Аутентифицирован?", HttpContext.User.Identity.IsAuthenticated);
-            dict.Add("Тип аутентификации", HttpContext.User.Identity.AuthenticationType);
-            dict.Add("В роли Users?", HttpContext.User.IsInRole("Users"));
+            dict.Add("user", HttpContext.User.Identity.Name);
+            dict.Add("Authenticated?", HttpContext.User.Identity.IsAuthenticated);
+            dict.Add("Authentication type", HttpContext.User.Identity.AuthenticationType);
+            dict.Add(" In User role?", HttpContext.User.IsInRole("User"));
 
             return dict;
         }
@@ -194,7 +194,7 @@ namespace Evento.Web.Controllers
                 var id = userManager.GetUserId(User);
                 var user = await userManager.FindByIdAsync(id);
                 string[] send = userManager.Users.Select(x => x.Email).ToArray();
-                var message = new Message( send, "Message from Evento", Content);
+                var message = new Message( send, "Message from Evento", Content + "\n Sincerely,\n Evento administarator\n"+ DateTime.Now);
                 await _emailSender.SendEmail(message);
             }
             return View();

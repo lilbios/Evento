@@ -81,6 +81,7 @@ namespace Evento.Web.Controllers
             if (selectedEvent != null)
             {
                 var detEvent = mapper.Map<EventViewModel>(selectedEvent);
+              
                 detEvent.Subscription = await subscriptionService.GetCurrentSubscription(id, userManager.GetUserId(User));
                 return View(detEvent);
             }
@@ -137,6 +138,7 @@ namespace Evento.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> CreateNewEvent(EventViewModel viewModel, IFormFile image)
         {
 
@@ -162,19 +164,23 @@ namespace Evento.Web.Controllers
                 }
 
                 var createdEvent = await eventService.CreateNew(newEvent);
-                var tags = viewModel.Tags.Split(',').ToList().Select(t => new Tag { TagName = t });
-
-                foreach (var item in tags)
+                if (viewModel.Tags != null)
                 {
-                    var tag = await tagService.FindTagByName(item.TagName);
+                    var tags = viewModel.Tags.Split(',').ToList().Select(t => new Tag { TagName = t });
 
-                    if (tag is null)
+                    foreach (var item in tags)
                     {
-                        tag = await tagService.AddTag(item);
+                        var tag = await tagService.FindTagByName(item.TagName);
+
+                        if (tag is null)
+                        {
+                            tag = await tagService.AddTag(item);
+                        }
+                        await tagService.AttachTagToEvent(tag, createdEvent);
                     }
-                    await tagService.AttachTagToEvent(tag, createdEvent);
+                    ViewData["Created"] = "Event successfully created";
                 }
-                ViewData["Created"] = "Event successfully created";
+                return RedirectToAction(nameof(Details), new { id = createdEvent.Id });
             }
 
             var categories = await caregoryService.GetAllCategories();
@@ -234,13 +240,14 @@ namespace Evento.Web.Controllers
         public async Task<IActionResult> Delete(int id)
         {
             await eventService.RemoveEvent(id);
-            return RedirectToAction(nameof(OrganizedEvents), new { userId = 1 });
+            return View(nameof(Index));
         }
         [Authorize]
         [HttpGet]
-        public async Task<IActionResult> OrganizedEvents(string userId)
+        public async Task<IActionResult> OrganizedEvents()
         {
-            var usersOrganizedEvents = await eventService.GetUserCreatedEvents(userId);
+            var user = await userManager.GetUserAsync(User);
+            var usersOrganizedEvents = await eventService.GetUserCreatedEvents(user.Id);
             return View(usersOrganizedEvents);
         }
     }

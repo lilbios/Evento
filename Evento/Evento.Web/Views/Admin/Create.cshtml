@@ -2,7 +2,7 @@
 
 @model Evento.BLL.Accounts.DTO.RegisterDTO
 @{
-    ViewBag.Title = "Авторизация на сайте";
+    
 }
 
 
@@ -101,7 +101,7 @@
             color: aliceblue
         }
 </style>
-
+<br/><br /><br />
 <form action="/Account/Register" method="post">
 
 
@@ -113,17 +113,17 @@
 
             <h1 class="pageTitle">Create Account</h1>
             @Html.ValidationSummary(false)
-            <h2 class="pageSubTitle">Resources.Content.Name</h2>  @Html.TextBoxFor(x => x.FirstName, new { @class = "form-control" })
-            <h2 class="pageSubTitle">Resources.Content.Name</h2>  @Html.TextBoxFor(x => x.LastName, new { @class = "form-control" })
+            <h2 class="pageSubTitle">Name</h2>  @Html.TextBoxFor(x => x.FirstName, new { @class = "form-control" })
+            <h2 class="pageSubTitle">Name</h2>  @Html.TextBoxFor(x => x.LastName, new { @class = "form-control" })
 
-            <h2 class="pageSubTitle">Resources.Content.Email</h2>   @Html.TextBoxFor(x => x.Email, new { @class = "form-control" })
-            <h2 class="pageSubTitle">Resources.Content.Password</h2>    @Html.PasswordFor(x => x.Password, new { @class = "form-control" })
-            <h2 class="pageSubTitle">Resources.Content.Name</h2>  @Html.TextBoxFor(x => x.DataOfBirth, new { @class = "form-control" })
+            <h2 class="pageSubTitle">Email</h2>   @Html.TextBoxFor(x => x.Email, new { @class = "form-control" })
+            <h2 class="pageSubTitle">Password</h2>    @Html.PasswordFor(x => x.Password, new { @class = "form-control" })
+        <h2 class="pageSubTitle">DataOfBirth</h2>  @Html.TextBoxFor(x => x.DataOfBirth, new { @class = "form-control" })
 
 
                  </header>
         <section>
-            <button class="button button-block btn" type="submit">Resources.Content.Create</button>
+            <button class="button button-block btn" type="submit">Create</button>
 
 
 

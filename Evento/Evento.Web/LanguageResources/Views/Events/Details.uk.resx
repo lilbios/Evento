@@ -135,6 +135,9 @@
   <data name="Location" xml:space="preserve">
     <value>Локація</value>
   </data>
+  <data name="Place" xml:space="preserve">
+    <value>Місце</value>
+  </data>
   <data name="Subscribe" xml:space="preserve">
     <value>Підписатися</value>
   </data>

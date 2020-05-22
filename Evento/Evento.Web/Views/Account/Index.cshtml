@@ -1,0 +1,67 @@
+﻿@model Evento.Models.Entities.User
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+    <link rel="stylesheet" href="~/css/Events.css" />
+@using (Html.BeginForm("Index", "Account", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+
+
+<article class="wrapper">
+    <a class=" iconBtn ">@ViewBag.Edited</a>
+    @ViewBag.Ok
+   
+    <section>
+        <h2 class="pageSubTitle">@Localizer["Email"]   </h2>
+        <div class="form-group">
+
+            <h1 class="pageTitle"> @Html.TextBoxFor(x => x.Email, new { @class = "form-control" })</h1>
+        </div>
+
+    </section>
+    <section>
+        <h2 class="pageSubTitle">@Localizer["UserName"]   </h2>
+        <div class="form-group">
+
+            <h1 class="pageTitle"> @Html.TextBoxFor(x => x.UserName, new { @class = "form-control" })</h1>
+        </div>
+
+    </section>
+    <section>
+        <h2 class="pageSubTitle">@Localizer["PhoneNumber"]   </h2>
+        <div class="form-group">
+
+            <h1 class="pageTitle"> @Html.TextBoxFor(x => x.PhoneNumber, new { @class = "form-control" })</h1>
+        </div>
+
+    </section>
+
+    <div align="center" class="mt-1">
+        <img src="~/images/users_icons/Путь_к_картинке" class="img" width="100%">
+    </div>
+    <div align="center">
+        <label id="profile-image">
+            <small>@Localizer["Upload"]</small>
+            <small>
+                <input type="file" name="Image" id="Imageinput" hidden onchange="imgprev(this)">
+
+                <i class="fa fa-camera" aria-hidden="true"></i>
+            </small>
+        </label>
+    </div>
+    <a href="/Categories/Edit">
+        <button class="iconBtn" id="createProjectBtn">
+            <div class="iconBtn__content">
+
+                @Localizer["Edit"]
+            </div>
+        </button>
+    </a>
+</article>
+
+
+}
+@section Scripts {
+
+    <script src="~/js/others/imgloaderjs.js"></script>
+
+}

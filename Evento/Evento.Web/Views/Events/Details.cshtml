@@ -94,19 +94,30 @@
                 }
             }
         }
-        else
+        @*else
         {
             @using (Html.BeginForm("Edit", "Events", new { eventId = Model.Id }))
             {
                 <input type="submit" name="subscribe" value=@Localizer["Edit"] class="btn-primary btn-lg" />
             }
-        }
-        
+        }*@
+
 
     </div>
 
+  
+    <a href="/Events/AddDetailsToEvent?id=@Model.Id" class="iconBtn" id="createProjectBtn">
+        <div class="iconBtn__content">
 
+            @Localizer["Location"]
+        </div>
+    </a>
+    <a href="/Events/Delete?id=@Model.Id" class="iconBtn" id="createProjectBtn">
+        <div class="iconBtn__content">
 
+            @Localizer["Delete"]
+        </div>
+    </a>
 
 </article>
 
